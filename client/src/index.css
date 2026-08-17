@@ -1,3 +1,7 @@
+/*
+ * The Reading Room visual system: warm ivory paper, ink-black type, restrained vermilion marks,
+ * asymmetric editorial spacing, and precise low-drama interactions.
+ */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -43,135 +47,75 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --radius: 0.25rem;
+  --background: oklch(0.96 0.012 89);
+  --foreground: oklch(0.18 0.008 80);
+  --card: oklch(0.97 0.01 89);
+  --card-foreground: oklch(0.18 0.008 80);
+  --popover: oklch(0.97 0.01 89);
+  --popover-foreground: oklch(0.18 0.008 80);
+  --primary: oklch(0.18 0.008 80);
+  --primary-foreground: oklch(0.96 0.012 89);
+  --secondary: oklch(0.92 0.016 89);
+  --secondary-foreground: oklch(0.18 0.008 80);
+  --muted: oklch(0.92 0.016 89);
+  --muted-foreground: oklch(0.48 0.012 80);
+  --accent: oklch(0.52 0.16 35);
+  --accent-foreground: oklch(0.98 0.01 89);
+  --destructive: oklch(0.52 0.16 35);
+  --destructive-foreground: oklch(0.98 0.01 89);
+  --border: oklch(0.18 0.008 80 / 15%);
+  --input: oklch(0.18 0.008 80 / 15%);
+  --ring: oklch(0.52 0.16 35);
+  --sidebar: oklch(0.96 0.012 89);
+  --sidebar-foreground: oklch(0.18 0.008 80);
+  --sidebar-primary: oklch(0.18 0.008 80);
+  --sidebar-primary-foreground: oklch(0.96 0.012 89);
+  --sidebar-accent: oklch(0.92 0.016 89);
+  --sidebar-accent-foreground: oklch(0.18 0.008 80);
+  --sidebar-border: oklch(0.18 0.008 80 / 15%);
+  --sidebar-ring: oklch(0.52 0.16 35);
 }
 
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+* { @apply border-border outline-ring/50; }
+html { scroll-behavior: smooth; }
+body { @apply bg-background text-foreground; margin: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), a[href] { cursor: pointer; }
+
+.font-serif { font-family: "DM Serif Display", Georgia, serif; }
+.font-sans { font-family: "IBM Plex Sans", Arial, sans-serif; }
+
+.paper-noise { position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: 0.055; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+.eyebrow { display: flex; align-items: center; gap: 9px; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 10px; line-height: 1; letter-spacing: .16em; text-transform: uppercase; color: rgb(23 22 20 / .58); }
+.vermilion-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #C8472C; }
+.citation-mark { display: flex; align-items: center; gap: 8px; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 9px; letter-spacing: .16em; color: rgb(23 22 20 / .45); text-transform: uppercase; }
+.citation-mark span { position: relative; display: inline-block; width: 23px; height: 13px; border-left: 1px solid #C8472C; border-bottom: 1px solid #C8472C; }
+.citation-mark span::after { content: ""; position: absolute; left: 4px; bottom: 3px; width: 5px; height: 5px; border-radius: 50%; background: #C8472C; }
+.nav-link { position: relative; transition: color 180ms ease-out; }
+.nav-link::after { content: ""; position: absolute; bottom: -8px; left: 0; width: 0; height: 1px; background: #C8472C; transition: width 180ms ease-out; }
+.nav-link:hover { color: #C8472C; }
+.nav-link:hover::after { width: 100%; }
+.button-ink, .button-vermilion { display: inline-flex; align-items: center; gap: 10px; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; transition: transform 160ms cubic-bezier(.23,1,.32,1), background-color 180ms ease-out; }
+.button-ink { border: 1px solid #171614; padding: 12px 15px; }
+.button-ink:hover { background: #171614; color: #F3F0E8; }
+.button-vermilion { padding: 15px 18px; background: #C8472C; color: #F3F0E8; }
+.button-vermilion:hover { background: #A73A25; transform: translateY(-2px); }
+.button-ink:active, .button-vermilion:active { transform: scale(.97); }
+.register-mark { position: absolute; right: -1px; width: 18px; height: 18px; border-right: 1px solid #C8472C; }
+.register-mark::after { content: ""; position: absolute; right: 0; width: 5px; height: 1px; background: #C8472C; }
+.register-mark-top { top: 20px; border-top: 1px solid #C8472C; }
+.register-mark-top::after { top: -1px; }
+.register-mark-bottom { bottom: 20px; border-bottom: 1px solid #C8472C; }
+.register-mark-bottom::after { bottom: -1px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  #top h1 { animation: reveal .72s cubic-bezier(.23,1,.32,1) both; }
+  #top .eyebrow { animation: reveal .5s .05s cubic-bezier(.23,1,.32,1) both; }
+  #top p, #top .button-vermilion, #top .button-vermilion + a { animation: reveal .6s .12s cubic-bezier(.23,1,.32,1) both; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button:not(:disabled),
-  [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
-  }
-}
+@media (max-width: 640px) { .register-mark { display: none; } }
 
-@layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
-  }
-
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
-
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px - desktop padding */
-      padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
-    }
-  }
-}
+.dark { --background: oklch(0.18 0.008 80); --foreground: oklch(0.96 0.012 89); }
