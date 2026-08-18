@@ -22,6 +22,11 @@ import {
   updateArticle,
 } from "./db";
 
+const storageReference = z.string().refine(
+  value => value === "" || value.startsWith("/manus-storage/") || z.url().safeParse(value).success,
+  "Expected an absolute URL or a project storage path",
+);
+
 const articleInput = z.object({
   slug: z.string().min(3).max(180),
   title: z.string().min(3).max(240),
@@ -29,7 +34,7 @@ const articleInput = z.object({
   body: z.string().min(20),
   authorName: z.string().min(2).max(180),
   categoryId: z.number().int().positive(),
-  imageUrl: z.string().url().optional().or(z.literal("")),
+  imageUrl: storageReference.optional(),
   status: z.enum(["draft", "published"]).default("draft"),
 });
 
@@ -64,7 +69,7 @@ export const appRouter = router({
     }),
   }),
   submissions: router({
-    create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20), manuscriptUrl: z.string().url().optional().or(z.literal("")) })).mutation(({ input, ctx }) => createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }).then(id => ({ id, success: true }))),
+    create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20),     manuscriptUrl: storageReference.optional() })).mutation(({ input, ctx }) => createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }).then(id => ({ id, success: true }))),
   }),
   club: router({
     events: publicProcedure.query(() => listClubEvents()),

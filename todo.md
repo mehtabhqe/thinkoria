@@ -88,3 +88,10 @@
 
 - [x] Add persisted forum replies so members can discuss inside a thread, not only create top-level topics.
 - [x] Add loading/error handling for the admin article list so in-flight queries never look like an empty desk.
+
+## Bug-fix pass: submission and editorial image validation
+
+- [x] Diagnose and fix PDF manuscript upload failure in the contributor submission flow.
+- [x] Fix editorial desk new-article `imageUrl` invalid URL validation when the image field is empty or optional.
+- [x] Add regression tests for empty image URL article creation and PDF upload validation/encoding.
+- [x] Retest submit and editorial desk flows, then save a bug-fix checkpoint.
