@@ -1,5 +1,14 @@
 # Expansion checklist
 
+## Frontend completion pass
+
+- [x] Write and add a complete About section covering vision, purpose, editorial promise, and community.
+- [x] Add necessary supporting sections and cross-links so the platform feels complete.
+- [x] Generate distinct lead images for each catalogue article.
+- [x] Redesign catalogue articles into aesthetic image-led container cards.
+- [x] Add consistent image metadata, view counts, and category labels to catalogue cards.
+- [x] Review responsive behavior and save a new stable checkpoint.
+
 - [x] Refactor the home page so the catalogue grid is replaced by a newly published articles section.
 - [x] Add a top-level link/button from home to the dedicated catalogue page.
 - [x] Add live view count UI to each article card and article list item.
