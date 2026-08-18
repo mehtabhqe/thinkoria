@@ -32,6 +32,16 @@ import {
   updateSubmissionStatus,
   getSubmissionById,
   updateCategoryImage,
+  getCategoryById,
+  getArticleById,
+  createCategoryImageVersion,
+  listCategoryImageVersions,
+  getCategoryImageVersion,
+  createArticleAssetVersion,
+  listArticleAssetVersions,
+  getArticleAssetVersion,
+  createNotificationHistory,
+  listNotificationHistory,
 } from "./db";
 
 const storageReference = z.string().refine(
@@ -39,13 +49,19 @@ const storageReference = z.string().refine(
   "Expected an absolute URL or a project storage path",
 );
 
-async function notifyOwnerSafely(payload: { title: string; content: string }) {
+async function notifyOwnerSafely(kind: string, payload: { title: string; content: string }) {
+  let status: "sent" | "failed" = "failed";
   try {
-    return await notifyOwner(payload);
+    status = (await notifyOwner(payload)) ? "sent" : "failed";
   } catch (error) {
     console.warn("[Thinkoria] Owner notification skipped:", error);
-    return false;
   }
+  try {
+    await createNotificationHistory({ kind, title: payload.title, content: payload.content, status });
+  } catch (error) {
+    console.warn("[Thinkoria] Notification history could not be recorded:", error);
+  }
+  return status === "sent";
 }
 
 const articleInput = z.object({
@@ -93,12 +109,12 @@ export const appRouter = router({
     }),
   }),
   submissions: router({
-    create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20), manuscriptUrl: storageReference.optional() })).mutation(async ({ input, ctx }) => { const id = await createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }); await notifyOwnerSafely({ title: "New Thinkoria paper submission", content: `${input.title} was submitted by ${input.name} in ${input.category}. Contact: ${input.email}.` }); return { id, success: true }; }),
+    create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20), manuscriptUrl: storageReference.optional() })).mutation(async ({ input, ctx }) => { const id = await createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }); await notifyOwnerSafely("submission", { title: "New Thinkoria paper submission", content: `${input.title} was submitted by ${input.name} in ${input.category}. Contact: ${input.email}.` }); return { id, success: true }; }),
   }),
   club: router({
     events: publicProcedure.query(() => listClubEvents()),
     join: protectedProcedure.mutation(({ ctx }) => joinClub(ctx.user.id).then(membership => ({ success: true, membership }))),
-    submitApplication: protectedProcedure.input(z.object({ eventId: z.number().int().positive().optional(), role: z.enum(["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]), otherRole: z.string().max(160).optional(), note: z.string().max(2000).optional() })).mutation(async ({ input, ctx }) => { const id = await createClubApplication({ ...input, userId: ctx.user.id, eventId: input.eventId ?? null, otherRole: input.otherRole || null, note: input.note || null }); await notifyOwnerSafely({ title: "New Nagaon Club application", content: `${ctx.user.name || ctx.user.email || "A member"} applied for the ${input.role} role${input.eventId ? ` for event #${input.eventId}` : ""}.` }); return { id, success: true }; }),
+    submitApplication: protectedProcedure.input(z.object({ eventId: z.number().int().positive().optional(), role: z.enum(["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]), otherRole: z.string().max(160).optional(), note: z.string().max(2000).optional() })).mutation(async ({ input, ctx }) => { const id = await createClubApplication({ ...input, userId: ctx.user.id, eventId: input.eventId ?? null, otherRole: input.otherRole || null, note: input.note || null }); await notifyOwnerSafely("club_application", { title: "New Nagaon Club application", content: `${ctx.user.name || ctx.user.email || "A member"} applied for the ${input.role} role${input.eventId ? ` for event #${input.eventId}` : ""}.` }); return { id, success: true }; }),
   }),
   forum: router({
     threads: publicProcedure.query(() => listForumThreads()),
@@ -110,7 +126,11 @@ export const appRouter = router({
     articles: adminProcedure.query(() => listAdminArticles()),
     submissions: adminProcedure.query(() => listAdminSubmissions()),
     updateSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["received", "reviewing", "accepted", "declined"]) })).mutation(({ input }) => updateSubmissionStatus(input.id, input.status).then(() => ({ success: true }))),
-    updateCategoryImage: adminProcedure.input(z.object({ id: z.number().int().positive(), imageUrl: storageReference.nullable() })).mutation(({ input }) => updateCategoryImage(input.id, input.imageUrl || null).then(() => ({ success: true }))),
+    notifications: adminProcedure.query(() => listNotificationHistory()),
+    categoryImageVersions: adminProcedure.input(z.object({ categoryId: z.number().int().positive() })).query(({ input }) => listCategoryImageVersions(input.categoryId)),
+    articleAssetVersions: adminProcedure.input(z.object({ articleId: z.number().int().positive() })).query(({ input }) => listArticleAssetVersions(input.articleId)),
+    updateCategoryImage: adminProcedure.input(z.object({ id: z.number().int().positive(), imageUrl: storageReference.nullable() })).mutation(async ({ input }) => { const current = await getCategoryById(input.id); await createCategoryImageVersion(input.id, current?.imageUrl ?? null); await updateCategoryImage(input.id, input.imageUrl || null); return { success: true }; }),
+    restoreCategoryImage: adminProcedure.input(z.object({ versionId: z.number().int().positive() })).mutation(async ({ input }) => { const version = await getCategoryImageVersion(input.versionId); if (!version) throw new Error("Category image version not found"); const current = await getCategoryById(version.categoryId); await createCategoryImageVersion(version.categoryId, current?.imageUrl ?? null); await updateCategoryImage(version.categoryId, version.imageUrl || null); return { success: true }; }),
     convertSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), categoryId: z.number().int().positive(), slug: z.string().min(3).max(180), imageUrl: storageReference.optional(), imageAlt: z.string().max(300).optional() })).mutation(async ({ input }) => {
       const submission = await getSubmissionById(input.id);
       if (!submission) throw new Error("Submission not found");
@@ -132,7 +152,8 @@ export const appRouter = router({
       return { id: articleId, success: true };
     }),
     createArticle: adminProcedure.input(articleInput).mutation(({ input }) => createArticle({ ...input, imageUrl: input.imageUrl || null, imageAlt: input.imageAlt || null, citations: input.citations || null, manuscriptUrl: input.manuscriptUrl || null, publishedAt: input.status === "published" ? new Date() : null }).then(id => ({ id, success: true }))),
-    updateArticle: adminProcedure.input(articleInput.extend({ id: z.number().int().positive() })).mutation(({ input }) => { const { id, ...data } = input; return updateArticle(id, { ...data, imageUrl: data.imageUrl || null, imageAlt: data.imageAlt || null, citations: data.citations || null, manuscriptUrl: data.manuscriptUrl || null, publishedAt: data.status === "published" ? new Date() : null }).then(() => ({ success: true })); }),
+    updateArticle: adminProcedure.input(articleInput.extend({ id: z.number().int().positive() })).mutation(async ({ input }) => { const { id, ...data } = input; const current = await getArticleById(id); await createArticleAssetVersion(id, current?.manuscriptUrl ?? null); await updateArticle(id, { ...data, imageUrl: data.imageUrl || null, imageAlt: data.imageAlt || null, citations: data.citations || null, manuscriptUrl: data.manuscriptUrl || null, publishedAt: data.status === "published" ? new Date() : null }); return { success: true }; }),
+    restoreArticleAsset: adminProcedure.input(z.object({ versionId: z.number().int().positive() })).mutation(async ({ input }) => { const version = await getArticleAssetVersion(input.versionId); if (!version) throw new Error("Published PDF version not found"); const current = await getArticleById(version.articleId); await createArticleAssetVersion(version.articleId, current?.manuscriptUrl ?? null); await updateArticle(version.articleId, { manuscriptUrl: version.manuscriptUrl || null }); return { success: true }; }),
     publishArticle: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["draft", "published"]) })).mutation(({ input }) => updateArticle(input.id, { status: input.status, publishedAt: input.status === "published" ? new Date() : null }).then(() => ({ success: true }))),
     deleteArticle: adminProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input }) => deleteArticle(input.id).then(() => ({ success: true }))),
     clubMembers: adminProcedure.query(() => listClubMembers()),

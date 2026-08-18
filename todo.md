@@ -190,3 +190,12 @@
 - [x] Notify the project owner when a new paper submission or Nagaon Club application is created, with graceful notification failure handling.
 - [x] Add Vitest coverage for the new metadata, image replacement, PDF, and notification paths.
 - [x] Verify desktop/mobile UI, run TypeScript, tests, and production build, then save a checkpoint.
+
+
+## Editorial operations follow-up
+
+- [x] Add durable notification history records and an Editorial Desk notification history panel.
+- [x] Add DOI/reference auto-linking and citation formatting presets for article references.
+- [x] Add version history for category images and published-paper PDFs, including restore actions.
+- [x] Add Vitest coverage for notification history, citation formatting, asset snapshots, and restore permissions.
+- [x] Verify desktop/mobile Editorial Desk and article views, run checks/build, and save a checkpoint.

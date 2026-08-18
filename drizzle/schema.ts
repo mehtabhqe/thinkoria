@@ -101,6 +101,29 @@ export const forumThreads = mysqlTable("forumThreads", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const notificationHistory = mysqlTable("notificationHistory", {
+  id: int("id").autoincrement().primaryKey(),
+  kind: varchar("kind", { length: 64 }).notNull(),
+  title: varchar("title", { length: 240 }).notNull(),
+  content: text("content").notNull(),
+  status: mysqlEnum("status", ["sent", "failed"]).default("sent").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const categoryImageVersions = mysqlTable("categoryImageVersions", {
+  id: int("id").autoincrement().primaryKey(),
+  categoryId: int("categoryId").notNull().references(() => categories.id),
+  imageUrl: text("imageUrl"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const articleAssetVersions = mysqlTable("articleAssetVersions", {
+  id: int("id").autoincrement().primaryKey(),
+  articleId: int("articleId").notNull().references(() => articles.id),
+  manuscriptUrl: text("manuscriptUrl"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const forumPosts = mysqlTable("forumPosts", {
   id: int("id").autoincrement().primaryKey(),
   threadId: int("threadId").notNull().references(() => forumThreads.id),
@@ -128,3 +151,6 @@ export type ForumThread = typeof forumThreads.$inferSelect;
 export type InsertForumThread = typeof forumThreads.$inferInsert;
 export type ForumPost = typeof forumPosts.$inferSelect;
 export type InsertForumPost = typeof forumPosts.$inferInsert;
+export type NotificationHistory = typeof notificationHistory.$inferSelect;
+export type CategoryImageVersion = typeof categoryImageVersions.$inferSelect;
+export type ArticleAssetVersion = typeof articleAssetVersions.$inferSelect;

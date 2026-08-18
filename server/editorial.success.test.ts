@@ -19,6 +19,16 @@ vi.mock("./db", async () => {
     createClubEvent: vi.fn().mockResolvedValue(606),
     updateClubEvent: vi.fn().mockResolvedValue(undefined),
     updateCategoryImage: vi.fn().mockResolvedValue(undefined),
+    getCategoryById: vi.fn().mockResolvedValue({ id: 9, imageUrl: "/manus-storage/editorial/old.png" }),
+    createCategoryImageVersion: vi.fn().mockResolvedValue(undefined),
+    listCategoryImageVersions: vi.fn().mockResolvedValue([{ id: 91, categoryId: 9, imageUrl: "/manus-storage/editorial/old.png", createdAt: new Date() }]),
+    getCategoryImageVersion: vi.fn().mockResolvedValue({ id: 91, categoryId: 9, imageUrl: "/manus-storage/editorial/old.png", createdAt: new Date() }),
+    getArticleById: vi.fn().mockResolvedValue({ id: 404, manuscriptUrl: "/manus-storage/editorial/current.pdf" }),
+    createArticleAssetVersion: vi.fn().mockResolvedValue(undefined),
+    listArticleAssetVersions: vi.fn().mockResolvedValue([{ id: 41, articleId: 404, manuscriptUrl: "/manus-storage/editorial/current.pdf", createdAt: new Date() }]),
+    getArticleAssetVersion: vi.fn().mockResolvedValue({ id: 41, articleId: 404, manuscriptUrl: "/manus-storage/editorial/current.pdf", createdAt: new Date() }),
+    createNotificationHistory: vi.fn().mockResolvedValue(1),
+    listNotificationHistory: vi.fn().mockResolvedValue([{ id: 1, kind: "submission", title: "New Thinkoria paper submission", content: "A paper arrived.", status: "sent", createdAt: new Date() }]),
     deleteClubEvent: vi.fn().mockResolvedValue(undefined),
     listClubMembers: vi.fn().mockResolvedValue([{ membership: { id: 1, status: "active" }, user: { id: 8, name: "Member Eight" } }]),
     listClubApplications: vi.fn().mockResolvedValue([]),
@@ -133,6 +143,24 @@ describe("editorial success contracts", () => {
   it("updates a category image through the protected Editorial Desk contract", async () => {
     await expect(appRouter.createCaller(context(admin)).admin.updateCategoryImage({ id: 9, imageUrl: "/manus-storage/editorial/linguistics.png" })).resolves.toEqual({ success: true });
     expect(vi.mocked(dbMocks.updateCategoryImage)).toHaveBeenCalledWith(9, "/manus-storage/editorial/linguistics.png");
+  });
+
+  it("exposes notification history and restorable asset versions to administrators", async () => {
+    const caller = appRouter.createCaller(context(admin));
+    await expect(caller.admin.notifications()).resolves.toHaveLength(1);
+    await expect(caller.admin.categoryImageVersions({ categoryId: 9 })).resolves.toHaveLength(1);
+    await expect(caller.admin.articleAssetVersions({ articleId: 404 })).resolves.toHaveLength(1);
+    await expect(caller.admin.restoreCategoryImage({ versionId: 91 })).resolves.toEqual({ success: true });
+    await expect(caller.admin.restoreArticleAsset({ versionId: 41 })).resolves.toEqual({ success: true });
+  });
+
+  it("denies notification and asset-history operations to non-admin members", async () => {
+    const caller = appRouter.createCaller(context(member));
+    await expect(caller.admin.notifications()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.admin.categoryImageVersions({ categoryId: 9 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.admin.articleAssetVersions({ articleId: 404 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.admin.restoreCategoryImage({ versionId: 91 })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(caller.admin.restoreArticleAsset({ versionId: 41 })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
   it("converts a reviewed submission into an editable draft article and preserves its manuscript PDF", async () => {

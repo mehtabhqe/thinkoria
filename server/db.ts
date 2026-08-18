@@ -3,6 +3,9 @@ import { drizzle } from "drizzle-orm/mysql2";
 import {
   articles,
   categories,
+  categoryImageVersions,
+  articleAssetVersions,
+  notificationHistory,
   clubApplications,
   clubEvents,
   clubMemberships,
@@ -61,6 +64,20 @@ export async function getCategoryBySlug(slug: string) {
   const db = await getDb();
   if (!db) return undefined;
   const result = await db.select().from(categories).where(eq(categories.slug, slug)).limit(1);
+  return result[0];
+}
+
+export async function getCategoryById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(categories).where(eq(categories.id, id)).limit(1);
+  return result[0];
+}
+
+export async function getArticleById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(articles).where(eq(articles.id, id)).limit(1);
   return result[0];
 }
 
@@ -128,6 +145,57 @@ export async function updateCategoryImage(id: number, imageUrl: string | null) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   await db.update(categories).set({ imageUrl }).where(eq(categories.id, id));
+}
+
+export async function createCategoryImageVersion(categoryId: number, imageUrl: string | null) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(categoryImageVersions).values({ categoryId, imageUrl });
+}
+
+export async function listCategoryImageVersions(categoryId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(categoryImageVersions).where(eq(categoryImageVersions.categoryId, categoryId)).orderBy(desc(categoryImageVersions.createdAt));
+}
+
+export async function getCategoryImageVersion(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(categoryImageVersions).where(eq(categoryImageVersions.id, id)).limit(1);
+  return result[0];
+}
+
+export async function createArticleAssetVersion(articleId: number, manuscriptUrl: string | null) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(articleAssetVersions).values({ articleId, manuscriptUrl });
+}
+
+export async function listArticleAssetVersions(articleId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(articleAssetVersions).where(eq(articleAssetVersions.articleId, articleId)).orderBy(desc(articleAssetVersions.createdAt));
+}
+
+export async function getArticleAssetVersion(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(articleAssetVersions).where(eq(articleAssetVersions.id, id)).limit(1);
+  return result[0];
+}
+
+export async function createNotificationHistory(input: typeof notificationHistory.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const result = await db.insert(notificationHistory).values(input);
+  return result[0].insertId;
+}
+
+export async function listNotificationHistory() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(notificationHistory).orderBy(desc(notificationHistory.createdAt));
 }
 
 export async function createSubmission(input: typeof submissions.$inferInsert) {
