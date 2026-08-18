@@ -8,10 +8,13 @@ import Home from "./pages/Home";
 import Catalogue from "./pages/Catalogue";
 import Club from "./pages/Club";
 import Forum from "./pages/Forum";
-import About from "./pages/About";
-
+import About from "@/pages/About";
+import Admin from "@/pages/Admin";
+import Article from "@/pages/Article";
+import Submit from "@/pages/Submit";
 
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
@@ -19,6 +22,9 @@ function Router() {
       <Route path={"/club"} component={Club} />
       <Route path={"/forum"} component={Forum} />
       <Route path={"/about"} component={About} />
+      <Route path={"/admin"} component={Admin} />
+      <Route path={"/article/:slug"} component={Article} />
+      <Route path={"/submit"} component={Submit} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

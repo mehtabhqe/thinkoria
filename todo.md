@@ -1,5 +1,16 @@
 # Expansion checklist
 
+## Full-stack platform pass
+
+- [x] Upgrade the static project to full-stack with backend, database, storage, and user management.
+- [x] Define article, category, submission, club event, forum thread, and membership data models.
+- [x] Implement sign-in, sign-up, sign-out, and protected routes.
+- [x] Build the admin panel for creating, editing, publishing, and unpublishing articles.
+- [x] Connect catalogue data to the database and make view counts persistent.
+- [x] Connect paper submission, club membership, and forum participation flows.
+- [x] Test permissions, empty states, and responsive admin/member views.
+
+
 ## Category-first catalogue pass
 
 - [x] Replace the all-articles first view with subject containers.
@@ -36,3 +47,29 @@
 - [x] Update navigation and routes across all pages.
 - [x] Verify responsive layouts, links, and front-end-only auth placeholder interactions.
 - [x] Run type check/build, capture previews, and save a checkpoint.
+
+## Required gap closure before delivery
+
+- [x] Wire a real submission form to the submission API and add manuscript/image upload support through storage.
+- [x] Replace hardcoded forum previews with persisted thread data and refresh after thread creation.
+- [x] Add explicit responsive and state validation for admin, club, forum, and submission flows.
+- [x] Expand Vitest coverage for submission validation and forum/member permissions.
+
+## Final validation corrections
+
+- [x] Remove leftover hardcoded forum seed data and show accurate persisted discussion metadata.
+- [x] Verify club, forum, admin, and submission unauthorized, success, empty, error, and responsive states explicitly.
+- [x] Add Vitest coverage for club membership permission behavior and successful submission/forum contracts.
+
+## Final evidence completion
+
+- [x] Verify /club on mobile and explicitly document unauthorized, success, empty, and error states across club, forum, admin, and submit.
+- [x] Add successful submission creation and authenticated forum thread creation contract tests, or document the database limitation if those paths require live seeded data.
+
+## End-to-end UI state evidence
+
+- [x] Exercise the submission page success state and client validation/error state in-browser.
+- [x] Exercise the club membership success/error state and account gate in-browser; authenticated success requires a real member session.
+- [x] Exercise the forum account gate and empty state in-browser; authenticated success is covered by isolated contract tests because no member session is available.
+- [x] Exercise the anonymous admin gate in-browser; authenticated editor validation requires a real admin session and is covered by permission/type tests.
+- [x] Record the state evidence and run a final checkpoint validation.
