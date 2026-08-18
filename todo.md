@@ -267,17 +267,17 @@
 ## Vercel OAuth callback allowlist
 
 - [x] Inspect Manus Developer settings; only API keys and webhooks are exposed, with no OAuth redirect allowlist.
-- [ ] Add `https://thinkoria-site-mehtabalh-gmailcoms-projects.vercel.app/api/oauth/callback` through a Manus OAuth application setting if Manus support or project controls expose one; do not create an API key.
-- [ ] Retest Vercel sign-in and authenticated session behavior.
+- [x] Confirm no Manus OAuth callback-allowlist setting is exposed; retain the Manus-only OAuth architecture and do not create an API key.
+- [x] Verify Vercel Sign in hands users to Manus; authenticated session behavior remains intentionally Manus-only until an OAuth allowlist exists.
 
 
 ## Manus-live handoff from Vercel
 
-- [ ] Inspect public navigation and interactive actions for environment-specific handoff behavior.
-- [ ] Route Vercel Sign in, Submit, Forum, Club, and Editorial Desk actions to the live Manus application without changing Manus behavior.
-- [ ] Redeploy and verify public browsing plus handoff links, then save a checkpoint.
+- [x] Inspect public navigation and interactive actions for environment-specific handoff behavior.
+- [x] Route Vercel Sign in, Submit, Forum, Club, and Editorial Desk actions to the live Manus application without changing Manus behavior.
+- [x] Redeploy and verify public browsing plus handoff links, then save a checkpoint.
 
 ## Vercel blank-page bug
 
-- [ ] Diagnose and fix the blank https://thinkoria.vercel.app/ Vercel deployment without changing the Manus backend or database.
-- [ ] Verify the repaired Vercel homepage and interactive handoff links.
+- [x] Diagnose and fix the blank https://thinkoria.vercel.app/ Vercel deployment without changing the Manus backend or database.
+- [x] Verify the repaired Vercel homepage and interactive handoff links.
