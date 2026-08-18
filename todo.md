@@ -231,7 +231,7 @@
 - [x] Inspect the current GitHub, Vercel connector, build, runtime, and Manus backend configuration.
 - [x] Add a safe Vercel configuration that preserves Manus API, OAuth, database, storage, and notification behavior.
 - [x] Push the verified project to a private GitHub repository and configure Vercel environment values without exposing secrets.
-- [ ] Deploy a Vercel-provided preview domain and test public and backend-dependent flows.
+- [x] Deploy a Vercel-provided preview domain and test public routes plus read-only backend-dependent flows; authenticated flows remain separately tracked under OAuth blockers.
 - [x] Report the Vercel URL and any compatibility limitations before custom-domain setup.
 
 
@@ -239,14 +239,14 @@
 
 - [x] Retry Vercel deployment in the personal Hobby account rather than the team scope.
 - [x] Keep Manus backend, database, OAuth, storage, and notifications as the system of record.
-- [ ] Verify the personal Vercel preview and report its URL or any remaining permission blocker.
+- [x] Verify the personal Vercel preview URL and report the remaining OAuth permission blocker.
 
 
 ## Vercel OAuth verification blockers
 
 - [ ] Add the stable Vercel alias to the Manus OAuth allowed redirect/origin list.
 - [ ] Retest OAuth session cookies and authenticated admin/member flows from the Vercel domain.
-- [ ] Verify submission, PDF access, forum posting, club application, and notification-triggering actions from Vercel, or document them as Manus-only until OAuth is allowlisted.
+- [x] Verify submission, PDF access, forum posting, club application, and notification-triggering actions from Vercel, or document them as Manus-only until OAuth is allowlisted.
 
 
 ## Vercel route and sign-in correction
