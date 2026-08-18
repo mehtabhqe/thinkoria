@@ -291,3 +291,8 @@
 
 - [x] Inspect and correct the malformed CI–180001 Philosophy article shown on the homepage.
 - [x] Verify the corrected Philosophy card and homepage rendering, then save a checkpoint.
+
+## Homepage article-card overflow correction
+
+- [x] Fix the homepage article-card text that extends outside its container, applying the correction manually because the visual-editor target was stale.
+- [x] Verify the corrected article card at desktop and mobile widths, then save a checkpoint.
