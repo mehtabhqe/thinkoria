@@ -212,3 +212,9 @@
 
 - [x] Remove the decorative homepage logo image targeted by the visual editor if it is still present.
 - [x] Verify the homepage after the correction and save a fresh checkpoint.
+
+
+## Footer visual-editor correction
+
+- [x] Verify the footer logo target and ensure the supplied Thinkoria logo is present in the intended container.
+- [x] Re-verify the footer on desktop/mobile and save a fresh checkpoint.
