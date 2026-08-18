@@ -24,7 +24,8 @@ export default function Home() {
   // nonce cookie and must run only at the moment of navigation.
   let { user, loading, error, isAuthenticated, logout } = useAuth();
   const latestQuery = trpc.catalogue.published.useQuery();
-  const visibleLatest = latestQuery.data?.slice(0, 3).map((article) => ({ id: `CI–${String(article.id).padStart(3, "0")}`, title: article.title, author: article.authorName, field: article.category.name, excerpt: article.excerpt, views: article.viewCount.toLocaleString(), date: new Date(article.publishedAt ?? article.createdAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) })) ?? latestArticles;
+  const latestPublished = [...(latestQuery.data ?? [])].sort((a, b) => new Date(b.publishedAt ?? b.createdAt).getTime() - new Date(a.publishedAt ?? a.createdAt).getTime());
+  const visibleLatest = latestQuery.data ? latestPublished.slice(0, 3).map((article) => ({ id: `CI–${String(article.id).padStart(3, "0")}`, title: article.title, author: article.authorName, field: article.category.name, excerpt: article.excerpt, views: article.viewCount.toLocaleString(), date: new Date(article.publishedAt ?? article.createdAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) })) : latestArticles;
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const openAccountArea = () => {

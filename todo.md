@@ -301,3 +301,8 @@
 
 - [x] Commit and push the verified homepage overflow fix to the private Thinkoria GitHub repository.
 - [x] Redeploy the Vercel frontend and verify the updated public homepage without changing Manus backend behavior.
+
+## Homepage newest published paper feed
+
+- [x] Restore homepage ordering so the newest published paper appears first in the newly published section.
+- [x] Verify published-only filtering, latest-first ordering, and homepage rendering, then save a checkpoint.
