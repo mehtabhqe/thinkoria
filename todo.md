@@ -224,3 +224,12 @@
 
 - [x] Move the Thinkoria logo into the blank light container directly above “A place of ideas.” and remove the duplicate dark-container logo.
 - [x] Verify the updated footer on desktop/mobile, run checks/build, and save a checkpoint.
+
+
+## Vercel preview deployment
+
+- [ ] Inspect the current GitHub, Vercel connector, build, runtime, and Manus backend configuration.
+- [ ] Add a safe Vercel configuration that preserves Manus API, OAuth, database, storage, and notification behavior.
+- [ ] Push the verified project to a private GitHub repository and configure Vercel environment values without exposing secrets.
+- [ ] Deploy a Vercel-provided preview domain and test public and backend-dependent flows.
+- [ ] Report the Vercel URL and any compatibility limitations before custom-domain setup.
