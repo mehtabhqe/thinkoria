@@ -199,3 +199,10 @@
 - [x] Add version history for category images and published-paper PDFs, including restore actions.
 - [x] Add Vitest coverage for notification history, citation formatting, asset snapshots, and restore permissions.
 - [x] Verify desktop/mobile Editorial Desk and article views, run checks/build, and save a checkpoint.
+
+
+## Professional footer pass
+
+- [x] Add a responsive branded footer with the Thinkoria logo and “A place of ideas” tagline.
+- [x] Add contact email, address, Instagram, LinkedIn, navigation links, and creator credit for Earden Media and Mehtab Hoque.
+- [x] Verify the footer on desktop and mobile, run checks/build, and save a checkpoint.
