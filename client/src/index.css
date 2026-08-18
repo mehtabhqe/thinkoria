@@ -92,6 +92,7 @@ button:not(:disabled), a[href] { cursor: pointer; }
 .citation-mark { display: flex; align-items: center; gap: 8px; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 9px; letter-spacing: .16em; color: rgb(23 22 20 / .45); text-transform: uppercase; }
 .citation-mark span { position: relative; display: inline-block; width: 23px; height: 13px; border-left: 1px solid #C8472C; border-bottom: 1px solid #C8472C; }
 .citation-mark span::after { content: ""; position: absolute; left: 4px; bottom: 3px; width: 5px; height: 5px; border-radius: 50%; background: #C8472C; }
+.live-pulse { display: inline-block; width: 6px; height: 6px; border-radius: 999px; background: #C8472C; box-shadow: 0 0 0 3px rgb(200 71 44 / .12); }
 .nav-link { position: relative; transition: color 180ms ease-out; }
 .nav-link::after { content: ""; position: absolute; bottom: -8px; left: 0; width: 0; height: 1px; background: #C8472C; transition: width 180ms ease-out; }
 .nav-link:hover { color: #C8472C; }
