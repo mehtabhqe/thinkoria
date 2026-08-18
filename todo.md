@@ -160,3 +160,9 @@
 - [x] Add a Thinkoria catalogue visual-language guide for future editors.
 - [x] Replace all failed or placeholder catalogue images with reliable category-specific assets and verify them in the browser.
 - [x] Run regression checks and save a checkpoint.
+
+## Catalogue image-generation failure repair
+
+- [x] Identify every catalogue/category card still displaying an image-generation failure or broken image reference.
+- [x] Replace broken references with verified Thinkoria category-specific assets and strengthen runtime fallback behavior.
+- [x] Verify all catalogue views on desktop and mobile, run checks, and save a checkpoint.
