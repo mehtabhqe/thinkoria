@@ -1,5 +1,14 @@
 # Expansion checklist
 
+## Catalogue refinement pass
+
+- [x] Research editorial archive and publication catalogue interaction patterns.
+- [x] Add a catalogue search bar with live matching.
+- [x] Add category filtering and sort controls.
+- [x] Add result count, clear state, and no-results state.
+- [x] Refine article cards and discovery hierarchy.
+- [x] Verify catalogue interactions on desktop and mobile, then save a checkpoint.
+
 ## Frontend completion pass
 
 - [x] Write and add a complete About section covering vision, purpose, editorial promise, and community.
