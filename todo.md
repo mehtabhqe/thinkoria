@@ -206,3 +206,9 @@
 - [x] Add a responsive branded footer with the Thinkoria logo and “A place of ideas” tagline.
 - [x] Add contact email, address, Instagram, LinkedIn, navigation links, and creator credit for Earden Media and Mehtab Hoque.
 - [x] Verify the footer on desktop and mobile, run checks/build, and save a checkpoint.
+
+
+## Homepage visual-editor correction
+
+- [x] Remove the decorative homepage logo image targeted by the visual editor if it is still present.
+- [x] Verify the homepage after the correction and save a fresh checkpoint.
