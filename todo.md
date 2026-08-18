@@ -299,5 +299,5 @@
 
 ## Homepage overflow redeployment
 
-- [ ] Commit and push the verified homepage overflow fix to the private Thinkoria GitHub repository.
-- [ ] Redeploy the Vercel frontend and verify the updated public homepage without changing Manus backend behavior.
+- [x] Commit and push the verified homepage overflow fix to the private Thinkoria GitHub repository.
+- [x] Redeploy the Vercel frontend and verify the updated public homepage without changing Manus backend behavior.
