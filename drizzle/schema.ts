@@ -63,6 +63,7 @@ export const clubEvents = mysqlTable("clubEvents", {
   venue: varchar("venue", { length: 240 }).notNull(),
   eventDate: timestamp("eventDate").notNull(),
   registrationOpen: int("registrationOpen").default(1).notNull(),
+  imageUrl: text("imageUrl"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

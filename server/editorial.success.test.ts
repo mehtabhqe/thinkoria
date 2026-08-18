@@ -122,8 +122,8 @@ describe("editorial success contracts", () => {
 
   it("manages club events, members, and application decisions from the admin desk", async () => {
     const caller = appRouter.createCaller(context(admin));
-    await expect(caller.admin.createClubEvent({ title: "The ethics of attention", description: "A structured debate about what deserves our attention.", venue: "The Old Library, Nagaon", eventDate: new Date("2026-09-19T12:00:00.000Z"), registrationOpen: 1 })).resolves.toEqual({ id: 606, success: true });
-    await expect(caller.admin.updateClubEvent({ id: 606, title: "The ethics of attention", description: "A structured debate about what deserves our attention.", venue: "The Old Library, Nagaon", eventDate: new Date("2026-09-19T12:00:00.000Z"), registrationOpen: 0 })).resolves.toEqual({ success: true });
+    await expect(caller.admin.createClubEvent({ title: "The ethics of attention", description: "A structured debate about what deserves our attention.", venue: "The Old Library, Nagaon", eventDate: new Date("2026-09-19T12:00:00.000Z"), registrationOpen: 1, imageUrl: "/manus-storage/editorial/debate-photo.png" })).resolves.toEqual({ id: 606, success: true });
+    await expect(caller.admin.updateClubEvent({ id: 606, title: "The ethics of attention", description: "A structured debate about what deserves our attention.", venue: "The Old Library, Nagaon", eventDate: new Date("2026-09-19T12:00:00.000Z"), registrationOpen: 0, imageUrl: "/manus-storage/editorial/debate-photo.png" })).resolves.toEqual({ success: true });
     await expect(caller.admin.clubMembers()).resolves.toHaveLength(1);
     await expect(caller.admin.clubApplications()).resolves.toEqual([]);
     await expect(caller.admin.updateClubApplication({ id: 12, status: "accepted" })).resolves.toEqual({ success: true });

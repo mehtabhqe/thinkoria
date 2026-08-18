@@ -127,3 +127,10 @@
 - [x] Reproduce the public debate-role application failure and capture the failing request or validation state.
 - [x] Fix the application form, authentication, or persistence path so valid role applications are stored successfully.
 - [x] Verify the public submit success state and Editorial Desk review visibility, then save a checkpoint.
+
+## Club debate photo
+
+- [x] Add a persistent photo URL to club events and migrate the database safely.
+- [x] Add an image upload control in the Editorial Desk club event form above the debate topic field.
+- [x] Display the selected event photo in the public Club hero with an N fallback when no photo exists.
+- [x] Add regression coverage and browser verification for club photo upload/display, then save a checkpoint.

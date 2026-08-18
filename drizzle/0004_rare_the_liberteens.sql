@@ -1,0 +1,1 @@
+ALTER TABLE `clubEvents` ADD `imageUrl` text;
