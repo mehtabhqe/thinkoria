@@ -296,3 +296,8 @@
 
 - [x] Fix the homepage article-card text that extends outside its container, applying the correction manually because the visual-editor target was stale.
 - [x] Verify the corrected article card at desktop and mobile widths, then save a checkpoint.
+
+## Homepage overflow redeployment
+
+- [ ] Commit and push the verified homepage overflow fix to the private Thinkoria GitHub repository.
+- [ ] Redeploy the Vercel frontend and verify the updated public homepage without changing Manus backend behavior.
