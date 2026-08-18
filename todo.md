@@ -172,3 +172,10 @@
 - [x] Audit category and article image mappings for duplicated assets.
 - [x] Add a distinct biblical or ritual Religion image and remap any other duplicated category assets.
 - [x] Verify all catalogue imagery on desktop and mobile, run checks, and save a checkpoint.
+
+## Three catalogue improvements
+
+- [x] Add a distinct Linguistics category and article image.
+- [x] Add duplicate-image warnings to the Editorial Desk category image manager.
+- [x] Publish a genuine History paper and verify its category-detail view.
+- [x] Run full checks, verify desktop/mobile catalogue states, and save a checkpoint.
