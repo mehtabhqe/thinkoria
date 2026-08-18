@@ -281,3 +281,13 @@
 
 - [x] Diagnose and fix the blank https://thinkoria.vercel.app/ Vercel deployment without changing the Manus backend or database.
 - [x] Verify the repaired Vercel homepage and interactive handoff links.
+
+## Branding watermark removal
+
+- [x] Diagnose the visible floating “Made with Manus” watermark as Manus-host platform branding outside Thinkoria’s frontend code; Vercel remains watermark-free.
+- [x] Verify the Vercel public render is watermark-free and document that the Manus-hosted badge requires a platform-level setting or support action.
+
+## Philosophy homepage article correction
+
+- [x] Inspect and correct the malformed CI–180001 Philosophy article shown on the homepage.
+- [x] Verify the corrected Philosophy card and homepage rendering, then save a checkpoint.
