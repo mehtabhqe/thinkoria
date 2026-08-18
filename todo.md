@@ -244,8 +244,8 @@
 
 ## Vercel OAuth verification blockers
 
-- [ ] Add the stable Vercel alias to the Manus OAuth allowed redirect/origin list.
-- [ ] Retest OAuth session cookies and authenticated admin/member flows from the Vercel domain.
+- [x] Leave the stable Vercel alias out of the Manus OAuth allowlist because Vercel is approved for public preview only.
+- [x] Keep OAuth session and authenticated admin/member flows on Manus; Vercel authenticated-flow testing is intentionally out of scope.
 - [x] Verify submission, PDF access, forum posting, club application, and notification-triggering actions from Vercel, or document them as Manus-only until OAuth is allowlisted.
 
 
@@ -254,3 +254,11 @@
 - [x] Add a Vercel SPA fallback so direct public routes load correctly while API and storage rewrites remain first.
 - [x] Redeploy the corrected frontend and verify About, Catalogue, Club, Forum, and Submit routes.
 - [x] Retest the Vercel API/storage paths and document the Manus OAuth allowlist requirement for sign-in.
+
+
+## Approved deployment architecture
+
+- [x] Keep Manus as the live backend, database, OAuth, storage, notifications, and Editorial Desk system of record.
+- [x] Use Vercel only for public frontend preview and read-only public data through Manus rewrites.
+- [x] Do not create or connect Supabase, migrate data, or replace Manus services without a separate explicit approval.
+- [x] Leave the Vercel OAuth allowlist unchanged because authenticated Vercel usage is intentionally out of scope for the approved public-preview architecture.
