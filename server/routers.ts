@@ -6,13 +6,18 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { storagePut } from "./storage";
 import {
   createArticle,
+  createClubApplication,
+  createClubEvent,
   createForumPost,
   createForumThread,
   createSubmission,
   deleteArticle,
+  deleteClubEvent,
   getArticleBySlug,
   incrementArticleView,
   joinClub,
+  listClubApplications,
+  listClubMembers,
   listAdminArticles,
   listAdminSubmissions,
   listCategories,
@@ -21,6 +26,8 @@ import {
   listForumThreads,
   listPublishedArticles,
   updateArticle,
+  updateClubApplicationStatus,
+  updateClubEvent,
   updateSubmissionStatus,
   getSubmissionById,
 } from "./db";
@@ -78,6 +85,7 @@ export const appRouter = router({
   club: router({
     events: publicProcedure.query(() => listClubEvents()),
     join: protectedProcedure.mutation(({ ctx }) => joinClub(ctx.user.id).then(membership => ({ success: true, membership }))),
+    submitApplication: protectedProcedure.input(z.object({ eventId: z.number().int().positive(), role: z.enum(["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]), otherRole: z.string().max(160).optional(), note: z.string().max(2000).optional() })).mutation(({ input, ctx }) => createClubApplication({ ...input, userId: ctx.user.id, otherRole: input.otherRole || null, note: input.note || null }).then(id => ({ id, success: true }))),
   }),
   forum: router({
     threads: publicProcedure.query(() => listForumThreads()),
@@ -111,6 +119,13 @@ export const appRouter = router({
     updateArticle: adminProcedure.input(articleInput.extend({ id: z.number().int().positive() })).mutation(({ input }) => { const { id, ...data } = input; return updateArticle(id, { ...data, imageUrl: data.imageUrl || null, manuscriptUrl: data.manuscriptUrl || null, publishedAt: data.status === "published" ? new Date() : null }).then(() => ({ success: true })); }),
     publishArticle: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["draft", "published"]) })).mutation(({ input }) => updateArticle(input.id, { status: input.status, publishedAt: input.status === "published" ? new Date() : null }).then(() => ({ success: true }))),
     deleteArticle: adminProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input }) => deleteArticle(input.id).then(() => ({ success: true }))),
+    clubMembers: adminProcedure.query(() => listClubMembers()),
+    clubApplications: adminProcedure.query(() => listClubApplications()),
+    clubEvents: adminProcedure.query(() => listClubEvents()),
+    createClubEvent: adminProcedure.input(z.object({ title: z.string().min(3).max(240), description: z.string().min(10), venue: z.string().min(2).max(240), eventDate: z.coerce.date(), registrationOpen: z.number().int().min(0).max(1).default(1) })).mutation(({ input }) => createClubEvent(input).then(id => ({ id, success: true }))),
+    updateClubEvent: adminProcedure.input(z.object({ id: z.number().int().positive(), title: z.string().min(3).max(240), description: z.string().min(10), venue: z.string().min(2).max(240), eventDate: z.coerce.date(), registrationOpen: z.number().int().min(0).max(1) })).mutation(({ input }) => { const { id, ...data } = input; return updateClubEvent(id, data).then(() => ({ success: true })); }),
+    deleteClubEvent: adminProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input }) => deleteClubEvent(input.id).then(() => ({ success: true }))),
+    updateClubApplication: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["pending", "accepted", "declined", "waitlisted"]) })).mutation(({ input }) => updateClubApplicationStatus(input.id, input.status).then(() => ({ success: true }))),
   }),
 });
 

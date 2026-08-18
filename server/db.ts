@@ -3,11 +3,14 @@ import { drizzle } from "drizzle-orm/mysql2";
 import {
   articles,
   categories,
+  clubApplications,
+  clubEvents,
   clubMemberships,
   forumPosts,
   forumThreads,
   InsertArticle,
   InsertCategory,
+  InsertClubApplication,
   InsertUser,
   submissions,
   users,
@@ -166,8 +169,57 @@ export async function listForumThreads() {
 export async function listClubEvents() {
   const db = await getDb();
   if (!db) return [];
-  const { clubEvents } = await import("../drizzle/schema");
   return db.select().from(clubEvents).orderBy(asc(clubEvents.eventDate));
+}
+
+export async function createClubEvent(input: typeof clubEvents.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const result = await db.insert(clubEvents).values(input);
+  return result[0].insertId;
+}
+
+export async function updateClubEvent(id: number, input: Partial<typeof clubEvents.$inferInsert>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(clubEvents).set(input).where(eq(clubEvents.id, id));
+}
+
+export async function deleteClubEvent(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.delete(clubEvents).where(eq(clubEvents.id, id));
+}
+
+export async function listClubMembers() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ membership: clubMemberships, user: users }).from(clubMemberships)
+    .innerJoin(users, eq(clubMemberships.userId, users.id)).orderBy(desc(clubMemberships.createdAt));
+}
+
+export async function listClubApplications() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ application: clubApplications, user: users, event: clubEvents }).from(clubApplications)
+    .innerJoin(users, eq(clubApplications.userId, users.id))
+    .innerJoin(clubEvents, eq(clubApplications.eventId, clubEvents.id))
+    .orderBy(desc(clubApplications.createdAt));
+}
+
+export async function createClubApplication(input: InsertClubApplication) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const existing = await db.select().from(clubApplications).where(and(eq(clubApplications.eventId, input.eventId), eq(clubApplications.userId, input.userId))).limit(1);
+  if (existing[0]) throw new Error("You already applied for this debate");
+  const result = await db.insert(clubApplications).values(input);
+  return result[0].insertId;
+}
+
+export async function updateClubApplicationStatus(id: number, status: "pending" | "accepted" | "declined" | "waitlisted") {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(clubApplications).set({ status }).where(eq(clubApplications.id, id));
 }
 
 export async function createForumThread(input: { authorId: number; title: string; body: string; category: string }) {

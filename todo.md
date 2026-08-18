@@ -113,3 +113,11 @@
 - [x] Preserve the submitted manuscript URL when a submission is approved or converted into an article draft.
 - [x] Keep the manuscript PDF accessible from the Editorial Desk after status changes and publication.
 - [x] Add regression coverage for manuscript URL persistence and verify the PDF link in the browser, then save a checkpoint.
+
+## Club administration and weekly debates
+
+- [x] Add an Editorial Desk club area showing joined members and membership status.
+- [x] Add no-code CRUD controls for weekly debate topic, date/time, venue, description, and registration state.
+- [x] Add debate applications with selectable roles including debator, mediator, jury, and other debate body roles.
+- [x] Add admin review/status controls for debate applications and public application feedback states.
+- [x] Add regression tests and browser verification for club administration, event editing, member listing, and role applications, then save a checkpoint.

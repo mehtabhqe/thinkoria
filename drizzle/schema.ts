@@ -75,6 +75,18 @@ export const clubMemberships = mysqlTable("clubMemberships", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const clubApplications = mysqlTable("clubApplications", {
+  id: int("id").autoincrement().primaryKey(),
+  eventId: int("eventId").notNull().references(() => clubEvents.id),
+  userId: int("userId").notNull().references(() => users.id),
+  role: mysqlEnum("role", ["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]).notNull(),
+  otherRole: varchar("otherRole", { length: 160 }),
+  note: text("note"),
+  status: mysqlEnum("status", ["pending", "accepted", "declined", "waitlisted"]).default("pending").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const forumThreads = mysqlTable("forumThreads", {
   id: int("id").autoincrement().primaryKey(),
   authorId: int("authorId").notNull().references(() => users.id),
@@ -107,6 +119,8 @@ export type ClubEvent = typeof clubEvents.$inferSelect;
 export type InsertClubEvent = typeof clubEvents.$inferInsert;
 export type ClubMembership = typeof clubMemberships.$inferSelect;
 export type InsertClubMembership = typeof clubMemberships.$inferInsert;
+export type ClubApplication = typeof clubApplications.$inferSelect;
+export type InsertClubApplication = typeof clubApplications.$inferInsert;
 export type ForumThread = typeof forumThreads.$inferSelect;
 export type InsertForumThread = typeof forumThreads.$inferInsert;
 export type ForumPost = typeof forumPosts.$inferSelect;

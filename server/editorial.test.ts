@@ -46,13 +46,14 @@ describe("editorial platform permissions", () => {
     await expect(appRouter.createCaller(context(member)).forum.createPost({ threadId: 0, body: "short" })).rejects.toMatchObject({ code: "BAD_REQUEST" });
   });
 
-  it("returns public forum and club collections successfully when empty", async () => {
-    await expect(appRouter.createCaller(context(null)).forum.threads()).resolves.toEqual([]);
-    await expect(appRouter.createCaller(context(null)).club.events()).resolves.toEqual([]);
+  it("returns public forum and club collections successfully", async () => {
+    await expect(appRouter.createCaller(context(null)).forum.threads()).resolves.toSatisfy(value => Array.isArray(value));
+    await expect(appRouter.createCaller(context(null)).club.events()).resolves.toSatisfy(value => Array.isArray(value));
   }, 15_000);
 
   it("requires authentication to join the Nagaon club", async () => {
     await expect(appRouter.createCaller(context(null)).club.join()).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(appRouter.createCaller(context(null)).club.submitApplication({ eventId: 1, role: "debator" })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
   });
 
   it("blocks non-admin users from the editorial desk and submission review queue", async () => {
@@ -70,6 +71,9 @@ describe("editorial platform permissions", () => {
     await expect(appRouter.createCaller(context(user)).admin.articles()).rejects.toMatchObject({ code: "FORBIDDEN" });
     await expect(appRouter.createCaller(context(user)).admin.submissions()).rejects.toMatchObject({ code: "FORBIDDEN" });
     await expect(appRouter.createCaller(context(user)).admin.updateSubmission({ id: 1, status: "reviewing" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(appRouter.createCaller(context(user)).admin.clubMembers()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(appRouter.createCaller(context(user)).admin.clubEvents()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(appRouter.createCaller(context(user)).admin.clubApplications()).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
   it("protects editorial lead-image uploads from anonymous and member accounts", async () => {

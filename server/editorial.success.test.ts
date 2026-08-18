@@ -11,6 +11,14 @@ vi.mock("./db", async () => {
     ...actual,
     createSubmission: vi.fn().mockResolvedValue(101),
     createArticle: vi.fn().mockResolvedValue(404),
+    createClubApplication: vi.fn().mockResolvedValue(505),
+    createClubEvent: vi.fn().mockResolvedValue(606),
+    updateClubEvent: vi.fn().mockResolvedValue(undefined),
+    deleteClubEvent: vi.fn().mockResolvedValue(undefined),
+    listClubMembers: vi.fn().mockResolvedValue([{ membership: { id: 1, status: "active" }, user: { id: 8, name: "Member Eight" } }]),
+    listClubApplications: vi.fn().mockResolvedValue([]),
+    listClubEvents: vi.fn().mockResolvedValue([]),
+    updateClubApplicationStatus: vi.fn().mockResolvedValue(undefined),
     getSubmissionById: vi.fn().mockResolvedValue({ id: 7, name: "Submitted Author", email: "author@example.com", title: "A Considered Paper", category: "Philosophy", abstract: "An abstract with enough length for the conversion contract to accept and create a draft article.", manuscriptUrl: "/manus-storage/submissions/paper.pdf", status: "reviewing", createdAt: new Date(), updatedAt: new Date() }),
     updateSubmissionStatus: vi.fn().mockResolvedValue(undefined),
     createForumThread: vi.fn().mockResolvedValue(202),
@@ -110,6 +118,24 @@ describe("editorial success contracts", () => {
       manuscriptUrl: "/manus-storage/submissions/paper.pdf",
       status: "draft",
     }));
+  });
+
+  it("manages club events, members, and application decisions from the admin desk", async () => {
+    const caller = appRouter.createCaller(context(admin));
+    await expect(caller.admin.createClubEvent({ title: "The ethics of attention", description: "A structured debate about what deserves our attention.", venue: "The Old Library, Nagaon", eventDate: new Date("2026-09-19T12:00:00.000Z"), registrationOpen: 1 })).resolves.toEqual({ id: 606, success: true });
+    await expect(caller.admin.updateClubEvent({ id: 606, title: "The ethics of attention", description: "A structured debate about what deserves our attention.", venue: "The Old Library, Nagaon", eventDate: new Date("2026-09-19T12:00:00.000Z"), registrationOpen: 0 })).resolves.toEqual({ success: true });
+    await expect(caller.admin.clubMembers()).resolves.toHaveLength(1);
+    await expect(caller.admin.clubApplications()).resolves.toEqual([]);
+    await expect(caller.admin.updateClubApplication({ id: 12, status: "accepted" })).resolves.toEqual({ success: true });
+    await expect(caller.admin.deleteClubEvent({ id: 606 })).resolves.toEqual({ success: true });
+  });
+
+  it("submits a debate role application for an authenticated member", async () => {
+    await expect(appRouter.createCaller(context(member)).club.submitApplication({
+      eventId: 12,
+      role: "mediator",
+      note: "I have facilitated structured discussions and can keep a room attentive to the question.",
+    })).resolves.toEqual({ id: 505, success: true });
   });
 
   it("creates a forum thread for an authenticated member", async () => {
