@@ -203,14 +203,14 @@ export async function listClubApplications() {
   if (!db) return [];
   return db.select({ application: clubApplications, user: users, event: clubEvents }).from(clubApplications)
     .innerJoin(users, eq(clubApplications.userId, users.id))
-    .innerJoin(clubEvents, eq(clubApplications.eventId, clubEvents.id))
+    .leftJoin(clubEvents, sql`${clubApplications.eventId} = ${clubEvents.id}`)
     .orderBy(desc(clubApplications.createdAt));
 }
 
 export async function createClubApplication(input: InsertClubApplication) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  const existing = await db.select().from(clubApplications).where(and(eq(clubApplications.eventId, input.eventId), eq(clubApplications.userId, input.userId))).limit(1);
+  const existing = input.eventId ? await db.select().from(clubApplications).where(and(eq(clubApplications.eventId, input.eventId), eq(clubApplications.userId, input.userId))).limit(1) : [];
   if (existing[0]) throw new Error("You already applied for this debate");
   const result = await db.insert(clubApplications).values(input);
   return result[0].insertId;

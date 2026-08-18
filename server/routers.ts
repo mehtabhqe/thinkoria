@@ -85,7 +85,7 @@ export const appRouter = router({
   club: router({
     events: publicProcedure.query(() => listClubEvents()),
     join: protectedProcedure.mutation(({ ctx }) => joinClub(ctx.user.id).then(membership => ({ success: true, membership }))),
-    submitApplication: protectedProcedure.input(z.object({ eventId: z.number().int().positive(), role: z.enum(["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]), otherRole: z.string().max(160).optional(), note: z.string().max(2000).optional() })).mutation(({ input, ctx }) => createClubApplication({ ...input, userId: ctx.user.id, otherRole: input.otherRole || null, note: input.note || null }).then(id => ({ id, success: true }))),
+    submitApplication: protectedProcedure.input(z.object({ eventId: z.number().int().positive().optional(), role: z.enum(["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]), otherRole: z.string().max(160).optional(), note: z.string().max(2000).optional() })).mutation(({ input, ctx }) => createClubApplication({ ...input, userId: ctx.user.id, eventId: input.eventId ?? null, otherRole: input.otherRole || null, note: input.note || null }).then(id => ({ id, success: true }))),
   }),
   forum: router({
     threads: publicProcedure.query(() => listForumThreads()),

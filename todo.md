@@ -121,3 +121,9 @@
 - [x] Add debate applications with selectable roles including debator, mediator, jury, and other debate body roles.
 - [x] Add admin review/status controls for debate applications and public application feedback states.
 - [x] Add regression tests and browser verification for club administration, event editing, member listing, and role applications, then save a checkpoint.
+
+## Debate role application bug fix
+
+- [x] Reproduce the public debate-role application failure and capture the failing request or validation state.
+- [x] Fix the application form, authentication, or persistence path so valid role applications are stored successfully.
+- [x] Verify the public submit success state and Editorial Desk review visibility, then save a checkpoint.

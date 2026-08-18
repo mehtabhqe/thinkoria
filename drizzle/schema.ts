@@ -77,7 +77,7 @@ export const clubMemberships = mysqlTable("clubMemberships", {
 
 export const clubApplications = mysqlTable("clubApplications", {
   id: int("id").autoincrement().primaryKey(),
-  eventId: int("eventId").notNull().references(() => clubEvents.id),
+  eventId: int("eventId").references(() => clubEvents.id),
   userId: int("userId").notNull().references(() => users.id),
   role: mysqlEnum("role", ["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]).notNull(),
   otherRole: varchar("otherRole", { length: 160 }),

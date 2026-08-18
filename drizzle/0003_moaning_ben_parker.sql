@@ -1,0 +1,1 @@
+ALTER TABLE `clubApplications` MODIFY COLUMN `eventId` int;

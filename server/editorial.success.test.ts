@@ -138,6 +138,13 @@ describe("editorial success contracts", () => {
     })).resolves.toEqual({ id: 505, success: true });
   });
 
+  it("submits a general debate role application before an event is scheduled", async () => {
+    await expect(appRouter.createCaller(context(member)).club.submitApplication({
+      role: "jury",
+      note: "I can serve as an adjudicator for the next debate.",
+    })).resolves.toEqual({ id: 505, success: true });
+  });
+
   it("creates a forum thread for an authenticated member", async () => {
     await expect(appRouter.createCaller(context(member)).forum.createThread({
       title: "A question about unfinished work",
