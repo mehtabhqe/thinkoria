@@ -19,3 +19,7 @@ The refined catalogue will combine a full-width keyword search bar with category
 The live catalogue route rendered the search bar, filter toggle, result count, image-led cards, and footer navigation. Searching for “interface” reduced the catalogue to one matching paper, updated the result count to 01, displayed the matching field summary, and exposed a clear-all action. This confirms the core search interaction is working in the rendered preview.
 
 The rendered interaction test also confirmed that the Filters control opens a facet drawer with all subject categories and a sort select. Switching the sort select to “Most viewed” updates the visible control state without breaking the active search result.
+
+## Category-first flow test
+
+The catalogue now opens on 12 subject containers rather than an all-article list. Selecting Philosophy transitions to a category-specific view with an “All subjects” back control, a “Search within Philosophy” field, sorting, a scoped result count, and only Philosophy papers. This confirms the intended two-step browse flow.

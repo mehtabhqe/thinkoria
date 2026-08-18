@@ -61,3 +61,9 @@ Use “The Common Index” as a refined serif wordmark with a compact bracket-an
 
 ### Signature Brand Color
 Vermilion ink: `#C8472C`.
+
+## Style Decisions
+
+- Category index pages should avoid a purely uniform card grid; staggered offsets and varied visual rhythm reinforce the idea of an edited index.
+- Each subject should have a distinct archival still-life or crop language wherever assets allow, so the catalogue feels curated rather than repetitive.
+- Vermilion #C8472C remains an annotation color for dots, registration marks, active rules, primary actions, and rare editorial details—not a general decoration.

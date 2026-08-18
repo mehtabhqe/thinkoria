@@ -1,5 +1,14 @@
 # Expansion checklist
 
+## Category-first catalogue pass
+
+- [x] Replace the all-articles first view with subject containers.
+- [x] Add broad category containers including philosophy, politics, literature, media, gaming, science, technology, religion, and linguistics.
+- [x] Make each category container open a scoped category article view.
+- [x] Preserve the catalogue search bar and scope results to the selected category.
+- [x] Add back-to-categories navigation and category result states.
+- [x] Verify category navigation and responsive layouts, then save a checkpoint.
+
 ## Catalogue refinement pass
 
 - [x] Research editorial archive and publication catalogue interaction patterns.
