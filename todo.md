@@ -107,3 +107,9 @@
 - [x] Add explicit Approve and Reject controls to the Editorial Desk review queue, wired to submission status updates with feedback.
 - [x] Perform a browser-level submission review, draft conversion, and publish verification, then save a final checkpoint.
 ### End of file
+
+## PDF persistence fix
+
+- [x] Preserve the submitted manuscript URL when a submission is approved or converted into an article draft.
+- [x] Keep the manuscript PDF accessible from the Editorial Desk after status changes and publication.
+- [x] Add regression coverage for manuscript URL persistence and verify the PDF link in the browser, then save a checkpoint.

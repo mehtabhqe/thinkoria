@@ -19,6 +19,7 @@ vi.mock("./db", async () => {
 });
 
 const { appRouter } = await import("./routers");
+const dbMocks = await import("./db");
 
 type TestUser = NonNullable<TrpcContext["user"]>;
 
@@ -99,12 +100,16 @@ describe("editorial success contracts", () => {
     })).resolves.toEqual({ id: 404, success: true });
   });
 
-  it("converts a reviewed submission into an editable draft article", async () => {
+  it("converts a reviewed submission into an editable draft article and preserves its manuscript PDF", async () => {
     await expect(appRouter.createCaller(context(admin)).admin.convertSubmission({
       id: 7,
       categoryId: 1,
       slug: "a-considered-paper-7",
     })).resolves.toEqual({ id: 404, success: true });
+    expect(vi.mocked(dbMocks.createArticle)).toHaveBeenCalledWith(expect.objectContaining({
+      manuscriptUrl: "/manus-storage/submissions/paper.pdf",
+      status: "draft",
+    }));
   });
 
   it("creates a forum thread for an authenticated member", async () => {

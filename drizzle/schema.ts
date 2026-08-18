@@ -34,6 +34,7 @@ export const articles = mysqlTable("articles", {
   authorName: varchar("authorName", { length: 180 }).notNull(),
   categoryId: int("categoryId").notNull().references(() => categories.id),
   imageUrl: text("imageUrl"),
+  manuscriptUrl: text("manuscriptUrl"),
   status: mysqlEnum("status", ["draft", "published"]).default("draft").notNull(),
   viewCount: int("viewCount").default(0).notNull(),
   publishedAt: timestamp("publishedAt"),
