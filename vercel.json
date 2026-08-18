@@ -7,6 +7,10 @@
     {
       "source": "/manus-storage/:path*",
       "destination": "https://commonindex-ogwzsusn.manus.space/manus-storage/:path*"
+    },
+    {
+      "source": "/((?!api/|manus-storage/).*)",
+      "destination": "/index.html"
     }
   ]
 }
