@@ -35,6 +35,7 @@ export const articles = mysqlTable("articles", {
   categoryId: int("categoryId").notNull().references(() => categories.id),
   imageUrl: text("imageUrl"),
   imageAlt: text("imageAlt"),
+  citations: text("citations"),
   manuscriptUrl: text("manuscriptUrl"),
   status: mysqlEnum("status", ["draft", "published"]).default("draft").notNull(),
   viewCount: int("viewCount").default(0).notNull(),

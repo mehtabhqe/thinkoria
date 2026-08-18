@@ -60,7 +60,7 @@ export default function Forum() {
     <main className="min-h-screen bg-[#F3F0E8] text-[#171614]">
       <header className="border-b border-[#171614]/15">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 lg:px-12">
-          <a href="/" className="flex items-center gap-3"><img src="/manus-storage/common-index-mark_234d3c95.png" alt="" className="h-9 w-9 object-contain" /><span className="font-serif text-[21px] leading-none tracking-[-0.035em]">Thinkoria</span></a>
+          <a href="/" className="flex items-center gap-3"><img src="/manus-storage/thinkoria-logo_8998c7d8.png" alt="" className="h-9 w-9 object-contain" /><span className="font-serif text-[21px] leading-none tracking-[-0.035em]">Thinkoria</span></a>
           <div className="flex items-center gap-5 font-sans text-[10px] font-semibold uppercase tracking-[0.14em]"><a href="/catalogue" className="hidden sm:block nav-link">Catalogue</a><a href="/club" className="hidden sm:block nav-link">Nagaon Club</a><button onClick={openAccount} className="button-ink">{user ? "Start a thread" : "Create account"} <ArrowUpRight size={14} /></button></div>
         </div>
       </header>

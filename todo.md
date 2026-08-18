@@ -179,3 +179,14 @@
 - [x] Add duplicate-image warnings to the Editorial Desk category image manager.
 - [x] Publish a genuine History paper and verify its category-detail view.
 - [x] Run full checks, verify desktop/mobile catalogue states, and save a checkpoint.
+
+
+## Thinkoria logo and editorial operations upgrade
+
+- [x] Replace the existing logo mark and wordmark across public pages, Editorial Desk, favicon/metadata, and shared app branding using the supplied Thinkoria logo.
+- [x] Add admin controls to replace category images directly from the Category image manager, including upload, preview, persistence, and duplicate detection.
+- [x] Add article citations/references fields with Editorial Desk editing and public article rendering.
+- [x] Add published-paper PDF upload, persistence, and download/read links for editor-managed papers.
+- [x] Notify the project owner when a new paper submission or Nagaon Club application is created, with graceful notification failure handling.
+- [x] Add Vitest coverage for the new metadata, image replacement, PDF, and notification paths.
+- [x] Verify desktop/mobile UI, run TypeScript, tests, and production build, then save a checkpoint.

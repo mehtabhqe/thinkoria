@@ -160,6 +160,7 @@ function DashboardLayoutContent({
         >
           <SidebarHeader className="h-16 justify-center">
             <div className="flex items-center gap-3 px-2 transition-all w-full">
+              <img src="/manus-storage/thinkoria-logo_8998c7d8.png" alt="Thinkoria" className="h-10 w-24 object-contain object-left" />
               <button
                 onClick={toggleSidebar}
                 className="h-8 w-8 flex items-center justify-center hover:bg-accent rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shrink-0"

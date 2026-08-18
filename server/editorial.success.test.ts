@@ -5,6 +5,10 @@ vi.mock("./storage", () => ({
   storagePut: vi.fn().mockResolvedValue({ key: "submissions/test-paper.pdf", url: "/manus-storage/submissions/test-paper.pdf" }),
 }));
 
+vi.mock("./_core/notification", () => ({
+  notifyOwner: vi.fn().mockResolvedValue(true),
+}));
+
 vi.mock("./db", async () => {
   const actual = await vi.importActual<typeof import("./db")>("./db");
   return {
@@ -14,6 +18,7 @@ vi.mock("./db", async () => {
     createClubApplication: vi.fn().mockResolvedValue(505),
     createClubEvent: vi.fn().mockResolvedValue(606),
     updateClubEvent: vi.fn().mockResolvedValue(undefined),
+    updateCategoryImage: vi.fn().mockResolvedValue(undefined),
     deleteClubEvent: vi.fn().mockResolvedValue(undefined),
     listClubMembers: vi.fn().mockResolvedValue([{ membership: { id: 1, status: "active" }, user: { id: 8, name: "Member Eight" } }]),
     listClubApplications: vi.fn().mockResolvedValue([]),
@@ -28,6 +33,7 @@ vi.mock("./db", async () => {
 
 const { appRouter } = await import("./routers");
 const dbMocks = await import("./db");
+const notificationMocks = await import("./_core/notification");
 
 type TestUser = NonNullable<TrpcContext["user"]>;
 
@@ -67,6 +73,9 @@ describe("editorial success contracts", () => {
   it("uses the Thinkoria site title configuration", () => {
     expect(process.env.VITE_APP_TITLE).toBe("Thinkoria");
   });
+  it("uses the uploaded Thinkoria logo configuration", () => {
+    expect(process.env.VITE_APP_LOGO).toBe("/manus-storage/thinkoria-logo_8998c7d8.png");
+  });
   it("creates a valid submission", async () => {
     await expect(appRouter.createCaller(context(null)).submissions.create({
       name: "Ananya Sen",
@@ -76,6 +85,12 @@ describe("editorial success contracts", () => {
       abstract: "This paper asks how unfinished questions can make room for shared inquiry.",
       manuscriptUrl: "",
     })).resolves.toEqual({ id: 101, success: true });
+    expect(vi.mocked(notificationMocks.notifyOwner)).toHaveBeenCalledWith(expect.objectContaining({ title: "New Thinkoria paper submission" }));
+  });
+
+  it("does not block a paper submission when owner notification fails", async () => {
+    vi.mocked(notificationMocks.notifyOwner).mockRejectedValueOnce(new Error("notification unavailable"));
+    await expect(appRouter.createCaller(context(null)).submissions.create({ name: "Ananya Sen", email: "ananya@example.com", title: "A Quiet Submission", category: "History", abstract: "This paper asks how a record can remain active after its institution has changed.", manuscriptUrl: "" })).resolves.toEqual({ id: 101, success: true });
   });
 
   it("accepts a PDF payload through the upload contract", async () => {
@@ -108,9 +123,16 @@ describe("editorial success contracts", () => {
       categoryId: 1,
       imageUrl: "",
       imageAlt: "A marked notebook beside a stone on a reading table.",
+      citations: "1. A reference for the paper.",
+      manuscriptUrl: "/manus-storage/submissions/published-paper.pdf",
       status: "draft",
     })).resolves.toEqual({ id: 404, success: true });
-    expect(vi.mocked(dbMocks.createArticle)).toHaveBeenCalledWith(expect.objectContaining({ imageAlt: "A marked notebook beside a stone on a reading table." }));
+    expect(vi.mocked(dbMocks.createArticle)).toHaveBeenCalledWith(expect.objectContaining({ imageAlt: "A marked notebook beside a stone on a reading table.", citations: "1. A reference for the paper.", manuscriptUrl: "/manus-storage/submissions/published-paper.pdf" }));
+  });
+
+  it("updates a category image through the protected Editorial Desk contract", async () => {
+    await expect(appRouter.createCaller(context(admin)).admin.updateCategoryImage({ id: 9, imageUrl: "/manus-storage/editorial/linguistics.png" })).resolves.toEqual({ success: true });
+    expect(vi.mocked(dbMocks.updateCategoryImage)).toHaveBeenCalledWith(9, "/manus-storage/editorial/linguistics.png");
   });
 
   it("converts a reviewed submission into an editable draft article and preserves its manuscript PDF", async () => {
@@ -141,6 +163,7 @@ describe("editorial success contracts", () => {
       role: "mediator",
       note: "I have facilitated structured discussions and can keep a room attentive to the question.",
     })).resolves.toEqual({ id: 505, success: true });
+    expect(vi.mocked(notificationMocks.notifyOwner)).toHaveBeenCalledWith(expect.objectContaining({ title: "New Nagaon Club application" }));
   });
 
   it("submits a general debate role application before an event is scheduled", async () => {

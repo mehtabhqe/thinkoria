@@ -124,6 +124,12 @@ export async function createCategory(input: InsertCategory) {
   return result[0].insertId;
 }
 
+export async function updateCategoryImage(id: number, imageUrl: string | null) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(categories).set({ imageUrl }).where(eq(categories.id, id));
+}
+
 export async function createSubmission(input: typeof submissions.$inferInsert) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
