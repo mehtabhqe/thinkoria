@@ -1,4 +1,5 @@
 import { ArrowUpRight, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import { publicOrManusHref } from "@/lib/manusHandoff";
 
 const footerLinks = [
   ["About", "/about"],
@@ -24,7 +25,7 @@ export default function ThinkoriaFooter() {
           </div>
           <div>
             <p className="eyebrow !text-[#F3F0E8]/55"><span className="vermilion-dot" /> Navigate</p>
-            <nav className="mt-6 flex flex-col items-start gap-3" aria-label="Footer navigation">{footerLinks.map(([label, href]) => <a key={href} href={href} className="group inline-flex items-center gap-2 font-sans text-sm text-[#F3F0E8]/75 transition-colors hover:text-[#C8472C]">{label}<ArrowUpRight size={13} className="opacity-0 transition-opacity group-hover:opacity-100" /></a>)}</nav>
+            <nav className="mt-6 flex flex-col items-start gap-3" aria-label="Footer navigation">{footerLinks.map(([label, href]) => <a key={href} href={href === "/club" || href === "/forum" || href === "/submit" ? publicOrManusHref(href) : href} className="group inline-flex items-center gap-2 font-sans text-sm text-[#F3F0E8]/75 transition-colors hover:text-[#C8472C]">{label}<ArrowUpRight size={13} className="opacity-0 transition-opacity group-hover:opacity-100" /></a>)}</nav>
           </div>
           <div>
             <p className="eyebrow !text-[#F3F0E8]/55"><span className="vermilion-dot" /> Find the room</p>

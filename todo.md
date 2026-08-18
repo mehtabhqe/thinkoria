@@ -262,3 +262,17 @@
 - [x] Use Vercel only for public frontend preview and read-only public data through Manus rewrites.
 - [x] Do not create or connect Supabase, migrate data, or replace Manus services without a separate explicit approval.
 - [x] Leave the Vercel OAuth allowlist unchanged because authenticated Vercel usage is intentionally out of scope for the approved public-preview architecture.
+
+
+## Vercel OAuth callback allowlist
+
+- [x] Inspect Manus Developer settings; only API keys and webhooks are exposed, with no OAuth redirect allowlist.
+- [ ] Add `https://thinkoria-site-mehtabalh-gmailcoms-projects.vercel.app/api/oauth/callback` through a Manus OAuth application setting if Manus support or project controls expose one; do not create an API key.
+- [ ] Retest Vercel sign-in and authenticated session behavior.
+
+
+## Manus-live handoff from Vercel
+
+- [ ] Inspect public navigation and interactive actions for environment-specific handoff behavior.
+- [ ] Route Vercel Sign in, Submit, Forum, Club, and Editorial Desk actions to the live Manus application without changing Manus behavior.
+- [ ] Redeploy and verify public browsing plus handoff links, then save a checkpoint.

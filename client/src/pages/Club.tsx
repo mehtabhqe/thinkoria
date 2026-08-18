@@ -2,6 +2,7 @@ import ThinkoriaFooter from "@/components/ThinkoriaFooter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
+import { isVercelPreview, manusHref } from "@/lib/manusHandoff";
 import { ArrowUpRight, CalendarDays, MapPin, Users } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -29,8 +30,22 @@ export default function Club() {
   const joinMutation = trpc.club.join.useMutation({ onSuccess: () => { toast.success("You are on the Nagaon Club list."); setMemberOpen(false); }, onError: (error) => toast.error(error.message) });
   const applicationMutation = trpc.club.submitApplication.useMutation({ onSuccess: () => { toast.success("Your debate role application has been received."); setApplicationOpen(false); setRole("debator"); setOtherRole(""); setNote(""); }, onError: (error) => toast.error(error.message) });
   const event = eventsQuery.data?.[0];
-  const joinClub = () => { if (!user) { startLogin(); return; } joinMutation.mutate(); };
-  const openApplication = () => { if (!user) { startLogin(); return; } setApplicationOpen(true); };
+  const joinClub = () => {
+    if (isVercelPreview()) {
+      window.location.href = manusHref("/club");
+      return;
+    }
+    if (!user) { startLogin(); return; }
+    joinMutation.mutate();
+  };
+  const openApplication = () => {
+    if (isVercelPreview()) {
+      window.location.href = manusHref("/club");
+      return;
+    }
+    if (!user) { startLogin(); return; }
+    setApplicationOpen(true);
+  };
   const submitApplication = (submission: React.FormEvent) => { submission.preventDefault(); applicationMutation.mutate({ eventId: event?.id, role, otherRole: role === "other" ? otherRole : undefined, note: note || undefined }); };
   const dateLabel = event ? new Date(event.eventDate).toLocaleDateString("en-GB", { weekday: "long", day: "2-digit", month: "short" }) : "To be announced";
   const timeLabel = event ? new Date(event.eventDate).toLocaleTimeString("en-GB", { hour: "numeric", minute: "2-digit" }) : "A new date will be shared soon";
