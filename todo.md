@@ -139,3 +139,9 @@
 
 - [x] Restrict the uploaded debate photo to the upper hero image area and keep the topic content on a solid dark panel.
 - [x] Verify desktop/mobile rendering and save a checkpoint.
+
+## Thinkoria rebrand
+
+- [x] Change the shared site title from The Common Index to Thinkoria.
+- [x] Replace visible platform taglines and brand labels with Thinkoria and “A place of ideas.”
+- [x] Verify browser title, navigation, homepage, Club page, and Editorial Desk branding, then save a checkpoint.

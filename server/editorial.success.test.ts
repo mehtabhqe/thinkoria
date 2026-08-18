@@ -64,6 +64,9 @@ const member: TestUser = {
 };
 
 describe("editorial success contracts", () => {
+  it("uses the Thinkoria site title configuration", () => {
+    expect(process.env.VITE_APP_TITLE).toBe("Thinkoria");
+  });
   it("creates a valid submission", async () => {
     await expect(appRouter.createCaller(context(null)).submissions.create({
       name: "Ananya Sen",
