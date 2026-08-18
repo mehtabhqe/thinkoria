@@ -276,3 +276,8 @@
 - [ ] Inspect public navigation and interactive actions for environment-specific handoff behavior.
 - [ ] Route Vercel Sign in, Submit, Forum, Club, and Editorial Desk actions to the live Manus application without changing Manus behavior.
 - [ ] Redeploy and verify public browsing plus handoff links, then save a checkpoint.
+
+## Vercel blank-page bug
+
+- [ ] Diagnose and fix the blank https://thinkoria.vercel.app/ Vercel deployment without changing the Manus backend or database.
+- [ ] Verify the repaired Vercel homepage and interactive handoff links.
