@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { trpc } from "@/lib/trpc";
+import { fileToBase64 } from "@/lib/fileToBase64";
 import { ArrowLeft, ArrowUpRight, Check, Loader2, Upload } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -21,8 +22,7 @@ export default function Submit() {
     try {
       let manuscriptUrl = "";
       if (file) {
-        const buffer = await file.arrayBuffer();
-        const data = btoa(String.fromCharCode(...Array.from(new Uint8Array(buffer))));
+        const data = await fileToBase64(file);
         const uploaded = await uploadMutation.mutateAsync({ fileName: file.name, contentType: file.type || "application/octet-stream", data });
         manuscriptUrl = uploaded.url;
       }

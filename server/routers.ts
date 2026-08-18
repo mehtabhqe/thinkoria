@@ -6,6 +6,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { storagePut } from "./storage";
 import {
   createArticle,
+  createForumPost,
   createForumThread,
   createSubmission,
   deleteArticle,
@@ -15,6 +16,7 @@ import {
   listAdminArticles,
   listCategories,
   listClubEvents,
+  listForumPosts,
   listForumThreads,
   listPublishedArticles,
   updateArticle,
@@ -51,7 +53,14 @@ export const appRouter = router({
     file: publicProcedure.input(z.object({ fileName: z.string().min(1).max(180), contentType: z.string().min(3).max(120), data: z.string().min(1).max(14_000_000) })).mutation(async ({ input }) => {
       const buffer = Buffer.from(input.data, "base64");
       if (buffer.byteLength > 10 * 1024 * 1024) throw new Error("Files must be 10 MB or smaller");
-      return storagePut(`submissions/${input.fileName}`, buffer, input.contentType);
+      const safeFileName = input.fileName.replace(/[^a-zA-Z0-9._-]/g, "-");
+      return storagePut(`submissions/${Date.now()}-${safeFileName}`, buffer, input.contentType);
+    }),
+    adminImage: adminProcedure.input(z.object({ fileName: z.string().min(1).max(180), contentType: z.string().startsWith("image/"), data: z.string().min(1).max(14_000_000) })).mutation(async ({ input }) => {
+      const buffer = Buffer.from(input.data, "base64");
+      if (buffer.byteLength > 10 * 1024 * 1024) throw new Error("Images must be 10 MB or smaller");
+      const safeFileName = input.fileName.replace(/[^a-zA-Z0-9._-]/g, "-");
+      return storagePut(`editorial/${Date.now()}-${safeFileName}`, buffer, input.contentType);
     }),
   }),
   submissions: router({
@@ -63,7 +72,9 @@ export const appRouter = router({
   }),
   forum: router({
     threads: publicProcedure.query(() => listForumThreads()),
+    posts: publicProcedure.input(z.object({ threadId: z.number().int().positive() })).query(({ input }) => listForumPosts(input.threadId)),
     createThread: protectedProcedure.input(z.object({ title: z.string().min(5).max(240), body: z.string().min(20), category: z.string().min(2) })).mutation(({ input, ctx }) => createForumThread({ ...input, authorId: ctx.user.id }).then(id => ({ id, success: true }))),
+    createPost: protectedProcedure.input(z.object({ threadId: z.number().int().positive(), body: z.string().min(10).max(5000) })).mutation(({ input, ctx }) => createForumPost({ ...input, authorId: ctx.user.id }).then(id => ({ id, success: true }))),
   }),
   admin: router({
     articles: adminProcedure.query(() => listAdminArticles()),

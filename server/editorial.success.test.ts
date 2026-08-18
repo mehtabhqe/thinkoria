@@ -7,6 +7,7 @@ vi.mock("./db", async () => {
     ...actual,
     createSubmission: vi.fn().mockResolvedValue(101),
     createForumThread: vi.fn().mockResolvedValue(202),
+    createForumPost: vi.fn().mockResolvedValue(303),
   };
 });
 
@@ -52,5 +53,12 @@ describe("editorial success contracts", () => {
       body: "How might we keep a thought open without losing the responsibility to make an argument?",
       category: "Philosophy",
     })).resolves.toEqual({ id: 202, success: true });
+  });
+
+  it("creates a forum reply for an authenticated member", async () => {
+    await expect(appRouter.createCaller(context(member)).forum.createPost({
+      threadId: 202,
+      body: "The unfinished question may be where responsibility begins, rather than where it ends.",
+    })).resolves.toEqual({ id: 303, success: true });
   });
 });

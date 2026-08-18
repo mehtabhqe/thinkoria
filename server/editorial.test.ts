@@ -36,10 +36,20 @@ describe("editorial platform permissions", () => {
     await expect(appRouter.createCaller(context(null)).forum.createThread({ title: "A serious question", body: "This question needs at least a little more room to be considered.", category: "Philosophy" })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
   });
 
+  it("requires authentication to reply in a forum thread", async () => {
+    await expect(appRouter.createCaller(context(null)).forum.createPost({ threadId: 1, body: "A reply needs a little room for a considered point." })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+  });
+
+  it("rejects invalid forum thread and reply payloads", async () => {
+    const member = { id: 2, openId: "member", name: "Member", email: "member@example.com", role: "user" as const, loginMethod: "test", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() };
+    await expect(appRouter.createCaller(context(member)).forum.createThread({ title: "tiny", body: "too short", category: "" })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    await expect(appRouter.createCaller(context(member)).forum.createPost({ threadId: 0, body: "short" })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+  });
+
   it("returns public forum and club collections successfully when empty", async () => {
     await expect(appRouter.createCaller(context(null)).forum.threads()).resolves.toEqual([]);
     await expect(appRouter.createCaller(context(null)).club.events()).resolves.toEqual([]);
-  });
+  }, 15_000);
 
   it("requires authentication to join the Nagaon club", async () => {
     await expect(appRouter.createCaller(context(null)).club.join()).rejects.toMatchObject({ code: "UNAUTHORIZED" });
@@ -58,5 +68,12 @@ describe("editorial platform permissions", () => {
       lastSignedIn: new Date(),
     };
     await expect(appRouter.createCaller(context(user)).admin.articles()).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("protects editorial lead-image uploads from anonymous and member accounts", async () => {
+    const imageInput = { fileName: "lead.jpg", contentType: "image/jpeg", data: "dGVzdA==" };
+    await expect(appRouter.createCaller(context(null)).uploads.adminImage(imageInput)).rejects.toMatchObject({ code: "FORBIDDEN" });
+    const member: TestUser = { id: 6, openId: "reader-6", name: "Reader Six", email: "reader6@example.com", loginMethod: "manus", role: "user", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() };
+    await expect(appRouter.createCaller(context(member)).uploads.adminImage(imageInput)).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 });

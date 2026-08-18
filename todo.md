@@ -73,3 +73,18 @@
 - [x] Exercise the forum account gate and empty state in-browser; authenticated success is covered by isolated contract tests because no member session is available.
 - [x] Exercise the anonymous admin gate in-browser; authenticated editor validation requires a real admin session and is covered by permission/type tests.
 - [x] Record the state evidence and run a final checkpoint validation.
+
+## Launch-readiness audit
+
+- [x] Audit editorial desk create/edit/publish/unpublish flows and identify launch blockers.
+- [x] Audit public routes, tRPC requests, database-backed catalogue, submissions, club, forum, and authentication states.
+- [x] Replace category imagery with a complete, subject-specific image set and verify all asset paths.
+- [x] Fix confirmed runtime, validation, navigation, data, accessibility, and responsive bugs.
+- [x] Add regression tests for launch-critical publishing and public flows.
+- [x] Run final diagnostics, visual verification, and save a launch-ready checkpoint.
+
+- [x] Make the forum fully working with persisted threads, authenticated posting, reliable refresh, and complete loading/empty/error states.
+- [x] Add regression coverage for forum thread listing, creation, validation, and permission behavior.
+
+- [x] Add persisted forum replies so members can discuss inside a thread, not only create top-level topics.
+- [x] Add loading/error handling for the admin article list so in-flight queries never look like an empty desk.

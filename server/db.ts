@@ -4,6 +4,7 @@ import {
   articles,
   categories,
   clubMemberships,
+  forumPosts,
   forumThreads,
   InsertArticle,
   InsertCategory,
@@ -154,5 +155,21 @@ export async function createForumThread(input: { authorId: number; title: string
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const result = await db.insert(forumThreads).values(input);
+  return result[0].insertId;
+}
+
+export async function listForumPosts(threadId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ post: forumPosts, author: users }).from(forumPosts)
+    .innerJoin(users, eq(forumPosts.authorId, users.id))
+    .where(eq(forumPosts.threadId, threadId))
+    .orderBy(asc(forumPosts.createdAt));
+}
+
+export async function createForumPost(input: { threadId: number; authorId: number; body: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const result = await db.insert(forumPosts).values(input);
   return result[0].insertId;
 }
