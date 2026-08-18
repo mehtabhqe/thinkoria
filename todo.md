@@ -95,3 +95,15 @@
 - [x] Fix editorial desk new-article `imageUrl` invalid URL validation when the image field is empty or optional.
 - [x] Add regression tests for empty image URL article creation and PDF upload validation/encoding.
 - [x] Retest submit and editorial desk flows, then save a bug-fix checkpoint.
+
+## Editorial review queue and desk resilience
+
+- [x] Diagnose intermittent admin article-record loading failures and preserve a retryable error state.
+- [x] Add admin access to submitted papers with review status and manuscript links.
+- [x] Add submission detail/review actions so editors can approve, reject, or convert a submission into a draft article.
+- [x] Add a clear desk location and status flow for submitted papers awaiting review.
+- [x] Test submission-to-review-to-publish behavior and save a checkpoint.
+
+- [x] Add explicit Approve and Reject controls to the Editorial Desk review queue, wired to submission status updates with feedback.
+- [x] Perform a browser-level submission review, draft conversion, and publish verification, then save a final checkpoint.
+### End of file

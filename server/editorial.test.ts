@@ -55,7 +55,7 @@ describe("editorial platform permissions", () => {
     await expect(appRouter.createCaller(context(null)).club.join()).rejects.toMatchObject({ code: "UNAUTHORIZED" });
   });
 
-  it("blocks non-admin users from the editorial desk", async () => {
+  it("blocks non-admin users from the editorial desk and submission review queue", async () => {
     const user: TestUser = {
       id: 5,
       openId: "reader-5",
@@ -68,6 +68,8 @@ describe("editorial platform permissions", () => {
       lastSignedIn: new Date(),
     };
     await expect(appRouter.createCaller(context(user)).admin.articles()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(appRouter.createCaller(context(user)).admin.submissions()).rejects.toMatchObject({ code: "FORBIDDEN" });
+    await expect(appRouter.createCaller(context(user)).admin.updateSubmission({ id: 1, status: "reviewing" })).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 
   it("protects editorial lead-image uploads from anonymous and member accounts", async () => {

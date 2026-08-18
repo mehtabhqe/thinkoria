@@ -11,6 +11,8 @@ vi.mock("./db", async () => {
     ...actual,
     createSubmission: vi.fn().mockResolvedValue(101),
     createArticle: vi.fn().mockResolvedValue(404),
+    getSubmissionById: vi.fn().mockResolvedValue({ id: 7, name: "Submitted Author", email: "author@example.com", title: "A Considered Paper", category: "Philosophy", abstract: "An abstract with enough length for the conversion contract to accept and create a draft article.", manuscriptUrl: "/manus-storage/submissions/paper.pdf", status: "reviewing", createdAt: new Date(), updatedAt: new Date() }),
+    updateSubmissionStatus: vi.fn().mockResolvedValue(undefined),
     createForumThread: vi.fn().mockResolvedValue(202),
     createForumPost: vi.fn().mockResolvedValue(303),
   };
@@ -94,6 +96,14 @@ describe("editorial success contracts", () => {
       categoryId: 1,
       imageUrl: "",
       status: "draft",
+    })).resolves.toEqual({ id: 404, success: true });
+  });
+
+  it("converts a reviewed submission into an editable draft article", async () => {
+    await expect(appRouter.createCaller(context(admin)).admin.convertSubmission({
+      id: 7,
+      categoryId: 1,
+      slug: "a-considered-paper-7",
     })).resolves.toEqual({ id: 404, success: true });
   });
 

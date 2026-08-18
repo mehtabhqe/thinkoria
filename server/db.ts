@@ -128,6 +128,25 @@ export async function createSubmission(input: typeof submissions.$inferInsert) {
   return result[0].insertId;
 }
 
+export async function listAdminSubmissions() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(submissions).orderBy(desc(submissions.createdAt));
+}
+
+export async function updateSubmissionStatus(id: number, status: "received" | "reviewing" | "accepted" | "declined") {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(submissions).set({ status }).where(eq(submissions.id, id));
+}
+
+export async function getSubmissionById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(submissions).where(eq(submissions.id, id)).limit(1);
+  return result[0];
+}
+
 export async function joinClub(userId: number) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");

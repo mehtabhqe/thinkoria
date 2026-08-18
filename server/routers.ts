@@ -14,12 +14,15 @@ import {
   incrementArticleView,
   joinClub,
   listAdminArticles,
+  listAdminSubmissions,
   listCategories,
   listClubEvents,
   listForumPosts,
   listForumThreads,
   listPublishedArticles,
   updateArticle,
+  updateSubmissionStatus,
+  getSubmissionById,
 } from "./db";
 
 const storageReference = z.string().refine(
@@ -83,6 +86,25 @@ export const appRouter = router({
   }),
   admin: router({
     articles: adminProcedure.query(() => listAdminArticles()),
+    submissions: adminProcedure.query(() => listAdminSubmissions()),
+    updateSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["received", "reviewing", "accepted", "declined"]) })).mutation(({ input }) => updateSubmissionStatus(input.id, input.status).then(() => ({ success: true }))),
+    convertSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), categoryId: z.number().int().positive(), slug: z.string().min(3).max(180), imageUrl: storageReference.optional() })).mutation(async ({ input }) => {
+      const submission = await getSubmissionById(input.id);
+      if (!submission) throw new Error("Submission not found");
+      const articleId = await createArticle({
+        slug: input.slug,
+        title: submission.title,
+        excerpt: submission.abstract,
+        body: submission.abstract,
+        authorName: submission.name,
+        categoryId: input.categoryId,
+        imageUrl: input.imageUrl || null,
+        status: "draft",
+        publishedAt: null,
+      });
+      await updateSubmissionStatus(input.id, "accepted");
+      return { id: articleId, success: true };
+    }),
     createArticle: adminProcedure.input(articleInput).mutation(({ input }) => createArticle({ ...input, imageUrl: input.imageUrl || null, publishedAt: input.status === "published" ? new Date() : null }).then(id => ({ id, success: true }))),
     updateArticle: adminProcedure.input(articleInput.extend({ id: z.number().int().positive() })).mutation(({ input }) => { const { id, ...data } = input; return updateArticle(id, { ...data, imageUrl: data.imageUrl || null, publishedAt: data.status === "published" ? new Date() : null }).then(() => ({ success: true })); }),
     publishArticle: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["draft", "published"]) })).mutation(({ input }) => updateArticle(input.id, { status: input.status, publishedAt: input.status === "published" ? new Date() : null }).then(() => ({ success: true }))),
