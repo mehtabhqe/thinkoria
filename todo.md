@@ -134,3 +134,8 @@
 - [x] Add an image upload control in the Editorial Desk club event form above the debate topic field.
 - [x] Display the selected event photo in the public Club hero with an N fallback when no photo exists.
 - [x] Add regression coverage and browser verification for club photo upload/display, then save a checkpoint.
+
+## Club hero photo composition
+
+- [x] Restrict the uploaded debate photo to the upper hero image area and keep the topic content on a solid dark panel.
+- [x] Verify desktop/mobile rendering and save a checkpoint.
