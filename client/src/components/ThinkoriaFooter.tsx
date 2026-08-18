@@ -14,7 +14,7 @@ export default function ThinkoriaFooter() {
       <div className="mx-auto max-w-[1440px] px-6 py-14 lg:px-12 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_.7fr_.8fr] lg:gap-20">
           <div>
-            <div className="flex min-h-16 items-center" data-footer-brand="thinkoria"><img src="/manus-storage/thinkoria-logo_8998c7d8.png" alt="Thinkoria" className="h-16 w-40 object-contain object-left brightness-0 invert" /></div>
+            <div className="flex h-20 w-20 items-center justify-center bg-[#F3F0E8] p-1.5" data-footer-brand="thinkoria"><img src="/manus-storage/thinkoria-logo_8998c7d8.png" alt="Thinkoria" className="h-full w-full object-contain" /></div>
             <p className="mt-6 max-w-[360px] font-serif text-3xl leading-[.98] text-[#F3F0E8]">A place of ideas.</p>
             <p className="mt-5 max-w-[390px] font-sans text-sm leading-7 text-[#F3F0E8]/60">An independent publishing room for papers, essays, conversation, and work still becoming.</p>
             <div className="mt-7 flex flex-wrap gap-3">

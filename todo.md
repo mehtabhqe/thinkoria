@@ -218,3 +218,9 @@
 
 - [x] Verify the footer logo target and ensure the supplied Thinkoria logo is present in the intended container.
 - [x] Re-verify the footer on desktop/mobile and save a fresh checkpoint.
+
+
+## Footer logo placement correction
+
+- [x] Move the Thinkoria logo into the blank light container directly above “A place of ideas.” and remove the duplicate dark-container logo.
+- [x] Verify the updated footer on desktop/mobile, run checks/build, and save a checkpoint.
