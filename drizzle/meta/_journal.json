@@ -36,6 +36,13 @@
       "when": 1787068304042,
       "tag": "0004_rare_the_liberteens",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1787074937870,
+      "tag": "0005_late_living_lightning",
+      "breakpoints": true
     }
   ]
 }

@@ -152,3 +152,11 @@
 - [x] Add a clear Thinkoria brand statement to the About page explaining “A place of ideas.”
 - [x] Replace catalogue and category imagery with relevant, cohesive intellectual visual assets.
 - [x] Verify the refreshed imagery and branding across catalogue, homepage, About, and Editorial Desk, then save a checkpoint.
+
+## Catalogue accessibility and failed-image repair
+
+- [x] Add article image alt text to the data model and Editorial Desk form.
+- [x] Use stored alt text on catalogue cards and public article images with safe fallbacks.
+- [x] Add a Thinkoria catalogue visual-language guide for future editors.
+- [x] Replace all failed or placeholder catalogue images with reliable category-specific assets and verify them in the browser.
+- [x] Run regression checks and save a checkpoint.

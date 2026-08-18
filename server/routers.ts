@@ -45,6 +45,7 @@ const articleInput = z.object({
   authorName: z.string().min(2).max(180),
   categoryId: z.number().int().positive(),
   imageUrl: storageReference.optional(),
+  imageAlt: z.string().max(300).optional(),
   manuscriptUrl: storageReference.optional(),
   status: z.enum(["draft", "published"]).default("draft"),
 });
@@ -97,7 +98,7 @@ export const appRouter = router({
     articles: adminProcedure.query(() => listAdminArticles()),
     submissions: adminProcedure.query(() => listAdminSubmissions()),
     updateSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["received", "reviewing", "accepted", "declined"]) })).mutation(({ input }) => updateSubmissionStatus(input.id, input.status).then(() => ({ success: true }))),
-    convertSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), categoryId: z.number().int().positive(), slug: z.string().min(3).max(180), imageUrl: storageReference.optional() })).mutation(async ({ input }) => {
+    convertSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), categoryId: z.number().int().positive(), slug: z.string().min(3).max(180), imageUrl: storageReference.optional(), imageAlt: z.string().max(300).optional() })).mutation(async ({ input }) => {
       const submission = await getSubmissionById(input.id);
       if (!submission) throw new Error("Submission not found");
       const articleId = await createArticle({
@@ -108,6 +109,7 @@ export const appRouter = router({
         authorName: submission.name,
         categoryId: input.categoryId,
         imageUrl: input.imageUrl || null,
+        imageAlt: input.imageAlt || null,
         manuscriptUrl: submission.manuscriptUrl || null,
         status: "draft",
         publishedAt: null,
@@ -115,8 +117,8 @@ export const appRouter = router({
       await updateSubmissionStatus(input.id, "accepted");
       return { id: articleId, success: true };
     }),
-    createArticle: adminProcedure.input(articleInput).mutation(({ input }) => createArticle({ ...input, imageUrl: input.imageUrl || null, manuscriptUrl: input.manuscriptUrl || null, publishedAt: input.status === "published" ? new Date() : null }).then(id => ({ id, success: true }))),
-    updateArticle: adminProcedure.input(articleInput.extend({ id: z.number().int().positive() })).mutation(({ input }) => { const { id, ...data } = input; return updateArticle(id, { ...data, imageUrl: data.imageUrl || null, manuscriptUrl: data.manuscriptUrl || null, publishedAt: data.status === "published" ? new Date() : null }).then(() => ({ success: true })); }),
+    createArticle: adminProcedure.input(articleInput).mutation(({ input }) => createArticle({ ...input, imageUrl: input.imageUrl || null, imageAlt: input.imageAlt || null, manuscriptUrl: input.manuscriptUrl || null, publishedAt: input.status === "published" ? new Date() : null }).then(id => ({ id, success: true }))),
+    updateArticle: adminProcedure.input(articleInput.extend({ id: z.number().int().positive() })).mutation(({ input }) => { const { id, ...data } = input; return updateArticle(id, { ...data, imageUrl: data.imageUrl || null, imageAlt: data.imageAlt || null, manuscriptUrl: data.manuscriptUrl || null, publishedAt: data.status === "published" ? new Date() : null }).then(() => ({ success: true })); }),
     publishArticle: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["draft", "published"]) })).mutation(({ input }) => updateArticle(input.id, { status: input.status, publishedAt: input.status === "published" ? new Date() : null }).then(() => ({ success: true }))),
     deleteArticle: adminProcedure.input(z.object({ id: z.number().int().positive() })).mutation(({ input }) => deleteArticle(input.id).then(() => ({ success: true }))),
     clubMembers: adminProcedure.query(() => listClubMembers()),

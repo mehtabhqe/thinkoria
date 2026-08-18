@@ -98,7 +98,7 @@ describe("editorial success contracts", () => {
     })).resolves.toEqual({ id: 101, success: true });
   });
 
-  it("accepts an optional empty lead image when creating an article", async () => {
+  it("accepts an optional empty lead image and accessible alt text when creating an article", async () => {
     await expect(appRouter.createCaller(context(admin)).admin.createArticle({
       slug: "a-new-paper",
       title: "A new paper from the desk",
@@ -107,8 +107,10 @@ describe("editorial success contracts", () => {
       authorName: "Editorial Desk",
       categoryId: 1,
       imageUrl: "",
+      imageAlt: "A marked notebook beside a stone on a reading table.",
       status: "draft",
     })).resolves.toEqual({ id: 404, success: true });
+    expect(vi.mocked(dbMocks.createArticle)).toHaveBeenCalledWith(expect.objectContaining({ imageAlt: "A marked notebook beside a stone on a reading table." }));
   });
 
   it("converts a reviewed submission into an editable draft article and preserves its manuscript PDF", async () => {
