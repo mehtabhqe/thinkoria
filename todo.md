@@ -233,3 +233,10 @@
 - [ ] Push the verified project to a private GitHub repository and configure Vercel environment values without exposing secrets.
 - [ ] Deploy a Vercel-provided preview domain and test public and backend-dependent flows.
 - [ ] Report the Vercel URL and any compatibility limitations before custom-domain setup.
+
+
+## Personal Vercel Hobby deployment
+
+- [ ] Retry Vercel deployment in the personal Hobby account rather than the team scope.
+- [ ] Keep Manus backend, database, OAuth, storage, and notifications as the system of record.
+- [ ] Verify the personal Vercel preview and report its URL or any remaining permission blocker.
