@@ -166,3 +166,9 @@
 - [x] Identify every catalogue/category card still displaying an image-generation failure or broken image reference.
 - [x] Replace broken references with verified Thinkoria category-specific assets and strengthen runtime fallback behavior.
 - [x] Verify all catalogue views on desktop and mobile, run checks, and save a checkpoint.
+
+## Catalogue image uniqueness
+
+- [x] Audit category and article image mappings for duplicated assets.
+- [x] Add a distinct biblical or ritual Religion image and remap any other duplicated category assets.
+- [x] Verify all catalogue imagery on desktop and mobile, run checks, and save a checkpoint.
