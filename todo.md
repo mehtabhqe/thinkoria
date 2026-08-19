@@ -401,3 +401,7 @@
 ## Support email footer
 
 - [x] Add support@thinkoria.space to the footer with a working mailto link, verify it, and save a checkpoint.
+
+## Footer release
+
+- [ ] Commit and push the recent footer updates, then trigger and verify the connected deployment.
