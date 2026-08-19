@@ -376,5 +376,5 @@
 
 ## Card-alignment release
 
-- [ ] Commit and push the verified homepage and catalogue card-alignment changes to the private Thinkoria GitHub repository.
-- [ ] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
+- [x] Commit and push the verified homepage and catalogue card-alignment changes to the private Thinkoria GitHub repository.
+- [x] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
