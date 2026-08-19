@@ -311,3 +311,8 @@
 
 - [x] Update Club join controls so signed-in users do not see the generic “Sign in to join club” prompt.
 - [x] Verify signed-out and signed-in Club states, then save a checkpoint.
+
+## Nagaon Club already-member button
+
+- [x] Change the signed-in Club button to a disabled muted “Already a member” state while preserving the signed-out join flow.
+- [x] Verify the disabled authenticated state and signed-out active state, then save a checkpoint.
