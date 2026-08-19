@@ -440,7 +440,7 @@
 
 ## Club post-login return and mobile login UX
 
-- [ ] Audit OAuth state/callback handling and Club action context for a safe return path.
-- [ ] Return users to the specific Club action after successful login without accepting unsafe external redirect targets.
-- [ ] Optimize the direct Sign In and Club login route for small screens and verify responsive behavior.
-- [ ] Run OAuth safety, Club action, and mobile regression tests, then save a checkpoint.
+- [x] Audit OAuth state/callback handling and Club action context for a safe return path.
+- [x] Return users to the specific Club action after successful login without accepting unsafe external redirect targets.
+- [x] Optimize the direct Sign In and Club login route for small screens and verify responsive behavior.
+- [x] Run OAuth safety, Club action, and mobile regression tests, then save a checkpoint.
