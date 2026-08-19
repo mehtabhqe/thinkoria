@@ -12,7 +12,18 @@ export const OAUTH_STATE_COOKIE = "__Host-oauth_state";
 
 // `state` carries the callback redirect URI (used at token exchange) plus the
 // CSRF nonce. Defined here so the client encoder and server decoder never drift.
-export type OAuthState = { redirectUri: string; nonce?: string };
+export type OAuthState = { redirectUri: string; nonce?: string; returnPath?: string };
+
+export const normalizeReturnPath = (value: unknown, fallback = "/"): string => {
+  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) return fallback;
+  try {
+    const parsed = new URL(value, "https://thinkoria.invalid");
+    if (parsed.origin !== "https://thinkoria.invalid") return fallback;
+    return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+  } catch {
+    return fallback;
+  }
+};
 
 export const encodeOAuthState = (state: OAuthState): string =>
   btoa(JSON.stringify(state));

@@ -2,9 +2,9 @@ import ThinkoriaFooter from "@/components/ThinkoriaFooter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { isVercelPreview, manusHref } from "@/lib/manusHandoff";
+import { isVercelPreview, manusLoginHref } from "@/lib/manusHandoff";
 import { ArrowUpRight, CalendarDays, MapPin, Users } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const roles = [
@@ -26,13 +26,20 @@ export default function Club() {
   const [otherRole, setOtherRole] = useState("");
   const [note, setNote] = useState("");
   const { user } = useAuth();
+  const clubAction = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("clubAction");
+  useEffect(() => {
+    if (!user || !clubAction) return;
+    if (clubAction === "join") setMemberOpen(true);
+    if (clubAction === "apply") setApplicationOpen(true);
+    window.history.replaceState({}, "", "/club");
+  }, [clubAction, user]);
   const eventsQuery = trpc.club.events.useQuery();
   const joinMutation = trpc.club.join.useMutation({ onSuccess: () => { toast.success("You are on the Nagaon Club list."); setMemberOpen(false); }, onError: (error) => toast.error(error.message) });
   const applicationMutation = trpc.club.submitApplication.useMutation({ onSuccess: () => { toast.success("Your debate role application has been received."); setApplicationOpen(false); setRole("debator"); setOtherRole(""); setNote(""); }, onError: (error) => toast.error(error.message) });
   const event = eventsQuery.data?.[0];
   const joinClub = () => {
     if (isVercelPreview()) {
-      window.location.href = manusHref("/auth/login");
+      window.location.href = manusLoginHref("/club?clubAction=join");
       return;
     }
     if (!user) { startLogin(); return; }
@@ -40,7 +47,7 @@ export default function Club() {
   };
   const openApplication = () => {
     if (isVercelPreview()) {
-      window.location.href = manusHref("/auth/login");
+      window.location.href = manusLoginHref("/club?clubAction=apply");
       return;
     }
     if (!user) { startLogin(); return; }

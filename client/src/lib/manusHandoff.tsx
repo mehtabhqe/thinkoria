@@ -16,6 +16,10 @@ export function manusHref(path = "/") {
   return `${MANUS_APP_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
+export function manusLoginHref(returnPath = "/") {
+  return manusHref(`/auth/login?returnPath=${encodeURIComponent(returnPath)}`);
+}
+
 export function publicOrManusHref(path: string) {
   return isPublicMirror() ? manusHref(path) : path;
 }

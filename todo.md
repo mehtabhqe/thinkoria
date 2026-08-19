@@ -437,3 +437,10 @@
 
 - [x] Make Sign In and Club join actions open the Manus login page directly instead of first opening a Manus copy of the current page.
 - [x] Verify the direct Manus login route and signed-in Manus handoff behavior; production deployment is Ready.
+
+## Club post-login return and mobile login UX
+
+- [ ] Audit OAuth state/callback handling and Club action context for a safe return path.
+- [ ] Return users to the specific Club action after successful login without accepting unsafe external redirect targets.
+- [ ] Optimize the direct Sign In and Club login route for small screens and verify responsive behavior.
+- [ ] Run OAuth safety, Club action, and mobile regression tests, then save a checkpoint.

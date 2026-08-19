@@ -1,10 +1,15 @@
 import { useEffect } from "react";
 import { startLogin } from "@/const";
+import { normalizeReturnPath } from "@shared/const";
 
 export default function ManusLoginRedirect() {
+  const returnPath = typeof window === "undefined"
+    ? "/"
+    : normalizeReturnPath(new URLSearchParams(window.location.search).get("returnPath"));
+
   useEffect(() => {
-    startLogin();
-  }, []);
+    startLogin(returnPath);
+  }, [returnPath]);
 
   return (
     <main className="oauth-redirect-overlay" aria-live="polite" aria-busy="true">

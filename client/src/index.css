@@ -128,3 +128,10 @@ button:not(:disabled), a[href] { cursor: pointer; }
 .oauth-redirect-message { margin: 5px 0 0; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 13px; line-height: 1.45; color: rgb(23 22 20 / .62); }
 @keyframes oauth-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .oauth-redirect-spinner { animation: none; } }
+
+@media (max-width: 480px) {
+  .oauth-redirect-overlay { padding: 16px; }
+  .oauth-redirect-card { width: 100%; gap: 12px; padding: 18px; }
+  .oauth-redirect-title { font-size: 10px; letter-spacing: .1em; }
+  .oauth-redirect-message { font-size: 12px; line-height: 1.4; }
+}

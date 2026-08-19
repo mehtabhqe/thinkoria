@@ -1,4 +1,4 @@
-import { OAUTH_STATE_COOKIE, encodeOAuthState } from "@shared/const";
+import { OAUTH_STATE_COOKIE, encodeOAuthState, normalizeReturnPath } from "@shared/const";
 
 export { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 
@@ -24,14 +24,16 @@ export function buildOAuthLoginUrl({
   nonce,
   oauthPortalUrl = MANUS_OAUTH_PORTAL_URL,
   appId = THINKORIA_APP_ID,
+  returnPath = "/",
 }: {
   origin: string;
   nonce: string;
   oauthPortalUrl?: string;
   appId?: string;
+  returnPath?: string;
 }) {
   const redirectUri = `${origin.replace(/\/$/, "")}/api/oauth/callback`;
-  const state = encodeOAuthState({ redirectUri, nonce });
+  const state = encodeOAuthState({ redirectUri, nonce, returnPath: normalizeReturnPath(returnPath) });
   const url = new URL(`${oauthPortalUrl.replace(/\/$/, "")}/app-auth`);
   url.searchParams.set("appId", appId);
   url.searchParams.set("redirectUri", redirectUri);
@@ -62,7 +64,7 @@ function showOAuthRedirectOverlay() {
 
 export const isOAuthRedirectInProgress = () => oauthRedirectInProgress;
 
-export const startLogin = () => {
+export const startLogin = (returnPath = "/") => {
   if (oauthRedirectInProgress) return;
   oauthRedirectInProgress = true;
   showOAuthRedirectOverlay();
@@ -73,6 +75,7 @@ export const startLogin = () => {
     nonce,
     oauthPortalUrl: import.meta.env.VITE_OAUTH_PORTAL_URL || MANUS_OAUTH_PORTAL_URL,
     appId: import.meta.env.VITE_APP_ID || THINKORIA_APP_ID,
+    returnPath,
   });
   window.setTimeout(() => {
     window.location.href = url;
