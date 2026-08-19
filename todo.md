@@ -368,3 +368,8 @@
 
 - [x] Identify every foreign-key dependency still blocking deletion of Club event 30001.
 - [x] Extend cleanup, verify safe deletion of event 30001, and save a corrected checkpoint.
+
+## Article card alignment
+
+- [x] Remove staggered vertical offsets from homepage and catalogue article grids so cards align consistently.
+- [x] Verify aligned cards on desktop and mobile, then save a checkpoint.
