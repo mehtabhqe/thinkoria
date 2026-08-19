@@ -397,3 +397,7 @@
 ## Email-domain release
 
 - [x] Commit and push the @thinkoria.space email-domain update, then verify the connected deployment.
+
+## Support email footer
+
+- [x] Add support@thinkoria.space to the footer with a working mailto link, verify it, and save a checkpoint.
