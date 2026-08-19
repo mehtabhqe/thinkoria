@@ -321,3 +321,9 @@
 
 - [x] Diagnose why the malformed “kyjeee…” article cannot be deleted from the Editorial Desk.
 - [x] Fix the deletion flow or remove the malformed record safely, then verify the Editorial Desk and public feed and save a checkpoint.
+
+## Article formatting and fixed public cards
+
+- [x] Add Editorial Desk formatting controls for headings, subheadings, separators, text sizing, and richer article editing while preserving full article content.
+- [x] Keep homepage and catalogue article-card containers fixed and truncate long excerpts without changing article detail content.
+- [x] Verify editor formatting, public article cards, tests, and responsive rendering, then save a checkpoint.
