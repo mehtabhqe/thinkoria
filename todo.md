@@ -337,3 +337,8 @@
 
 - [x] Make each recent homepage article card open its article detail page when clicked.
 - [x] Scan key public and Editorial Desk routes for minor safe-to-fix issues, verify the fixes, and save a checkpoint.
+
+## Homepage-link release
+
+- [ ] Commit and push the latest homepage article-link and diagnostic fixes to the private Thinkoria GitHub repository.
+- [ ] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
