@@ -316,3 +316,8 @@
 
 - [x] Change the signed-in Club button to a disabled muted “Already a member” state while preserving the signed-out join flow.
 - [x] Verify the disabled authenticated state and signed-out active state, then save a checkpoint.
+
+## Malformed article deletion fix
+
+- [x] Diagnose why the malformed “kyjeee…” article cannot be deleted from the Editorial Desk.
+- [x] Fix the deletion flow or remove the malformed record safely, then verify the Editorial Desk and public feed and save a checkpoint.

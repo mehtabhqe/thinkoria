@@ -131,6 +131,7 @@ export async function updateArticle(id: number, input: Partial<InsertArticle>) {
 export async function deleteArticle(id: number) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
+  await db.delete(articleAssetVersions).where(eq(articleAssetVersions.articleId, id));
   await db.delete(articles).where(eq(articles.id, id));
 }
 
