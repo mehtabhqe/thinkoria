@@ -396,4 +396,4 @@
 
 ## Email-domain release
 
-- [ ] Commit and push the @thinkoria.space email-domain update, then verify the connected deployment.
+- [x] Commit and push the @thinkoria.space email-domain update, then verify the connected deployment.
