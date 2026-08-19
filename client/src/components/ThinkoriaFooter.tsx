@@ -30,8 +30,8 @@ export default function ThinkoriaFooter() {
           <div>
             <p className="eyebrow !text-[#F3F0E8]/55"><span className="vermilion-dot" /> Find the room</p>
             <div className="mt-6 space-y-5 font-sans text-sm leading-6 text-[#F3F0E8]/70">
-              <a href="mailto:hello@thinkoria.org" className="flex items-start gap-3 transition-colors hover:text-[#C8472C]"><Mail size={16} className="mt-1 shrink-0 text-[#C8472C]" /><span>hello@thinkoria.org</span></a>
-              <a href="mailto:submissions@thinkoria.org" className="flex items-start gap-3 transition-colors hover:text-[#C8472C]"><Mail size={16} className="mt-1 shrink-0 text-[#C8472C]" /><span>submissions@thinkoria.org</span></a>
+              <a href="mailto:hello@thinkoria.space" className="flex items-start gap-3 transition-colors hover:text-[#C8472C]"><Mail size={16} className="mt-1 shrink-0 text-[#C8472C]" /><span>hello@thinkoria.space</span></a>
+              <a href="mailto:submissions@thinkoria.space" className="flex items-start gap-3 transition-colors hover:text-[#C8472C]"><Mail size={16} className="mt-1 shrink-0 text-[#C8472C]" /><span>submissions@thinkoria.space</span></a>
               <p className="flex items-start gap-3"><MapPin size={16} className="mt-1 shrink-0 text-[#C8472C]" /><span>Nagaon, Assam<br />India</span></p>
             </div>
           </div>

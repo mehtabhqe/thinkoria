@@ -388,3 +388,8 @@
 
 - [x] Commit and push the recent catalogue alignment and ending-visibility fixes to the private Thinkoria repository.
 - [x] Deploy and verify the updated public catalogue without changing the Manus backend or database.
+
+## Thinkoria email domain
+
+- [x] Replace visible @thinkoria.org contact and submission addresses with @thinkoria.space addresses across the frontend.
+- [x] Verify all visible email and mailto links, then save a checkpoint.
