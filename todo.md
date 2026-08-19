@@ -404,4 +404,8 @@
 
 ## Footer release
 
-- [ ] Commit and push the recent footer updates, then trigger and verify the connected deployment.
+- [x] Commit and push the recent footer updates, then trigger and verify the connected deployment.
+
+## Custom-domain deployment verification
+
+- [x] Verify the footer release at https://thinkoria.space instead of the retired thinkoria.vercel.app alias.
