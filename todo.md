@@ -447,6 +447,6 @@
 
 ## OAuth page return correction
 
-- [ ] Trace why the OAuth callback returns Club users to the homepage instead of their originating page.
-- [ ] Preserve the originating page and Club action through the Manus handoff and callback.
-- [ ] Test Club, Forum, and protected-route return behavior, then save a checkpoint.
+- [x] Trace why the OAuth callback returns Club users to the homepage instead of their originating page.
+- [x] Preserve the originating page and Club action through the Manus handoff and callback.
+- [x] Test Club, Forum, and protected-route return behavior, then save a checkpoint.
