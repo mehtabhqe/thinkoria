@@ -378,3 +378,8 @@
 
 - [x] Commit and push the verified homepage and catalogue card-alignment changes to the private Thinkoria GitHub repository.
 - [x] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
+
+## Catalogue ending visibility
+
+- [x] Fix the catalogue section whose ending content is cut off, applying the correction manually because the visual-editor target was stale.
+- [x] Verify the complete catalogue ending at desktop and mobile widths, then save a checkpoint.
