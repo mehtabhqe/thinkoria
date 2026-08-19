@@ -36,7 +36,7 @@ export default function Forum() {
       return;
     }
     if (!user) {
-      startLogin();
+      startLogin("/forum");
       return;
     }
     setAccountOpen(true);
@@ -45,7 +45,7 @@ export default function Forum() {
   const submitThread = (event: React.FormEvent) => {
     event.preventDefault();
     if (!user) {
-      startLogin();
+      startLogin("/forum");
       return;
     }
     createThreadMutation.mutate({ title: threadTitle.trim(), body: threadBody.trim(), category: threadCategory });

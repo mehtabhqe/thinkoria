@@ -80,7 +80,7 @@ export default function DashboardLayout({
             </p>
           </div>
           <Button
-            onClick={() => startLogin()}
+            onClick={() => startLogin(`${window.location.pathname}${window.location.search}`)}
             size="lg"
             className="w-full shadow-lg hover:shadow-xl transition-all"
           >

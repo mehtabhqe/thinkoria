@@ -444,3 +444,9 @@
 - [x] Return users to the specific Club action after successful login without accepting unsafe external redirect targets.
 - [x] Optimize the direct Sign In and Club login route for small screens and verify responsive behavior.
 - [x] Run OAuth safety, Club action, and mobile regression tests, then save a checkpoint.
+
+## OAuth page return correction
+
+- [ ] Trace why the OAuth callback returns Club users to the homepage instead of their originating page.
+- [ ] Preserve the originating page and Club action through the Manus handoff and callback.
+- [ ] Test Club, Forum, and protected-route return behavior, then save a checkpoint.

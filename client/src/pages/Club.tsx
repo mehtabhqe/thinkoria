@@ -42,7 +42,7 @@ export default function Club() {
       window.location.href = manusLoginHref("/club?clubAction=join");
       return;
     }
-    if (!user) { startLogin(); return; }
+    if (!user) { startLogin("/club?clubAction=join"); return; }
     joinMutation.mutate();
   };
   const openApplication = () => {
@@ -50,7 +50,7 @@ export default function Club() {
       window.location.href = manusLoginHref("/club?clubAction=apply");
       return;
     }
-    if (!user) { startLogin(); return; }
+    if (!user) { startLogin("/club?clubAction=apply"); return; }
     setApplicationOpen(true);
   };
   const submitApplication = (submission: React.FormEvent) => { submission.preventDefault(); applicationMutation.mutate({ eventId: event?.id, role, otherRole: role === "other" ? otherRole : undefined, note: note || undefined }); };
