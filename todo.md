@@ -393,3 +393,7 @@
 
 - [x] Replace visible @thinkoria.org contact and submission addresses with @thinkoria.space addresses across the frontend.
 - [x] Verify all visible email and mailto links, then save a checkpoint.
+
+## Email-domain release
+
+- [ ] Commit and push the @thinkoria.space email-domain update, then verify the connected deployment.
