@@ -383,3 +383,8 @@
 
 - [x] Fix the catalogue section whose ending content is cut off, applying the correction manually because the visual-editor target was stale.
 - [x] Verify the complete catalogue ending at desktop and mobile widths, then save a checkpoint.
+
+## Catalogue alignment release
+
+- [ ] Commit and push the recent catalogue alignment and ending-visibility fixes to the private Thinkoria repository.
+- [ ] Deploy and verify the updated public catalogue without changing the Manus backend or database.
