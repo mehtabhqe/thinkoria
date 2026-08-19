@@ -457,3 +457,7 @@
 - [x] Implement SEO foundations including SSR/crawler-visible HTML, per-route metadata, canonical URLs, robots.txt, sitemap.xml, and structured data.
 - [x] Improve article discoverability, internal linking, performance, and social sharing metadata without fabricating reviews or testimonials.
 - [x] Validate SEO output and save a checkpoint.
+
+## Webmaster sitemap submission
+
+- [ ] Submit https://www.thinkoria.space/sitemap.xml to Google Search Console and Bing Webmaster Tools, verifying ownership and recording any access blockers.
