@@ -418,7 +418,12 @@
 
 ## Custom-domain session and OAuth UX
 
-- [ ] Audit current auth hook, logout behavior, and sign-in entry points for custom-domain session handling.
-- [ ] Add an OAuth redirect loading animation and status message with safe duplicate-click behavior.
-- [ ] Add comprehensive regression coverage for session state, logout cleanup, OAuth callback URL behavior, Editorial Desk access, and Forum access.
+- [x] Audit current auth hook, logout behavior, and sign-in entry points for custom-domain session handling.
+- [x] Add an OAuth redirect loading animation and status message with safe duplicate-click behavior.
+- [x] Add comprehensive regression coverage for session state, logout cleanup, OAuth callback URL behavior, Editorial Desk access, and Forum access.
 - [ ] Verify the complete sign-in flow and authenticated Editorial Desk/Forum access, then save a checkpoint.
+
+## Authorization failure follow-up
+
+- [x] Diagnose the authorization-failed callback response and determine whether the remaining issue is an allowlist/configuration mismatch outside the project.
+- [ ] Repair any project-controlled callback/session handling and retest the custom-domain sign-in flow.
