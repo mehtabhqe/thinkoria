@@ -327,3 +327,8 @@
 - [x] Add Editorial Desk formatting controls for headings, subheadings, separators, text sizing, and richer article editing while preserving full article content.
 - [x] Keep homepage and catalogue article-card containers fixed and truncate long excerpts without changing article detail content.
 - [x] Verify editor formatting, public article cards, tests, and responsive rendering, then save a checkpoint.
+
+## Article formatting redeploy
+
+- [ ] Commit and push the verified article-formatting and fixed-card changes to the private Thinkoria GitHub repository.
+- [ ] Redeploy and verify the Vercel frontend while preserving the Manus backend and database.
