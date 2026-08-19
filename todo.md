@@ -373,3 +373,8 @@
 
 - [x] Remove staggered vertical offsets from homepage and catalogue article grids so cards align consistently.
 - [x] Verify aligned cards on desktop and mobile, then save a checkpoint.
+
+## Card-alignment release
+
+- [ ] Commit and push the verified homepage and catalogue card-alignment changes to the private Thinkoria GitHub repository.
+- [ ] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
