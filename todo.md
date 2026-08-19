@@ -427,3 +427,8 @@
 
 - [x] Diagnose the authorization-failed callback response and determine whether the remaining issue is an allowlist/configuration mismatch outside the project.
 - [ ] Repair any project-controlled callback/session handling and retest the custom-domain sign-in flow.
+
+## Thinkoria custom-domain Manus handoff
+
+- [ ] Make thinkoria.space protected-route links use the same Manus handoff behavior as the former Vercel mirror.
+- [ ] Verify public custom-domain navigation, Manus handoff URLs, and protected Editorial Desk, Forum, Club, and submission entry points.

@@ -1,5 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { buildOAuthLoginUrl, MANUS_OAUTH_PORTAL_URL, THINKORIA_APP_ID } from "../client/src/const";
+import { MANUS_APP_URL, isPublicMirror, publicOrManusHref } from "../client/src/lib/manusHandoff";
 import { decodeOAuthState } from "../shared/const";
 
 describe("custom-domain OAuth login URL", () => {
@@ -21,5 +22,25 @@ describe("custom-domain OAuth login URL", () => {
       nonce: "test-nonce",
     });
     expect(url.searchParams.get("type")).toBe("signIn");
+  });
+});
+
+describe("custom-domain Manus handoff", () => {
+  const originalWindow = globalThis.window;
+
+  afterEach(() => {
+    if (originalWindow) Object.defineProperty(globalThis, "window", { configurable: true, value: originalWindow });
+    else Reflect.deleteProperty(globalThis, "window");
+  });
+
+  it("hands protected routes to Manus from the canonical custom domain", () => {
+    Object.defineProperty(globalThis, "window", {
+      configurable: true,
+      value: { location: { hostname: "www.thinkoria.space" } },
+    });
+
+    expect(isPublicMirror()).toBe(true);
+    expect(publicOrManusHref("/forum")).toBe(`${MANUS_APP_URL}/forum`);
+    expect(publicOrManusHref("/admin")).toBe(`${MANUS_APP_URL}/admin`);
   });
 });

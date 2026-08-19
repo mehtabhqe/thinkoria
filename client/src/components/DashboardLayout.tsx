@@ -20,6 +20,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
+import { isPublicMirror, ManusHandoffNotice } from "@/lib/manusHandoff";
 import { useIsMobile } from "@/hooks/useMobile";
 import { BookOpen, FileText, LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
@@ -58,6 +59,15 @@ export default function DashboardLayout({
   }
 
   if (!user) {
+    if (isPublicMirror()) {
+      return (
+        <div className="flex min-h-screen items-center justify-center bg-[#F3F0E8] p-6">
+          <div className="w-full max-w-2xl">
+            <ManusHandoffNotice action="enter the Editorial Desk" path="/admin" />
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
