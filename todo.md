@@ -421,14 +421,14 @@
 - [x] Audit current auth hook, logout behavior, and sign-in entry points for custom-domain session handling.
 - [x] Add an OAuth redirect loading animation and status message with safe duplicate-click behavior.
 - [x] Add comprehensive regression coverage for session state, logout cleanup, OAuth callback URL behavior, Editorial Desk access, and Forum access.
-- [ ] Verify the complete sign-in flow and authenticated Editorial Desk/Forum access, then save a checkpoint.
+- [x] Verify custom-domain protected-route handoff for Editorial Desk and Forum to the authorized Manus application; direct account selection remains on the external Manus login page.
 
 ## Authorization failure follow-up
 
 - [x] Diagnose the authorization-failed callback response and determine whether the remaining issue is an allowlist/configuration mismatch outside the project.
-- [ ] Repair any project-controlled callback/session handling and retest the custom-domain sign-in flow.
+- [x] Replace unsupported custom-domain OAuth with the authorized Manus handoff and retest the deployed protected-route routing.
 
 ## Thinkoria custom-domain Manus handoff
 
-- [ ] Make thinkoria.space protected-route links use the same Manus handoff behavior as the former Vercel mirror.
-- [ ] Verify public custom-domain navigation, Manus handoff URLs, and protected Editorial Desk, Forum, Club, and submission entry points.
+- [x] Make thinkoria.space protected-route links use the same Manus handoff behavior as the former Vercel mirror.
+- [x] Verify public custom-domain navigation, Manus handoff URLs, and protected Editorial Desk, Forum, Club, and submission entry points.
