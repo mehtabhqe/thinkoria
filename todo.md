@@ -353,3 +353,8 @@
 
 - [x] Commit and push the reading-time, social-sharing, and Trending Articles changes to the private Thinkoria GitHub repository.
 - [x] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
+
+## Live catalogue paper counts
+
+- [x] Replace dummy category paper counts with counts of currently published papers, including 0 for empty categories.
+- [x] Ensure category counts update automatically whenever a new paper is published, then verify and save a checkpoint.

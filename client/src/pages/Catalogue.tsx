@@ -3,23 +3,24 @@ import ThinkoriaFooter from "@/components/ThinkoriaFooter";
  * The Reading Room: category-first catalogue flow.
  * Users first choose a subject container, then browse that field's papers with scoped search.
  */
+import { countPublishedByCategory, publishedCategoryCount } from "@/lib/catalogueCounts";
 import { trpc } from "@/lib/trpc";
 import { ArrowLeft, ArrowUpRight, BookOpen, ChevronRight, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 
 const categories = [
-  { name: "Philosophy", kicker: "Questions of being", count: 18, image: "/manus-storage/catalogue-philosophy-launch_6ad1e859.png", accent: "A room for first principles." },
-  { name: "Politics", kicker: "Power & public life", count: 12, image: "/manus-storage/catalogue-politics_5b352bee.png", accent: "How we choose to live together." },
-  { name: "Literature", kicker: "Language & form", count: 16, image: "/manus-storage/catalogue-literature-launch_be9a3ba6.png", accent: "The world, made strange again." },
-  { name: "Media", kicker: "Images & publics", count: 11, image: "/manus-storage/catalogue-media_fad351db.png", accent: "How attention is arranged." },
-  { name: "Gaming", kicker: "Play & systems", count: 9, image: "/manus-storage/catalogue-gaming_a287c89f.png", accent: "Rules, worlds, consequence." },
-  { name: "Science", kicker: "Nature & matter", count: 14, image: "/manus-storage/catalogue-science-launch_a2f82b7c.png", accent: "Ways of knowing the living world." },
-  { name: "Technology", kicker: "Tools & futures", count: 13, image: "/manus-storage/catalogue-technology-launch_3401b353.png", accent: "The systems we build and inherit." },
-  { name: "Religion", kicker: "Belief & ritual", count: 8, image: "/manus-storage/thinkoria-religion-biblical_47ccd79e.jpg", accent: "What we carry beyond proof." },
-  { name: "Linguistics", kicker: "Signs & speech", count: 10, image: "/manus-storage/thinkoria-linguistics-alphabet_31446505.png", accent: "The structures inside a sentence." },
-  { name: "Society", kicker: "Culture & place", count: 15, image: "/manus-storage/catalogue-society_be79db21.png", accent: "The patterns we make together." },
-  { name: "History", kicker: "Memory & time", count: 7, image: "/manus-storage/catalogue-history-launch_70ae2f6a.jpg", accent: "The past is never finished." },
-  { name: "Art & Design", kicker: "Form & making", count: 11, image: "/manus-storage/catalogue-art-design-launch_7f44637c.jpg", accent: "Attention, given shape." },
+  { name: "Philosophy", kicker: "Questions of being", count: 0, image: "/manus-storage/catalogue-philosophy-launch_6ad1e859.png", accent: "A room for first principles." },
+  { name: "Politics", kicker: "Power & public life", count: 0, image: "/manus-storage/catalogue-politics_5b352bee.png", accent: "How we choose to live together." },
+  { name: "Literature", kicker: "Language & form", count: 0, image: "/manus-storage/catalogue-literature-launch_be9a3ba6.png", accent: "The world, made strange again." },
+  { name: "Media", kicker: "Images & publics", count: 0, image: "/manus-storage/catalogue-media_fad351db.png", accent: "How attention is arranged." },
+  { name: "Gaming", kicker: "Play & systems", count: 0, image: "/manus-storage/catalogue-gaming_a287c89f.png", accent: "Rules, worlds, consequence." },
+  { name: "Science", kicker: "Nature & matter", count: 0, image: "/manus-storage/catalogue-science-launch_a2f82b7c.png", accent: "Ways of knowing the living world." },
+  { name: "Technology", kicker: "Tools & futures", count: 0, image: "/manus-storage/catalogue-technology-launch_3401b353.png", accent: "The systems we build and inherit." },
+  { name: "Religion", kicker: "Belief & ritual", count: 0, image: "/manus-storage/thinkoria-religion-biblical_47ccd79e.jpg", accent: "What we carry beyond proof." },
+  { name: "Linguistics", kicker: "Signs & speech", count: 0, image: "/manus-storage/thinkoria-linguistics-alphabet_31446505.png", accent: "The structures inside a sentence." },
+  { name: "Society", kicker: "Culture & place", count: 0, image: "/manus-storage/catalogue-society_be79db21.png", accent: "The patterns we make together." },
+  { name: "History", kicker: "Memory & time", count: 0, image: "/manus-storage/catalogue-history-launch_70ae2f6a.jpg", accent: "The past is never finished." },
+  { name: "Art & Design", kicker: "Form & making", count: 0, image: "/manus-storage/catalogue-art-design-launch_7f44637c.jpg", accent: "Attention, given shape." },
 ];
 
 const articles: Array<{ slug: string; id: string; title: string; author: string; field: string; excerpt: string; date: string; dateValue: number; views: number; image: string; imageAlt?: string }> = [
@@ -40,10 +41,14 @@ export default function Catalogue() {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("newest");
   const categoriesQuery = trpc.catalogue.categories.useQuery();
+  const publishedAllQuery = trpc.catalogue.published.useQuery();
   const selectedMeta = categoriesQuery.data?.find((category) => category.name === selectedCategory) ?? categories.find((category) => category.name === selectedCategory);
   const categorySlug = selectedMeta && "slug" in selectedMeta ? selectedMeta.slug : selectedCategory?.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-");
   const publishedQuery = trpc.catalogue.published.useQuery({ categorySlug }, { enabled: Boolean(selectedCategory) });
-  const displayCategories = categoriesQuery.data?.length ? categoriesQuery.data.map((category) => { const fallback = categories.find((item) => item.name === category.name); return { ...category, kicker: category.kicker, count: fallback?.count ?? 0, image: category.imageUrl ?? fallback?.image ?? "", accent: category.description }; }) : categories;
+  const publishedCounts = useMemo(() => {
+    return countPublishedByCategory(publishedAllQuery.data ?? []);
+  }, [publishedAllQuery.data]);
+  const displayCategories = categoriesQuery.data?.length ? categoriesQuery.data.map((category) => { const fallback = categories.find((item) => item.name === category.name); return { ...category, kicker: category.kicker, count: publishedCategoryCount(publishedCounts, category.name), image: category.imageUrl ?? fallback?.image ?? "", accent: category.description }; }) : categories.map((category) => ({ ...category, count: publishedCategoryCount(publishedCounts, category.name) }));
   const selectedDescription = selectedMeta ? ("accent" in selectedMeta ? selectedMeta.accent : selectedMeta.description) : "";
   const scopedArticles = useMemo(() => {
     if (!selectedCategory) return [];
