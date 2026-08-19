@@ -306,3 +306,8 @@
 
 - [x] Restore homepage ordering so the newest published paper appears first in the newly published section.
 - [x] Verify published-only filtering, latest-first ordering, and homepage rendering, then save a checkpoint.
+
+## Nagaon Club authenticated join state
+
+- [x] Update Club join controls so signed-in users do not see the generic “Sign in to join club” prompt.
+- [x] Verify signed-out and signed-in Club states, then save a checkpoint.
