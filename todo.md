@@ -342,3 +342,9 @@
 
 - [x] Commit and push the latest homepage article-link and diagnostic fixes to the private Thinkoria GitHub repository.
 - [x] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
+
+## Article engagement and trending
+
+- [x] Add estimated reading time and privacy-friendly social share buttons to article detail pages.
+- [x] Add a Trending Articles section below Newly published on the homepage using published view-count data.
+- [x] Verify responsive article and homepage rendering, tests, and production build, then save a checkpoint.
