@@ -450,3 +450,10 @@
 - [x] Trace why the OAuth callback returns Club users to the homepage instead of their originating page.
 - [x] Preserve the originating page and Club action through the Manus handoff and callback.
 - [x] Test Club, Forum, and protected-route return behavior, then save a checkpoint.
+
+## Thinkoria SEO and discoverability
+
+- [x] Audit public routes, crawler-visible rendering, current metadata, canonical URLs, indexability, and social previews.
+- [x] Implement SEO foundations including SSR/crawler-visible HTML, per-route metadata, canonical URLs, robots.txt, sitemap.xml, and structured data.
+- [x] Improve article discoverability, internal linking, performance, and social sharing metadata without fabricating reviews or testimonials.
+- [x] Validate SEO output and save a checkpoint.
