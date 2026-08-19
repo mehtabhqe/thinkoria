@@ -435,5 +435,5 @@
 
 ## Direct Manus login entry points
 
-- [ ] Make Sign In and Club join actions open the Manus login page directly instead of first opening a Manus copy of the current page.
-- [ ] Verify signed-out direct login and signed-in Manus handoff behavior, then save a checkpoint.
+- [x] Make Sign In and Club join actions open the Manus login page directly instead of first opening a Manus copy of the current page.
+- [x] Verify the direct Manus login route and signed-in Manus handoff behavior; production deployment is Ready.
