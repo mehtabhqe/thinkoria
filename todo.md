@@ -412,6 +412,6 @@
 
 ## Custom-domain OAuth and login repair
 
-- [ ] Audit OAuth callback construction, authentication configuration, route handoff, and broken sign-in links for thinkoria.space.
-- [ ] Repair login, callback, protected-link navigation, and custom-domain handling without changing the database.
-- [ ] Verify public and protected authentication states, then save a checkpoint.
+- [x] Audit OAuth callback construction, authentication configuration, route handoff, and broken sign-in links for thinkoria.space.
+- [x] Repair login, callback, protected-link navigation, and custom-domain handling without changing the database.
+- [x] Verify public and protected authentication states, then save a checkpoint.
