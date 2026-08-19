@@ -358,3 +358,8 @@
 
 - [x] Replace dummy category paper counts with counts of currently published papers, including 0 for empty categories.
 - [x] Ensure category counts update automatically whenever a new paper is published, then verify and save a checkpoint.
+
+## Club event deletion
+
+- [x] Fix Editorial Desk deletion for Club event schedules, safely handling dependent applications or records.
+- [x] Verify the intended event deletion and preserve other Club data, then save a checkpoint.
