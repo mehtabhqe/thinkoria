@@ -12,12 +12,14 @@ import About from "@/pages/About";
 import Admin from "@/pages/Admin";
 import Article from "@/pages/Article";
 import Submit from "@/pages/Submit";
+import ManusLoginRedirect from "@/pages/ManusLoginRedirect";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/auth/login"} component={ManusLoginRedirect} />
       <Route path={"/catalogue"} component={Catalogue} />
       <Route path={"/club"} component={Club} />
       <Route path={"/forum"} component={Forum} />

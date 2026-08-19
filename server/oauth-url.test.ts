@@ -42,5 +42,6 @@ describe("custom-domain Manus handoff", () => {
     expect(isPublicMirror()).toBe(true);
     expect(publicOrManusHref("/forum")).toBe(`${MANUS_APP_URL}/forum`);
     expect(publicOrManusHref("/admin")).toBe(`${MANUS_APP_URL}/admin`);
+    expect(`${MANUS_APP_URL}/auth/login`).toBe("https://commonindex-ogwzsusn.manus.space/auth/login");
   });
 });

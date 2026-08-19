@@ -432,3 +432,8 @@
 
 - [x] Make thinkoria.space protected-route links use the same Manus handoff behavior as the former Vercel mirror.
 - [x] Verify public custom-domain navigation, Manus handoff URLs, and protected Editorial Desk, Forum, Club, and submission entry points.
+
+## Direct Manus login entry points
+
+- [ ] Make Sign In and Club join actions open the Manus login page directly instead of first opening a Manus copy of the current page.
+- [ ] Verify signed-out direct login and signed-in Manus handoff behavior, then save a checkpoint.

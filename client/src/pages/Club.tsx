@@ -32,7 +32,7 @@ export default function Club() {
   const event = eventsQuery.data?.[0];
   const joinClub = () => {
     if (isVercelPreview()) {
-      window.location.href = manusHref("/club");
+      window.location.href = manusHref("/auth/login");
       return;
     }
     if (!user) { startLogin(); return; }
@@ -40,7 +40,7 @@ export default function Club() {
   };
   const openApplication = () => {
     if (isVercelPreview()) {
-      window.location.href = manusHref("/club");
+      window.location.href = manusHref("/auth/login");
       return;
     }
     if (!user) { startLogin(); return; }

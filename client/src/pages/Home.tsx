@@ -32,7 +32,7 @@ export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const openAccountArea = () => {
     if (isVercelPreview()) {
-      window.location.href = user ? manusHref("/admin") : manusHref("/");
+      window.location.href = user ? manusHref("/admin") : manusHref("/auth/login");
       return;
     }
     if (user) window.location.href = "/admin";
