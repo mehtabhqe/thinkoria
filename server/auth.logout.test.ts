@@ -60,3 +60,57 @@ describe("auth.logout", () => {
     });
   });
 });
+
+describe("custom-domain session management", () => {
+  it("returns the current authenticated session through auth.me", async () => {
+    const { ctx } = createAuthContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(caller.auth.me()).resolves.toMatchObject({
+      openId: "sample-user",
+      email: "sample@example.com",
+      role: "user",
+    });
+  });
+
+  it("uses secure host-only session clearing behind an HTTPS proxy", async () => {
+    const { ctx, clearedCookies } = createAuthContext();
+    ctx.req.headers = { "x-forwarded-proto": "https" };
+    const caller = appRouter.createCaller(ctx);
+
+    await caller.auth.logout();
+
+    expect(clearedCookies[0]?.options).toMatchObject({
+      httpOnly: true,
+      path: "/",
+      sameSite: "none",
+      secure: true,
+      maxAge: -1,
+    });
+    expect(clearedCookies[0]?.options).not.toHaveProperty("domain");
+  });
+
+  it("keeps logout idempotent when the session has already expired", async () => {
+    const ctx = {
+      user: null,
+      req: { protocol: "https", headers: {} },
+      res: { clearCookie: () => undefined },
+    } as unknown as TrpcContext;
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(caller.auth.logout()).resolves.toEqual({ success: true });
+    await expect(caller.auth.me()).resolves.toBeNull();
+  });
+
+  it("denies protected Editorial Desk and Forum operations without a session", async () => {
+    const ctx = {
+      user: null,
+      req: { protocol: "https", headers: {} },
+      res: { clearCookie: () => undefined },
+    } as unknown as TrpcContext;
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(caller.forum.createThread({ title: "A protected topic", body: "This should not be created anonymously.", category: "Philosophy" })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(caller.admin.articles()).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+});

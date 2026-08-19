@@ -415,3 +415,10 @@
 - [x] Audit OAuth callback construction, authentication configuration, route handoff, and broken sign-in links for thinkoria.space.
 - [x] Repair login, callback, protected-link navigation, and custom-domain handling without changing the database.
 - [x] Verify public and protected authentication states, then save a checkpoint.
+
+## Custom-domain session and OAuth UX
+
+- [ ] Audit current auth hook, logout behavior, and sign-in entry points for custom-domain session handling.
+- [ ] Add an OAuth redirect loading animation and status message with safe duplicate-click behavior.
+- [ ] Add comprehensive regression coverage for session state, logout cleanup, OAuth callback URL behavior, Editorial Desk access, and Forum access.
+- [ ] Verify the complete sign-in flow and authenticated Editorial Desk/Forum access, then save a checkpoint.

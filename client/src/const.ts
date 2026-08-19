@@ -40,7 +40,32 @@ export function buildOAuthLoginUrl({
   return { url: url.toString(), redirectUri, state };
 }
 
+let oauthRedirectInProgress = false;
+
+function showOAuthRedirectOverlay() {
+  if (typeof document === "undefined" || document.querySelector("[data-oauth-redirect-overlay]")) return;
+  const overlay = document.createElement("div");
+  overlay.dataset.oauthRedirectOverlay = "true";
+  overlay.setAttribute("role", "status");
+  overlay.setAttribute("aria-live", "polite");
+  overlay.innerHTML = `
+    <div class="oauth-redirect-card">
+      <span class="oauth-redirect-spinner" aria-hidden="true"></span>
+      <div>
+        <p class="oauth-redirect-title">Opening secure sign-in</p>
+        <p class="oauth-redirect-message">Taking you to Thinkoria’s authentication room…</p>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+export const isOAuthRedirectInProgress = () => oauthRedirectInProgress;
+
 export const startLogin = () => {
+  if (oauthRedirectInProgress) return;
+  oauthRedirectInProgress = true;
+  showOAuthRedirectOverlay();
   const nonce = crypto.randomUUID();
   document.cookie = `${OAUTH_STATE_COOKIE}=${nonce}; Path=/; Max-Age=600; SameSite=None; Secure`;
   const { url } = buildOAuthLoginUrl({
@@ -49,5 +74,7 @@ export const startLogin = () => {
     oauthPortalUrl: import.meta.env.VITE_OAUTH_PORTAL_URL || MANUS_OAUTH_PORTAL_URL,
     appId: import.meta.env.VITE_APP_ID || THINKORIA_APP_ID,
   });
-  window.location.href = url;
+  window.setTimeout(() => {
+    window.location.href = url;
+  }, 90);
 };

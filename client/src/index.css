@@ -120,3 +120,11 @@ button:not(:disabled), a[href] { cursor: pointer; }
 @media (max-width: 640px) { .register-mark { display: none; } }
 
 .dark { --background: oklch(0.18 0.008 80); --foreground: oklch(0.96 0.012 89); }
+
+.oauth-redirect-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; background: rgb(23 22 20 / .72); backdrop-filter: blur(8px); }
+.oauth-redirect-card { display: flex; align-items: center; gap: 16px; width: min(100%, 430px); padding: 22px 24px; border: 1px solid rgb(243 240 232 / .24); background: #F3F0E8; color: #171614; box-shadow: 0 18px 60px rgb(0 0 0 / .22); }
+.oauth-redirect-spinner { width: 22px; height: 22px; flex: 0 0 auto; border: 2px solid rgb(200 71 44 / .22); border-top-color: #C8472C; border-radius: 999px; animation: oauth-spin .72s linear infinite; }
+.oauth-redirect-title { margin: 0; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.oauth-redirect-message { margin: 5px 0 0; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 13px; line-height: 1.45; color: rgb(23 22 20 / .62); }
+@keyframes oauth-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .oauth-redirect-spinner { animation: none; } }
