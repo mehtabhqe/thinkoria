@@ -1,26 +1,36 @@
 import { describe, expect, it, vi } from "vitest";
 import { clubApplications, clubEvents } from "../drizzle/schema";
 
-const deletedTables: unknown[] = [];
+const operations: Array<{ action: string; table: unknown }> = [];
 
 vi.mock("drizzle-orm/mysql2", () => ({
   drizzle: () => ({
+    update: (table: unknown) => ({
+      set: () => ({
+        where: async () => {
+          operations.push({ action: "update", table });
+        },
+      }),
+    }),
     delete: (table: unknown) => ({
       where: async () => {
-        deletedTables.push(table);
+        operations.push({ action: "delete", table });
       },
     }),
   }),
 }));
 
 describe("Club event deletion", () => {
-  it("cleans dependent applications before deleting the event", async () => {
+  it("unlinks dependent applications before deleting the event", async () => {
     process.env.DATABASE_URL = "mysql://test";
     const { deleteClubEvent } = await import("./db");
 
-    deletedTables.length = 0;
+    operations.length = 0;
     await deleteClubEvent(42);
 
-    expect(deletedTables).toEqual([clubApplications, clubEvents]);
+    expect(operations).toEqual([
+      { action: "update", table: clubApplications },
+      { action: "delete", table: clubEvents },
+    ]);
   });
 });

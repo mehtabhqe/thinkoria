@@ -363,3 +363,8 @@
 
 - [x] Fix Editorial Desk deletion for Club event schedules, safely handling dependent applications or records.
 - [x] Verify the intended event deletion and preserve other Club data, then save a checkpoint.
+
+## Club event 30001 deletion follow-up
+
+- [x] Identify every foreign-key dependency still blocking deletion of Club event 30001.
+- [x] Extend cleanup, verify safe deletion of event 30001, and save a corrected checkpoint.

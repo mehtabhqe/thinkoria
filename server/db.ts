@@ -263,8 +263,8 @@ export async function updateClubEvent(id: number, input: Partial<typeof clubEven
 export async function deleteClubEvent(id: number) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
-  // Applications reference the event, so clean them up first to satisfy the FK constraint.
-  await db.delete(clubApplications).where(eq(clubApplications.eventId, id));
+  // Keep applications as general role applications, but unlink them before deleting the event.
+  await db.update(clubApplications).set({ eventId: null }).where(eq(clubApplications.eventId, id));
   await db.delete(clubEvents).where(eq(clubEvents.id, id));
 }
 
