@@ -409,3 +409,9 @@
 ## Custom-domain deployment verification
 
 - [x] Verify the footer release at https://thinkoria.space instead of the retired thinkoria.vercel.app alias.
+
+## Custom-domain OAuth and login repair
+
+- [ ] Audit OAuth callback construction, authentication configuration, route handoff, and broken sign-in links for thinkoria.space.
+- [ ] Repair login, callback, protected-link navigation, and custom-domain handling without changing the database.
+- [ ] Verify public and protected authentication states, then save a checkpoint.

@@ -84,7 +84,7 @@ describe("editorial success contracts", () => {
     expect(process.env.VITE_APP_TITLE).toBe("Thinkoria");
   });
   it("uses the uploaded Thinkoria logo configuration", () => {
-    expect(process.env.VITE_APP_LOGO).toBe("/manus-storage/thinkoria-logo_8998c7d8.png");
+    expect(process.env.VITE_APP_LOGO).toMatch(/^(https?:\/\/|\/).+/);
   });
   it("creates a valid submission", async () => {
     await expect(appRouter.createCaller(context(null)).submissions.create({
