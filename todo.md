@@ -460,4 +460,4 @@
 
 ## Webmaster sitemap submission
 
-- [ ] Submit https://www.thinkoria.space/sitemap.xml to Google Search Console and Bing Webmaster Tools, verifying ownership and recording any access blockers.
+- [x] Submit https://www.thinkoria.space/sitemap.xml to Google Search Console and Bing Webmaster Tools, verifying ownership and recording any access blockers.
