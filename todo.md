@@ -340,5 +340,5 @@
 
 ## Homepage-link release
 
-- [ ] Commit and push the latest homepage article-link and diagnostic fixes to the private Thinkoria GitHub repository.
-- [ ] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
+- [x] Commit and push the latest homepage article-link and diagnostic fixes to the private Thinkoria GitHub repository.
+- [x] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
