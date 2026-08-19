@@ -348,3 +348,8 @@
 - [x] Add estimated reading time and privacy-friendly social share buttons to article detail pages.
 - [x] Add a Trending Articles section below Newly published on the homepage using published view-count data.
 - [x] Verify responsive article and homepage rendering, tests, and production build, then save a checkpoint.
+
+## Engagement-feature release
+
+- [ ] Commit and push the reading-time, social-sharing, and Trending Articles changes to the private Thinkoria GitHub repository.
+- [ ] Redeploy and verify the connected Vercel frontend without changing the Manus backend or database.
