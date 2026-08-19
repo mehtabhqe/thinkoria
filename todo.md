@@ -386,5 +386,5 @@
 
 ## Catalogue alignment release
 
-- [ ] Commit and push the recent catalogue alignment and ending-visibility fixes to the private Thinkoria repository.
-- [ ] Deploy and verify the updated public catalogue without changing the Manus backend or database.
+- [x] Commit and push the recent catalogue alignment and ending-visibility fixes to the private Thinkoria repository.
+- [x] Deploy and verify the updated public catalogue without changing the Manus backend or database.
