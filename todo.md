@@ -330,5 +330,5 @@
 
 ## Article formatting redeploy
 
-- [ ] Commit and push the verified article-formatting and fixed-card changes to the private Thinkoria GitHub repository.
-- [ ] Redeploy and verify the Vercel frontend while preserving the Manus backend and database.
+- [x] Commit and push the verified article-formatting and fixed-card changes to the private Thinkoria GitHub repository.
+- [x] Redeploy and verify the Vercel frontend while preserving the Manus backend and database.
