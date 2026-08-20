@@ -67,3 +67,17 @@ export function debateApplicationEmail(name: string, email: string, role: string
   const cta = { label: "Visit the Club", url: `${SITE_URL}/club` };
   return { to: email, eventKey, kind: "debate_application", subject: "We received your Nagaon Club role application", text: `Thank you, ${name || "member"}. We received your application for the ${role} role. Our team will review your application and let you know when a decision or next step is available. This email confirms receipt only; it does not confirm acceptance. Visit the Club: ${cta.url}`, html: emailLayout("Your Nagaon Club role application has been received for review.", "Thank you for connecting with us.", `<p>Thank you, ${escapeHtml(name || "member")}. We have received your application for the <strong>${escapeHtml(role)}</strong> role.</p><p>Our team will review your application and let you know when a decision or next step is available. This email confirms receipt of your application only; it does not confirm acceptance of the role.</p><p>Until then, stay in touch and keep thinking with us.</p>`, cta) };
 }
+
+export function submissionReceivedEmail(name: string, email: string, title: string, category: string, eventKey: string) {
+  const cta = { label: "Visit Thinkoria", url: SITE_URL };
+  const safeName = name || "writer";
+  const safeTitle = title || "your submission";
+  return {
+    to: email,
+    eventKey,
+    kind: "submission_received",
+    subject: "We received your submission for Thinkoria",
+    text: `Thank you for choosing Thinkoria, ${safeName}. We received your article, “${safeTitle}”, in ${category}. Our editorial team will review it and aims to respond within 2–3 days. This message confirms receipt only; it does not guarantee publication. Visit Thinkoria: ${cta.url}`,
+    html: emailLayout("Your Thinkoria submission has been received by the editorial desk.", "Thank you for choosing Thinkoria.", `<p>Thank you, ${escapeHtml(safeName)}. We have received your article, <strong>${escapeHtml(safeTitle)}</strong>${category ? ` in ${escapeHtml(category)}` : ""}.</p><p>Our editorial team will review the work and aims to respond within <strong>2–3 days</strong>. This message confirms receipt of your submission only; it does not guarantee acceptance or publication.</p><p>Thank you for trusting Thinkoria with your work. We will be in touch if the editorial desk needs any further information.</p>`, cta)
+  };
+}

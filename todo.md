@@ -518,5 +518,11 @@
 
 ## Deploy verified mobile navigation correction
 
-- [ ] Commit and push the verified mobile drawer/header correction to the GitHub branch that drives thinkoria.space.
-- [ ] Verify the connected Vercel production build and confirm thinkoria.space serves the pushed revision without changing other features.
+- [x] Commit and push the verified mobile drawer/header correction to the GitHub branch that drives thinkoria.space.
+- [x] Verify the connected Vercel production build and confirm thinkoria.space serves the pushed revision without changing other features.
+
+## Transactional email verification and submission receipt
+
+- [x] Test sign-in verification, Nagaon Club membership, and debate-role application email flows using the approved test recipient.
+- [x] Add a professional submission-received email template and trigger after a paper submission succeeds, clearly stating receipt and review timing without promising publication.
+- [x] Run email regression tests, send a controlled submission email test, and publish the verified automation update.

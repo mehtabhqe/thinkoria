@@ -46,7 +46,7 @@ import {
   hasEmailDelivery,
   recordEmailDelivery,
 } from "./db";
-import { clubMembershipEmail, debateApplicationEmail, newsletterEmail, sendTransactionalEmail } from "./email";
+import { clubMembershipEmail, debateApplicationEmail, newsletterEmail, sendTransactionalEmail, submissionReceivedEmail } from "./email";
 
 const storageReference = z.string().refine(
   value => value === "" || value.startsWith("/manus-storage/") || z.url().safeParse(value).success,
@@ -127,7 +127,7 @@ export const appRouter = router({
     subscribe: publicProcedure.input(z.object({ email: z.string().trim().email().max(320) })).mutation(async ({ input }) => { const result = await subscribeToNewsletter(input.email); if (!result.alreadySubscribed) void sendEmailOnce(newsletterEmail(input.email.trim().toLowerCase(), `newsletter:${result.id}`)); return result; }),
   }),
   submissions: router({
-    create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20), manuscriptUrl: storageReference.optional() })).mutation(async ({ input, ctx }) => { const id = await createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }); await notifyOwnerSafely("submission", { title: "New Thinkoria paper submission", content: `${input.title} was submitted by ${input.name} in ${input.category}. Contact: ${input.email}.` }); return { id, success: true }; }),
+    create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20), manuscriptUrl: storageReference.optional() })).mutation(async ({ input, ctx }) => { const id = await createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }); await notifyOwnerSafely("submission", { title: "New Thinkoria paper submission", content: `${input.title} was submitted by ${input.name} in ${input.category}. Contact: ${input.email}.` }); void sendEmailOnce(submissionReceivedEmail(input.name, input.email.trim().toLowerCase(), input.title, input.category, `submission_received:${id}`)); return { id, success: true }; }),
   }),
   club: router({
     events: publicProcedure.query(() => listClubEvents()),

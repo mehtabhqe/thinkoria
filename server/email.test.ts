@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { clubMembershipEmail, debateApplicationEmail, emailLayout, newsletterEmail, welcomeEmail } from "./email";
+import { clubMembershipEmail, debateApplicationEmail, emailLayout, newsletterEmail, submissionReceivedEmail, welcomeEmail } from "./email";
 
 describe("Thinkoria transactional email templates", () => {
   it("keeps event keys deterministic for duplicate protection", () => {
@@ -27,5 +27,10 @@ describe("Thinkoria transactional email templates", () => {
     expect(newsletter.text).toContain("Unsubscribe");
     expect(newsletter.html).toContain("Unsubscribe");
     expect(clubMembershipEmail("Reader", "reader@thinkoria.space", "club_membership:7").text).toContain("membership");
+    const submission = submissionReceivedEmail("Reader", "reader@thinkoria.space", "A careful question", "Philosophy", "submission_received:9");
+    expect(submission.kind).toBe("submission_received");
+    expect(submission.text).toContain("2–3 days");
+    expect(submission.text).toContain("does not guarantee publication");
+    expect(submission.html).toContain("Thank you for choosing Thinkoria");
   });
 });
