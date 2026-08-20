@@ -475,3 +475,8 @@
 
 - [x] Audit and restore the theme toggle/system appearance controls, newsletter signup, smooth navigation, and related public homepage integrations lost during the mobile-navigation synchronization.
 - [x] Verify public feature visibility on desktop/mobile, run tests/build, and confirm Resend email automation with a controlled test before publishing.
+
+## Navigation-only regression after feature restoration
+
+- [x] Diagnose and fix the public navigation glitch across desktop and mobile without changing theme, newsletter, email automation, or page features.
+- [x] Verify navigation interactions and regression-test the preserved public feature set before publishing the nav-only correction.
