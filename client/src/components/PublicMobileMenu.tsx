@@ -19,7 +19,7 @@ export default function PublicMobileMenu({ links, cta, account }: PublicMobileMe
         {open ? <X size={20} /> : <Menu size={20} />}
       </button>
       {open && (
-        <div id="public-mobile-menu" role="dialog" aria-label="Thinkoria mobile navigation" className="thinkoria-mobile-menu absolute inset-x-0 top-full z-50 border-t border-current/15 bg-[var(--thinkoria-surface)] px-6 py-5 font-sans text-xs uppercase tracking-[0.14em] shadow-lg" style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}>
+        <div id="public-mobile-menu" role="dialog" aria-label="Thinkoria mobile navigation" className="thinkoria-mobile-menu absolute inset-x-0 top-full z-50 isolate border-t border-current/15 bg-[#F3F0E8] text-[#171614] dark:bg-[#24221f] dark:text-[#F3F0E8] px-6 py-5 font-sans text-xs uppercase tracking-[0.14em] shadow-lg" style={{ paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))" }}>
           <nav className="grid gap-1" aria-label="Mobile navigation">
             {links.map((link) => <a key={link.href} href={link.href} onClick={close} className="block border-b border-current/10 py-3">{link.label}</a>)}
             {account && <button type="button" onClick={runAccount} className="block w-full border-b border-current/10 py-3 text-left">{account.label}</button>}

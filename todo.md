@@ -485,3 +485,8 @@
 
 - [x] Diagnose why thinkoria.space is serving an unchanged navigation build and synchronize the correct production deployment without changing unrelated features.
 - [x] Verify the navigation correction directly on thinkoria.space and record the final live-domain status.
+
+## Mobile navigation overlay regression from screenshot
+
+- [x] Fix the mobile menu overlay/stacking/layout glitch shown in the screenshot without changing newsletter, theme, appearance, email automation, or other recent features.
+- [x] Verify closed and open mobile navigation states on a phone viewport and preserve the existing public feature set before publishing.
