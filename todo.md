@@ -495,3 +495,8 @@
 
 - [x] Replace the still-broken mobile menu positioning with a fixed, opaque, independently scrolling mobile drawer/overlay without changing newsletter, theme, appearance, email automation, or other features.
 - [x] Verify the drawer open/closed states on a phone viewport and confirm the preserved public feature set before publishing.
+
+## Fresh diagnosis of persistent mobile navigation glitch
+
+- [x] Reproduce and trace the actual mobile navigation overlap/glitch from the live custom-domain bundle and current source instead of relying on the prior assumption.
+- [x] Apply and verify the smallest navigation-only fix while preserving newsletter, theme, appearance, email automation, and all other recent features.
