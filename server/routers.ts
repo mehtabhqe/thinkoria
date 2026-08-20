@@ -46,7 +46,7 @@ import {
   hasEmailDelivery,
   recordEmailDelivery,
 } from "./db";
-import { clubMembershipEmail, debateApplicationEmail, newsletterEmail, sendTransactionalEmail, submissionReceivedEmail } from "./email";
+import { clubMembershipEmail, debateApplicationEmail, newsletterEmail, sendTransactionalEmail, submissionDecisionEmail, submissionReceivedEmail } from "./email";
 
 const storageReference = z.string().refine(
   value => value === "" || value.startsWith("/manus-storage/") || z.url().safeParse(value).success,
@@ -62,6 +62,10 @@ async function sendEmailOnce(input: ReturnType<typeof newsletterEmail>) {
     console.warn("[Thinkoria] Transactional email skipped:", error);
     await recordEmailDelivery({ eventKey: input.eventKey, kind: input.kind, recipient: input.to, status: "failed" });
   }
+}
+
+async function sendSubmissionDecisionEmail(submission: { id: number; name: string; email: string; title: string }, status: "accepted" | "declined") {
+  await sendEmailOnce(submissionDecisionEmail(submission.name, submission.email.trim().toLowerCase(), submission.title, status, `submission_decision:${submission.id}:${status}`));
 }
 
 async function notifyOwnerSafely(kind: string, payload: { title: string; content: string }) {
@@ -143,7 +147,7 @@ export const appRouter = router({
   admin: router({
     articles: adminProcedure.query(() => listAdminArticles()),
     submissions: adminProcedure.query(() => listAdminSubmissions()),
-    updateSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["received", "reviewing", "accepted", "declined"]) })).mutation(({ input }) => updateSubmissionStatus(input.id, input.status).then(() => ({ success: true }))),
+    updateSubmission: adminProcedure.input(z.object({ id: z.number().int().positive(), status: z.enum(["received", "reviewing", "accepted", "declined"]) })).mutation(async ({ input }) => { const submission = await getSubmissionById(input.id); if (!submission) throw new Error("Submission not found"); await updateSubmissionStatus(input.id, input.status); if ((input.status === "accepted" || input.status === "declined") && submission.email) await sendSubmissionDecisionEmail(submission, input.status); return { success: true }; }),
     notifications: adminProcedure.query(() => listNotificationHistory()),
     categoryImageVersions: adminProcedure.input(z.object({ categoryId: z.number().int().positive() })).query(({ input }) => listCategoryImageVersions(input.categoryId)),
     articleAssetVersions: adminProcedure.input(z.object({ articleId: z.number().int().positive() })).query(({ input }) => listArticleAssetVersions(input.articleId)),
@@ -167,6 +171,7 @@ export const appRouter = router({
         publishedAt: null,
       });
       await updateSubmissionStatus(input.id, "accepted");
+      if (submission.email) await sendSubmissionDecisionEmail(submission, "accepted");
       return { id: articleId, success: true };
     }),
     createArticle: adminProcedure.input(articleInput).mutation(({ input }) => createArticle({ ...input, imageUrl: input.imageUrl || null, imageAlt: input.imageAlt || null, citations: input.citations || null, manuscriptUrl: input.manuscriptUrl || null, publishedAt: input.status === "published" ? new Date() : null }).then(id => ({ id, success: true }))),

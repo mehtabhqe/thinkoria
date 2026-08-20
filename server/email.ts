@@ -81,3 +81,20 @@ export function submissionReceivedEmail(name: string, email: string, title: stri
     html: emailLayout("Your Thinkoria submission has been received by the editorial desk.", "Thank you for choosing Thinkoria.", `<p>Thank you, ${escapeHtml(safeName)}. We have received your article, <strong>${escapeHtml(safeTitle)}</strong>${category ? ` in ${escapeHtml(category)}` : ""}.</p><p>Our editorial team will review the work and aims to respond within <strong>2–3 days</strong>. This message confirms receipt of your submission only; it does not guarantee acceptance or publication.</p><p>Thank you for trusting Thinkoria with your work. We will be in touch if the editorial desk needs any further information.</p>`, cta)
   };
 }
+
+export function submissionDecisionEmail(name: string, email: string, title: string, status: "accepted" | "declined", eventKey: string) {
+  const safeName = name || "writer";
+  const safeTitle = title || "your submission";
+  const accepted = status === "accepted";
+  const cta = accepted ? { label: "Read Thinkoria", url: `${SITE_URL}/catalogue` } : { label: "Visit Thinkoria", url: SITE_URL };
+  const subject = accepted ? "Your Thinkoria submission has been accepted" : "An update on your Thinkoria submission";
+  const heading = accepted ? "Your work is moving forward." : "Thank you for sharing your work.";
+  const preheader = accepted ? "The Thinkoria editorial desk has accepted your submission for publication." : "The Thinkoria editorial desk has completed its review of your submission.";
+  const text = accepted
+    ? `Dear ${safeName}, the Thinkoria editorial desk has accepted “${safeTitle}” for publication. We will follow up with any final editorial details before it appears in the Catalogue. Read Thinkoria: ${cta.url}`
+    : `Dear ${safeName}, thank you for sharing “${safeTitle}” with Thinkoria. After review, the editorial desk will not be taking this submission forward at this time. This decision applies to this submission only and is not a judgment on your wider work. We welcome future submissions when you have another question to place in circulation. Visit Thinkoria: ${cta.url}`;
+  const html = accepted
+    ? emailLayout(preheader, heading, `<p>Dear ${escapeHtml(safeName)}, we are pleased to let you know that the Thinkoria editorial desk has accepted <strong>${escapeHtml(safeTitle)}</strong> for publication.</p><p>We will follow up with any final editorial details before the work appears in the Catalogue. Thank you for trusting Thinkoria with your thinking.</p>`, cta)
+    : emailLayout(preheader, heading, `<p>Dear ${escapeHtml(safeName)}, thank you for sharing <strong>${escapeHtml(safeTitle)}</strong> with Thinkoria.</p><p>After review, the editorial desk will not be taking this submission forward at this time. This decision applies to this submission only and is not a judgment on your wider work.</p><p>We welcome future submissions when you have another question to place in circulation.</p>`, cta);
+  return { to: email, eventKey, kind: accepted ? "submission_accepted" : "submission_declined", subject, text, html };
+}

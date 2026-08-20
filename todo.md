@@ -526,3 +526,19 @@
 - [x] Test sign-in verification, Nagaon Club membership, and debate-role application email flows using the approved test recipient.
 - [x] Add a professional submission-received email template and trigger after a paper submission succeeds, clearly stating receipt and review timing without promising publication.
 - [x] Run email regression tests, send a controlled submission email test, and publish the verified automation update.
+
+## Preview-only profile submission status
+
+- [x] Add a signed-in profile section showing the user’s submitted articles and current editorial review status without changing the live site.
+- [x] Validate the preview feature, authentication states, responsive UI, and submission-status data without creating a checkpoint or publishing until user approval.
+
+## Editorial decision email automation
+
+- [x] Add professional acceptance and rejection email templates for reviewed submissions, preserving the existing receipt, sign-in, Club, debate, and newsletter emails.
+- [x] Trigger the correct decision email when an editor changes a submission status to accepted or declined, with duplicate-safe delivery and regression coverage.
+- [x] Validate the preview-only automation update without pushing, checkpointing, or publishing until user approval.
+
+## Selective production release: decision emails only
+
+- [x] Publish only the acceptance/rejection email templates and Editorial Desk triggers to thinkoria.space; exclude the preview profile/status page and its user-scoped query.
+- [x] Validate the selective revision, commit and push only approved automation changes, and verify the live custom-domain deployment.

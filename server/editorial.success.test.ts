@@ -34,7 +34,7 @@ vi.mock("./db", async () => {
     listClubApplications: vi.fn().mockResolvedValue([]),
     listClubEvents: vi.fn().mockResolvedValue([]),
     updateClubApplicationStatus: vi.fn().mockResolvedValue(undefined),
-    getSubmissionById: vi.fn().mockResolvedValue({ id: 7, name: "Submitted Author", email: "author@example.com", title: "A Considered Paper", category: "Philosophy", abstract: "An abstract with enough length for the conversion contract to accept and create a draft article.", manuscriptUrl: "/manus-storage/submissions/paper.pdf", status: "reviewing", createdAt: new Date(), updatedAt: new Date() }),
+    getSubmissionById: vi.fn().mockResolvedValue({ id: 7, name: "Submitted Author", email: "", title: "A Considered Paper", category: "Philosophy", abstract: "An abstract with enough length for the conversion contract to accept and create a draft article.", manuscriptUrl: "/manus-storage/submissions/paper.pdf", status: "reviewing", createdAt: new Date(), updatedAt: new Date() }),
     updateSubmissionStatus: vi.fn().mockResolvedValue(undefined),
     createForumThread: vi.fn().mockResolvedValue(202),
     createForumPost: vi.fn().mockResolvedValue(303),
@@ -184,6 +184,7 @@ describe("editorial success contracts", () => {
     await expect(caller.admin.updateClubApplication({ id: 12, status: "accepted" })).resolves.toEqual({ success: true });
     await expect(caller.admin.deleteClubEvent({ id: 606 })).resolves.toEqual({ success: true });
   });
+
 
   it("submits a debate role application for an authenticated member", async () => {
     await expect(appRouter.createCaller(context(member)).club.submitApplication({

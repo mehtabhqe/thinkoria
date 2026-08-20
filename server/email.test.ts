@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { clubMembershipEmail, debateApplicationEmail, emailLayout, newsletterEmail, submissionReceivedEmail, welcomeEmail } from "./email";
+import { clubMembershipEmail, debateApplicationEmail, emailLayout, newsletterEmail, submissionDecisionEmail, submissionReceivedEmail, welcomeEmail } from "./email";
 
 describe("Thinkoria transactional email templates", () => {
   it("keeps event keys deterministic for duplicate protection", () => {
@@ -32,5 +32,13 @@ describe("Thinkoria transactional email templates", () => {
     expect(submission.text).toContain("2–3 days");
     expect(submission.text).toContain("does not guarantee publication");
     expect(submission.html).toContain("Thank you for choosing Thinkoria");
+    const accepted = submissionDecisionEmail("Reader", "reader@thinkoria.space", "A Careful Question", "accepted", "submission_decision:9:accepted");
+    expect(accepted.kind).toBe("submission_accepted");
+    expect(accepted.subject).toContain("accepted");
+    expect(accepted.text).toContain("for publication");
+    const declined = submissionDecisionEmail("<Reader>", "reader@thinkoria.space", "A Difficult Question", "declined", "submission_decision:10:declined");
+    expect(declined.kind).toBe("submission_declined");
+    expect(declined.text).toContain("not be taking this submission forward");
+    expect(declined.html).toContain("&lt;Reader&gt;");
   });
 });
