@@ -465,3 +465,7 @@
 ## Social footer links
 
 - [x] Add Instagram profile link for @thinkoria.space and LinkedIn company link https://www.linkedin.com/company/thinkoria-space/ to the responsive footer, then verify and publish.
+
+## Exact social-link verification
+
+- [ ] Verify production footer uses Instagram username thinkoria.space and LinkedIn URL https://www.linkedin.com/company/thinkoria-space/ exactly; correct any mismatch and republish if needed.
