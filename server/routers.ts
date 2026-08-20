@@ -42,12 +42,27 @@ import {
   getArticleAssetVersion,
   createNotificationHistory,
   listNotificationHistory,
+  subscribeToNewsletter,
+  hasEmailDelivery,
+  recordEmailDelivery,
 } from "./db";
+import { clubMembershipEmail, debateApplicationEmail, newsletterEmail, sendTransactionalEmail } from "./email";
 
 const storageReference = z.string().refine(
   value => value === "" || value.startsWith("/manus-storage/") || z.url().safeParse(value).success,
   "Expected an absolute URL or a project storage path",
 );
+
+async function sendEmailOnce(input: ReturnType<typeof newsletterEmail>) {
+  try {
+    if (await hasEmailDelivery(input.eventKey)) return;
+    const result = await sendTransactionalEmail(input);
+    await recordEmailDelivery({ eventKey: input.eventKey, kind: input.kind, recipient: input.to, status: result.sent ? "sent" : "failed", providerId: result.sent ? result.id : null });
+  } catch (error) {
+    console.warn("[Thinkoria] Transactional email skipped:", error);
+    await recordEmailDelivery({ eventKey: input.eventKey, kind: input.kind, recipient: input.to, status: "failed" });
+  }
+}
 
 async function notifyOwnerSafely(kind: string, payload: { title: string; content: string }) {
   let status: "sent" | "failed" = "failed";
@@ -108,13 +123,16 @@ export const appRouter = router({
       return storagePut(`editorial/${Date.now()}-${safeFileName}`, buffer, input.contentType);
     }),
   }),
+  newsletter: router({
+    subscribe: publicProcedure.input(z.object({ email: z.string().trim().email().max(320) })).mutation(async ({ input }) => { const result = await subscribeToNewsletter(input.email); if (!result.alreadySubscribed) void sendEmailOnce(newsletterEmail(input.email.trim().toLowerCase(), `newsletter:${result.id}`)); return result; }),
+  }),
   submissions: router({
     create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20), manuscriptUrl: storageReference.optional() })).mutation(async ({ input, ctx }) => { const id = await createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }); await notifyOwnerSafely("submission", { title: "New Thinkoria paper submission", content: `${input.title} was submitted by ${input.name} in ${input.category}. Contact: ${input.email}.` }); return { id, success: true }; }),
   }),
   club: router({
     events: publicProcedure.query(() => listClubEvents()),
-    join: protectedProcedure.mutation(({ ctx }) => joinClub(ctx.user.id).then(membership => ({ success: true, membership }))),
-    submitApplication: protectedProcedure.input(z.object({ eventId: z.number().int().positive().optional(), role: z.enum(["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]), otherRole: z.string().max(160).optional(), note: z.string().max(2000).optional() })).mutation(async ({ input, ctx }) => { const id = await createClubApplication({ ...input, userId: ctx.user.id, eventId: input.eventId ?? null, otherRole: input.otherRole || null, note: input.note || null }); await notifyOwnerSafely("club_application", { title: "New Nagaon Club application", content: `${ctx.user.name || ctx.user.email || "A member"} applied for the ${input.role} role${input.eventId ? ` for event #${input.eventId}` : ""}.` }); return { id, success: true }; }),
+    join: protectedProcedure.mutation(async ({ ctx }) => { const membership = await joinClub(ctx.user.id); if (ctx.user.email) void sendEmailOnce(clubMembershipEmail(ctx.user.name || "member", ctx.user.email, `club_membership:${ctx.user.id}`)); return { success: true, membership }; }),
+    submitApplication: protectedProcedure.input(z.object({ eventId: z.number().int().positive().optional(), role: z.enum(["debator", "mediator", "jury", "timekeeper", "organizer", "observer", "other"]), otherRole: z.string().max(160).optional(), note: z.string().max(2000).optional() })).mutation(async ({ input, ctx }) => { const id = await createClubApplication({ ...input, userId: ctx.user.id, eventId: input.eventId ?? null, otherRole: input.otherRole || null, note: input.note || null }); await notifyOwnerSafely("club_application", { title: "New Nagaon Club application", content: `${ctx.user.name || ctx.user.email || "A member"} applied for the ${input.role} role${input.eventId ? ` for event #${input.eventId}` : ""}.` }); if (ctx.user.email) void sendEmailOnce(debateApplicationEmail(ctx.user.name || "member", ctx.user.email, input.role, `debate_application:${id}`)); return { id, success: true }; }),
   }),
   forum: router({
     threads: publicProcedure.query(() => listForumThreads()),

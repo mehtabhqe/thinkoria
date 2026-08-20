@@ -466,3 +466,12 @@
 
 - [x] Diagnose and fix the homepage mobile menu glitch for iOS, Android, and narrow phone screens, including touch targets, safe-area spacing, viewport scrolling, and menu layering, while leaving desktop UI unchanged.
 - [x] Verify mobile screenshots and interaction behavior, run tests/build, and publish the responsive fix.
+
+## Mobile navigation deployment verification
+
+- [x] Verify the mobile-navigation checkpoint is synchronized with GitHub and live on thinkoria.space; push or redeploy if needed.
+
+## Restored public features after mobile sync
+
+- [x] Audit and restore the theme toggle/system appearance controls, newsletter signup, smooth navigation, and related public homepage integrations lost during the mobile-navigation synchronization.
+- [x] Verify public feature visibility on desktop/mobile, run tests/build, and confirm Resend email automation with a controlled test before publishing.

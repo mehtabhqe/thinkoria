@@ -2,6 +2,8 @@ import ThinkoriaFooter from "@/components/ThinkoriaFooter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
+import PublicMobileMenu from "@/components/PublicMobileMenu";
+import ThemeToggle from "@/components/ThemeToggle";
 import { isVercelPreview, manusHref } from "@/lib/manusHandoff";
 import { ArrowUpRight, Eye, LockKeyhole, Plus, Users, X } from "lucide-react";
 import { useState } from "react";
@@ -63,11 +65,11 @@ export default function Forum() {
   });
 
   return (
-    <main className="min-h-screen bg-[#F3F0E8] text-[#171614]">
+    <main className="thinkoria-site min-h-screen bg-[#F3F0E8] text-[#171614]">
       <header className="border-b border-[#171614]/15">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 lg:px-12">
           <a href="/" className="flex items-center gap-3"><img src="/manus-storage/thinkoria-logo_8998c7d8.png" alt="" className="h-9 w-9 object-contain" /><span className="font-serif text-[21px] leading-none tracking-[-0.035em]">Thinkoria</span></a>
-          <div className="flex items-center gap-5 font-sans text-[10px] font-semibold uppercase tracking-[0.14em]"><a href="/catalogue" className="hidden sm:block nav-link">Catalogue</a><a href="/club" className="hidden sm:block nav-link">Nagaon Club</a><button onClick={openAccount} className="button-ink">{user ? "Start a thread" : "Create account"} <ArrowUpRight size={14} /></button></div>
+          <div className="flex items-center gap-5 font-sans text-[10px] font-semibold uppercase tracking-[0.14em]"><a href="/catalogue" className="hidden sm:block nav-link">Catalogue</a><a href="/club" className="hidden sm:block nav-link">Nagaon Club</a><ThemeToggle /><PublicMobileMenu links={[{ href: "/catalogue", label: "Catalogue" }, { href: "/club", label: "Nagaon Club" }]} /><button onClick={openAccount} className="button-ink">{user ? "Start a thread" : "Create account"} <ArrowUpRight size={14} /></button></div>
         </div>
       </header>
       <section className="mx-auto max-w-[1440px] px-6 pb-14 pt-16 lg:px-12 lg:pb-20 lg:pt-24"><div className="grid gap-10 lg:grid-cols-[1fr_.65fr] lg:items-end"><div><div className="eyebrow"><span className="vermilion-dot" /> The forum / open conversation</div><h1 className="mt-7 max-w-[760px] font-serif text-6xl leading-[.9] tracking-[-.055em] lg:text-8xl">A place to <em>think out loud.</em></h1></div><div className="border-l border-[#171614]/20 pl-6"><p className="font-sans text-sm leading-7 text-[#171614]/65">Come with a question. Stay for the complication. The forum is a member space for conversations that do not need to resolve themselves quickly.</p><button onClick={openAccount} className="button-vermilion mt-7">{user ? "Start a thread" : "Join the conversation"} <ArrowUpRight size={15} /></button></div></div></section>
