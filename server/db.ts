@@ -6,6 +6,7 @@ import {
   categoryImageVersions,
   articleAssetVersions,
   notificationHistory,
+  emailDeliveries,
   newsletterSubscribers,
   clubApplications,
   clubEvents,
@@ -57,6 +58,19 @@ export async function getUserByOpenId(openId: string) {
 
 export function normalizeNewsletterEmail(email: string) {
   return email.trim().toLowerCase();
+}
+
+export async function hasEmailDelivery(eventKey: string) {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.select({ id: emailDeliveries.id }).from(emailDeliveries).where(eq(emailDeliveries.eventKey, eventKey)).limit(1);
+  return Boolean(result[0]);
+}
+
+export async function recordEmailDelivery(input: { eventKey: string; kind: string; recipient: string; status: "sent" | "failed"; providerId?: string | null }) {
+  const db = await getDb();
+  if (!db) return;
+  await db.insert(emailDeliveries).values(input).onDuplicateKeyUpdate({ set: { status: input.status, providerId: input.providerId ?? null } });
 }
 
 export async function subscribeToNewsletter(email: string) {

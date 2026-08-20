@@ -108,6 +108,16 @@ export const forumThreads = mysqlTable("forumThreads", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
+export const emailDeliveries = mysqlTable("emailDeliveries", {
+  id: int("id").autoincrement().primaryKey(),
+  eventKey: varchar("eventKey", { length: 240 }).notNull().unique(),
+  kind: varchar("kind", { length: 64 }).notNull(),
+  recipient: varchar("recipient", { length: 320 }).notNull(),
+  status: mysqlEnum("status", ["sent", "failed"]).default("sent").notNull(),
+  providerId: varchar("providerId", { length: 128 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export const notificationHistory = mysqlTable("notificationHistory", {
   id: int("id").autoincrement().primaryKey(),
   kind: varchar("kind", { length: 64 }).notNull(),
@@ -160,5 +170,6 @@ export type InsertForumThread = typeof forumThreads.$inferInsert;
 export type ForumPost = typeof forumPosts.$inferSelect;
 export type InsertForumPost = typeof forumPosts.$inferInsert;
 export type NotificationHistory = typeof notificationHistory.$inferSelect;
+export type EmailDelivery = typeof emailDeliveries.$inferSelect;
 export type CategoryImageVersion = typeof categoryImageVersions.$inferSelect;
 export type ArticleAssetVersion = typeof articleAssetVersions.$inferSelect;

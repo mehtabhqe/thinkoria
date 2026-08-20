@@ -492,3 +492,24 @@
 - [x] Extend dark-mode styling across all public page content sections and interactive states.
 - [x] Add automatic system-preference synchronization with a manual light/dark/system choice.
 - [x] Verify desktop/mobile accessibility, run tests and production build, then commit, push, and publish.
+
+## Transactional email automation
+
+- [x] Choose and configure an email provider and verified sender for Thinkoria.
+- [x] Add confirmation emails for first successful sign-in, Club membership, newsletter signup, and debate-role applications with duplicate-event protection.
+- [x] Add email templates, delivery/error handling, and regression tests; validate locally without committing, pushing, or publishing until user approval.
+
+## Professional transactional email copy
+
+- [x] Rewrite the first sign-in, Nagaon Club membership, debate-role application, and newsletter confirmation emails with polished Thinkoria-branded copy; add copy assertions and validate locally without releasing.
+
+- [x] Revise the debate-role confirmation so it acknowledges receipt of the selected-role application, states that it will be reviewed, and does not imply acceptance.
+
+## Email template refinement
+
+- [x] Apply responsive table-based HTML, hidden preheaders, branded wordmark treatment, mobile-safe typography, contextual CTAs, plain-text parity, and accessible contrast to all four transactional emails.
+- [x] Refine account, Club, debate-role, and newsletter copy; include event-aware Club details where available and add newsletter unsubscribe/privacy handling without releasing changes.
+
+## Final email release
+
+- [x] Finish template validation, send one final controlled verification email to mehtabalh@gmail.com, then commit, push, publish to thinkoria.space, and verify production without changing Manus backend services.

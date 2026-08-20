@@ -64,6 +64,13 @@
       "when": 1787219555147,
       "tag": "0008_wooden_nitro",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1787223490762,
+      "tag": "0009_left_vermin",
+      "breakpoints": true
     }
   ]
 }
