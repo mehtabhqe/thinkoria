@@ -473,3 +473,10 @@
 ## Google favicon discoverability
 
 - [x] Diagnose why Google Search is not displaying Thinkoria’s favicon, ensure crawler-friendly favicon assets and metadata are served from the public domain, verify the routes, and republish.
+
+## Reader experience improvements
+
+- [x] Add a persistent dark-mode toggle with accessible labels and a Thinkoria-compatible dark palette.
+- [x] Add smooth scrolling for same-page navigation links while preserving normal route navigation and reduced-motion preferences.
+- [x] Add a responsive newsletter subscription form at the bottom of the public homepage with validation, success/error feedback, and an honest integration boundary until an email provider is connected.
+- [x] Verify desktop/mobile states, tests, production build, and publish the improvements.

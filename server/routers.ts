@@ -42,6 +42,7 @@ import {
   getArticleAssetVersion,
   createNotificationHistory,
   listNotificationHistory,
+  subscribeToNewsletter,
 } from "./db";
 
 const storageReference = z.string().refine(
@@ -107,6 +108,9 @@ export const appRouter = router({
       const safeFileName = input.fileName.replace(/[^a-zA-Z0-9._-]/g, "-");
       return storagePut(`editorial/${Date.now()}-${safeFileName}`, buffer, input.contentType);
     }),
+  }),
+  newsletter: router({
+    subscribe: publicProcedure.input(z.object({ email: z.string().trim().email().max(320) })).mutation(({ input }) => subscribeToNewsletter(input.email)),
   }),
   submissions: router({
     create: publicProcedure.input(z.object({ name: z.string().min(2), email: z.string().email(), title: z.string().min(3), category: z.string().min(2), abstract: z.string().min(20), manuscriptUrl: storageReference.optional() })).mutation(async ({ input, ctx }) => { const id = await createSubmission({ ...input, submitterId: ctx.user?.id ?? null, manuscriptUrl: input.manuscriptUrl || null }); await notifyOwnerSafely("submission", { title: "New Thinkoria paper submission", content: `${input.title} was submitted by ${input.name} in ${input.category}. Contact: ${input.email}.` }); return { id, success: true }; }),

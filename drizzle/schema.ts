@@ -13,6 +13,13 @@ export const users = mysqlTable("users", {
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
 });
 
+export const newsletterSubscribers = mysqlTable("newsletterSubscribers", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const categories = mysqlTable("categories", {
   id: int("id").autoincrement().primaryKey(),
   slug: varchar("slug", { length: 96 }).notNull().unique(),
@@ -135,6 +142,7 @@ export const forumPosts = mysqlTable("forumPosts", {
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
+export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
 export type Category = typeof categories.$inferSelect;
 export type InsertCategory = typeof categories.$inferInsert;
 export type Article = typeof articles.$inferSelect;

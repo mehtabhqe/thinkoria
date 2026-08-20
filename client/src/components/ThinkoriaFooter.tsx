@@ -1,5 +1,6 @@
 import { ArrowUpRight, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 import { publicOrManusHref } from "@/lib/manusHandoff";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const footerLinks = [
   ["About", "/about"],
@@ -38,7 +39,7 @@ export default function ThinkoriaFooter() {
           </div>
         </div>
         <div className="mt-14 flex flex-col gap-4 border-t border-[#F3F0E8]/15 pt-5 font-sans text-[10px] uppercase tracking-[.12em] text-[#F3F0E8]/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>© Thinkoria / A place of ideas</p>
+          <div className="flex items-center gap-4"><p>© Thinkoria / A place of ideas</p><ThemeToggle /></div>
           <p>Made by <span className="text-[#F3F0E8]/75">Earden Media</span> and <span className="text-[#F3F0E8]/75">Mehtab Hoque</span></p>
         </div>
       </div>
