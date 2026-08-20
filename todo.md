@@ -485,3 +485,10 @@
 
 - [x] Add the shared dark-mode toggle to the public Catalogue, Article, Club, Forum, and About page headers.
 - [x] Verify dark and light states across desktop/mobile public pages, run tests and production build, then commit, push, and publish.
+
+## Dark mode accessibility and consistency
+
+- [x] Add the dark-mode control directly to the mobile navigation menu on all public pages.
+- [x] Extend dark-mode styling across all public page content sections and interactive states.
+- [x] Add automatic system-preference synchronization with a manual light/dark/system choice.
+- [x] Verify desktop/mobile accessibility, run tests and production build, then commit, push, and publish.

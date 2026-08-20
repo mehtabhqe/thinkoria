@@ -124,10 +124,18 @@ button:not(:disabled), a[href] { cursor: pointer; }
 .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid currentColor; color: currentColor; transition: background-color 180ms ease-out, color 180ms ease-out, transform 160ms cubic-bezier(.23,1,.32,1); }
 .theme-toggle:hover { background: #C8472C; color: #F3F0E8; border-color: #C8472C; }
 .theme-toggle:active { transform: scale(.94); }
-.dark .thinkoria-site { background-color: #24221f !important; color: #F3F0E8 !important; }
+.thinkoria-site { --thinkoria-surface: #F3F0E8; }
+.dark .thinkoria-site { --thinkoria-surface: #24221f; background-color: #24221f !important; color: #F3F0E8 !important; }
 .dark .thinkoria-site [class*="bg-[#F3F0E8]"] { background-color: #24221f !important; }
 .dark .thinkoria-site [class*="bg-[#EAE5DA]"] { background-color: #2b2925 !important; }
 .dark .thinkoria-site [class*="bg-[#DED8CA]"] { background-color: #36332d !important; }
+.dark .thinkoria-site [class*="bg-[#D8D0C0]"] { background-color: #3b3831 !important; }
+.dark .thinkoria-site [class*="bg-[#171614]"] { background-color: #11100f !important; }
+.dark .thinkoria-site [class*="bg-[#2D2B27]"] { background-color: #1b1a18 !important; }
+.dark .thinkoria-site [class*="text-[#171614]"] { color: #F3F0E8 !important; }
+.dark .thinkoria-site [class*="border-[#F3F0E8]"] { border-color: rgb(243 240 232 / .18) !important; }
+.dark .thinkoria-site input, .dark .thinkoria-site textarea, .dark .thinkoria-site select { background-color: #2b2925 !important; color: #F3F0E8 !important; border-color: rgb(243 240 232 / .22) !important; }
+.dark .thinkoria-site option { background-color: #2b2925; color: #F3F0E8; }
 .dark .thinkoria-site [class*="text-[#171614]"] { color: #F3F0E8 !important; }
 .dark .thinkoria-site [class*="border-[#171614]"] { border-color: rgb(243 240 232 / .18) !important; }
 .dark .thinkoria-site .paper-noise { mix-blend-mode: screen; opacity: .035; }
