@@ -480,3 +480,8 @@
 
 - [x] Diagnose and fix the public navigation glitch across desktop and mobile without changing theme, newsletter, email automation, or page features.
 - [x] Verify navigation interactions and regression-test the preserved public feature set before publishing the nav-only correction.
+
+## Custom-domain deployment synchronization regression
+
+- [ ] Diagnose why thinkoria.space is serving an unchanged navigation build and synchronize the correct production deployment without changing unrelated features.
+- [ ] Verify the navigation correction directly on thinkoria.space and record the final live-domain status.
