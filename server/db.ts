@@ -6,8 +6,6 @@ import {
   categoryImageVersions,
   articleAssetVersions,
   notificationHistory,
-  emailDeliveries,
-  newsletterSubscribers,
   clubApplications,
   clubEvents,
   clubMemberships,
@@ -54,33 +52,6 @@ export async function getUserByOpenId(openId: string) {
   if (!db) return undefined;
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
   return result[0];
-}
-
-export function normalizeNewsletterEmail(email: string) {
-  return email.trim().toLowerCase();
-}
-
-export async function hasEmailDelivery(eventKey: string) {
-  const db = await getDb();
-  if (!db) return false;
-  const result = await db.select({ id: emailDeliveries.id }).from(emailDeliveries).where(eq(emailDeliveries.eventKey, eventKey)).limit(1);
-  return Boolean(result[0]);
-}
-
-export async function recordEmailDelivery(input: { eventKey: string; kind: string; recipient: string; status: "sent" | "failed"; providerId?: string | null }) {
-  const db = await getDb();
-  if (!db) return;
-  await db.insert(emailDeliveries).values(input).onDuplicateKeyUpdate({ set: { status: input.status, providerId: input.providerId ?? null } });
-}
-
-export async function subscribeToNewsletter(email: string) {
-  const db = await getDb();
-  if (!db) throw new Error("Database unavailable");
-  const normalizedEmail = normalizeNewsletterEmail(email);
-  const existing = await db.select({ id: newsletterSubscribers.id }).from(newsletterSubscribers).where(eq(newsletterSubscribers.email, normalizedEmail)).limit(1);
-  if (existing[0]) return { id: existing[0].id, alreadySubscribed: true };
-  const result = await db.insert(newsletterSubscribers).values({ email: normalizedEmail });
-  return { id: result[0].insertId, alreadySubscribed: false };
 }
 
 export async function listCategories() {

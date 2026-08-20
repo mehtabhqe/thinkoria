@@ -13,13 +13,6 @@ export const users = mysqlTable("users", {
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
 });
 
-export const newsletterSubscribers = mysqlTable("newsletterSubscribers", {
-  id: int("id").autoincrement().primaryKey(),
-  email: varchar("email", { length: 320 }).notNull().unique(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
-
 export const categories = mysqlTable("categories", {
   id: int("id").autoincrement().primaryKey(),
   slug: varchar("slug", { length: 96 }).notNull().unique(),
@@ -108,16 +101,6 @@ export const forumThreads = mysqlTable("forumThreads", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
-export const emailDeliveries = mysqlTable("emailDeliveries", {
-  id: int("id").autoincrement().primaryKey(),
-  eventKey: varchar("eventKey", { length: 240 }).notNull().unique(),
-  kind: varchar("kind", { length: 64 }).notNull(),
-  recipient: varchar("recipient", { length: 320 }).notNull(),
-  status: mysqlEnum("status", ["sent", "failed"]).default("sent").notNull(),
-  providerId: varchar("providerId", { length: 128 }),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-});
-
 export const notificationHistory = mysqlTable("notificationHistory", {
   id: int("id").autoincrement().primaryKey(),
   kind: varchar("kind", { length: 64 }).notNull(),
@@ -152,7 +135,6 @@ export const forumPosts = mysqlTable("forumPosts", {
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
-export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
 export type Category = typeof categories.$inferSelect;
 export type InsertCategory = typeof categories.$inferInsert;
 export type Article = typeof articles.$inferSelect;
@@ -170,6 +152,5 @@ export type InsertForumThread = typeof forumThreads.$inferInsert;
 export type ForumPost = typeof forumPosts.$inferSelect;
 export type InsertForumPost = typeof forumPosts.$inferInsert;
 export type NotificationHistory = typeof notificationHistory.$inferSelect;
-export type EmailDelivery = typeof emailDeliveries.$inferSelect;
 export type CategoryImageVersion = typeof categoryImageVersions.$inferSelect;
 export type ArticleAssetVersion = typeof articleAssetVersions.$inferSelect;

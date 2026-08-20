@@ -1,6 +1,5 @@
 import { ArrowUpRight, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 import { publicOrManusHref } from "@/lib/manusHandoff";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const footerLinks = [
   ["About", "/about"],
@@ -20,8 +19,8 @@ export default function ThinkoriaFooter() {
             <p className="mt-6 max-w-[360px] font-serif text-3xl leading-[.98] text-[#F3F0E8]">A place of ideas.</p>
             <p className="mt-5 max-w-[390px] font-sans text-sm leading-7 text-[#F3F0E8]/60">An independent publishing room for papers, essays, conversation, and work still becoming.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href="https://www.instagram.com/thinkoria.space" target="_blank" rel="noreferrer" aria-label="Thinkoria on Instagram thinkoria.space" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Instagram size={14} /> thinkoria.space</a>
-              <a href="https://www.linkedin.com/company/thinkoria-space" target="_blank" rel="noreferrer" aria-label="Thinkoria on LinkedIn" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Linkedin size={14} /> LinkedIn</a>
+              <a href="https://www.instagram.com/thinkoria/" target="_blank" rel="noreferrer" aria-label="Thinkoria on Instagram" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Instagram size={14} /> Instagram</a>
+              <a href="https://www.linkedin.com/company/thinkoria/" target="_blank" rel="noreferrer" aria-label="Thinkoria on LinkedIn" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Linkedin size={14} /> LinkedIn</a>
             </div>
           </div>
           <div>
@@ -39,7 +38,7 @@ export default function ThinkoriaFooter() {
           </div>
         </div>
         <div className="mt-14 flex flex-col gap-4 border-t border-[#F3F0E8]/15 pt-5 font-sans text-[10px] uppercase tracking-[.12em] text-[#F3F0E8]/45 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4"><p>© Thinkoria / A place of ideas</p><ThemeToggle /></div>
+          <p>© Thinkoria / A place of ideas</p>
           <p>Made by <span className="text-[#F3F0E8]/75">Earden Media</span> and <span className="text-[#F3F0E8]/75">Mehtab Hoque</span></p>
         </div>
       </div>

@@ -12,27 +12,7 @@ import About from "@/pages/About";
 import Admin from "@/pages/Admin";
 import Article from "@/pages/Article";
 import Submit from "@/pages/Submit";
-import ManusLoginRedirect from "./pages/ManusLoginRedirect";
-import { useEffect } from "react";
-
-function useSmoothAnchorScrolling() {
-  useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      const link = target?.closest<HTMLAnchorElement>('a[href^="#"]');
-      if (!link || link.target === "_blank") return;
-      const hash = link.getAttribute("href");
-      if (!hash || hash === "#") return;
-      const destination = document.querySelector(hash);
-      if (!destination) return;
-      event.preventDefault();
-      destination.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
-      window.history.replaceState(null, "", hash);
-    };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
-}
+import ManusLoginRedirect from "@/pages/ManusLoginRedirect";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -60,12 +40,11 @@ function Router() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
-  useSmoothAnchorScrolling();
   return (
     <ErrorBoundary>
       <ThemeProvider
         defaultTheme="light"
-        switchable
+        // switchable
       >
         <TooltipProvider>
           <Toaster />

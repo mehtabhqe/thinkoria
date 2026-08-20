@@ -4,7 +4,6 @@ import type { Express, Request, Response } from "express";
 import * as db from "../db";
 import { getSessionCookieOptions } from "./cookies";
 import { sdk } from "./sdk";
-import { sendWelcomeEmailOnce } from "../email";
 
 function getQueryParam(req: Request, key: string): string | undefined {
   const value = req.query[key];
@@ -42,7 +41,6 @@ export function registerOAuthRoutes(app: Express) {
         return;
       }
 
-      const existingUser = await db.getUserByOpenId(userInfo.openId);
       await db.upsertUser({
         openId: userInfo.openId,
         name: userInfo.name || null,
@@ -50,7 +48,6 @@ export function registerOAuthRoutes(app: Express) {
         loginMethod: userInfo.loginMethod ?? userInfo.platform ?? null,
         lastSignedIn: new Date(),
       });
-      if (!existingUser && userInfo.email) void sendWelcomeEmailOnce(userInfo.name || "reader", userInfo.email, `welcome:${userInfo.openId}`);
 
       const sessionToken = await sdk.createSessionToken(userInfo.openId, {
         name: userInfo.name || "",

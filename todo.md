@@ -462,54 +462,7 @@
 
 - [x] Submit https://www.thinkoria.space/sitemap.xml to Google Search Console and Bing Webmaster Tools, verifying ownership and recording any access blockers.
 
-## Social footer links
+## Homepage mobile navigation fix
 
-- [x] Add Instagram profile link for @thinkoria.space and LinkedIn company link https://www.linkedin.com/company/thinkoria-space/ to the responsive footer, then verify and publish.
-
-## Exact social-link verification
-
-- [x] Verify production footer uses Instagram username thinkoria.space and LinkedIn URL https://www.linkedin.com/company/thinkoria-space/ exactly; correct any mismatch and republish if needed.
-
-## Google favicon discoverability
-
-- [x] Diagnose why Google Search is not displaying Thinkoria’s favicon, ensure crawler-friendly favicon assets and metadata are served from the public domain, verify the routes, and republish.
-
-## Reader experience improvements
-
-- [x] Add a persistent dark-mode toggle with accessible labels and a Thinkoria-compatible dark palette.
-- [x] Add smooth scrolling for same-page navigation links while preserving normal route navigation and reduced-motion preferences.
-- [x] Add a responsive newsletter subscription form at the bottom of the public homepage with validation, success/error feedback, and an honest integration boundary until an email provider is connected.
-- [x] Verify desktop/mobile states, tests, production build, and publish the improvements.
-
-## Cross-page dark mode
-
-- [x] Add the shared dark-mode toggle to the public Catalogue, Article, Club, Forum, and About page headers.
-- [x] Verify dark and light states across desktop/mobile public pages, run tests and production build, then commit, push, and publish.
-
-## Dark mode accessibility and consistency
-
-- [x] Add the dark-mode control directly to the mobile navigation menu on all public pages.
-- [x] Extend dark-mode styling across all public page content sections and interactive states.
-- [x] Add automatic system-preference synchronization with a manual light/dark/system choice.
-- [x] Verify desktop/mobile accessibility, run tests and production build, then commit, push, and publish.
-
-## Transactional email automation
-
-- [x] Choose and configure an email provider and verified sender for Thinkoria.
-- [x] Add confirmation emails for first successful sign-in, Club membership, newsletter signup, and debate-role applications with duplicate-event protection.
-- [x] Add email templates, delivery/error handling, and regression tests; validate locally without committing, pushing, or publishing until user approval.
-
-## Professional transactional email copy
-
-- [x] Rewrite the first sign-in, Nagaon Club membership, debate-role application, and newsletter confirmation emails with polished Thinkoria-branded copy; add copy assertions and validate locally without releasing.
-
-- [x] Revise the debate-role confirmation so it acknowledges receipt of the selected-role application, states that it will be reviewed, and does not imply acceptance.
-
-## Email template refinement
-
-- [x] Apply responsive table-based HTML, hidden preheaders, branded wordmark treatment, mobile-safe typography, contextual CTAs, plain-text parity, and accessible contrast to all four transactional emails.
-- [x] Refine account, Club, debate-role, and newsletter copy; include event-aware Club details where available and add newsletter unsubscribe/privacy handling without releasing changes.
-
-## Final email release
-
-- [x] Finish template validation, send one final controlled verification email to mehtabalh@gmail.com, then commit, push, publish to thinkoria.space, and verify production without changing Manus backend services.
+- [x] Diagnose and fix the homepage mobile menu glitch for iOS, Android, and narrow phone screens, including touch targets, safe-area spacing, viewport scrolling, and menu layering, while leaving desktop UI unchanged.
+- [x] Verify mobile screenshots and interaction behavior, run tests/build, and publish the responsive fix.
