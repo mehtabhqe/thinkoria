@@ -483,5 +483,5 @@
 
 ## Custom-domain deployment synchronization regression
 
-- [ ] Diagnose why thinkoria.space is serving an unchanged navigation build and synchronize the correct production deployment without changing unrelated features.
-- [ ] Verify the navigation correction directly on thinkoria.space and record the final live-domain status.
+- [x] Diagnose why thinkoria.space is serving an unchanged navigation build and synchronize the correct production deployment without changing unrelated features.
+- [x] Verify the navigation correction directly on thinkoria.space and record the final live-domain status.
