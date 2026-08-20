@@ -505,3 +505,8 @@
 
 - [x] Audit and repair the header, responsive navigation, spacing, and stacking UI across Forum, Catalogue, Club, Article, About, and Submit without changing newsletter, theme, appearance, email automation, content, or backend features.
 - [x] Verify all affected public pages on desktop and mobile, run regression checks, and publish the standardized UI.
+
+## Visual editor verification for PublicMobileMenu
+
+- [x] Verify the reported PublicMobileMenu comment edit, diagnose why it was not applied, and preserve the existing navigation and feature behavior.
+- [x] Validate the current UI and create a fresh checkpoint after verification.
