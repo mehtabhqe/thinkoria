@@ -510,3 +510,8 @@
 
 - [x] Verify the reported PublicMobileMenu comment edit, diagnose why it was not applied, and preserve the existing navigation and feature behavior.
 - [x] Validate the current UI and create a fresh checkpoint after verification.
+
+## Screenshot-confirmed mobile drawer regression
+
+- [x] Fix the shared mobile menu so it opens as a full-width drawer below the header instead of squeezing into the header row, preserving theme, newsletter, CTA, account, email, and page features.
+- [x] Verify the drawer on the homepage, Catalogue, Forum, Club, About, and Submit pages at phone and desktop widths before publishing.

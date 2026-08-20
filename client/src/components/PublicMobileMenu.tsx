@@ -14,7 +14,7 @@ export default function PublicMobileMenu({ links, cta, account }: PublicMobileMe
   const runAccount = () => { close(); account?.onClick(); };
 
   return (
-    <div className="relative md:hidden">
+    <div className="md:hidden">
       <button type="button" onClick={() => setOpen((current) => !current)} aria-expanded={open} aria-controls="public-mobile-menu" aria-label={open ? "Close menu" : "Open menu"} className="inline-flex h-10 w-10 items-center justify-center border border-current/20">
         {open ? <X size={20} /> : <Menu size={20} />}
       </button>

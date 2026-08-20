@@ -127,8 +127,7 @@ button:not(:disabled), a[href] { cursor: pointer; }
   .thinkoria-site > header > div > div > .theme-toggle { display: none; }
   .thinkoria-site > header > div > .button-ink,
   .thinkoria-site > header > div > div > .button-ink { display: none; }
-  .thinkoria-site > header > div > button { display: none; }
-  .thinkoria-site > header > div > div > button:not(.theme-toggle) { display: none; }
+  .thinkoria-site > header .club-header-action { display: none; }
 }
 
 .dark { --background: oklch(0.18 0.008 80); --foreground: oklch(0.96 0.012 89); --card: oklch(0.23 0.01 80); --card-foreground: oklch(0.96 0.012 89); --popover: oklch(0.23 0.01 80); --popover-foreground: oklch(0.96 0.012 89); --primary: oklch(0.96 0.012 89); --primary-foreground: oklch(0.18 0.008 80); --secondary: oklch(0.25 0.012 80); --secondary-foreground: oklch(0.96 0.012 89); --muted: oklch(0.25 0.012 80); --muted-foreground: oklch(0.72 0.012 80); --border: oklch(0.96 0.012 89 / 18%); --input: oklch(0.96 0.012 89 / 22%); }
