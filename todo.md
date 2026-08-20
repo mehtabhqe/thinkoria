@@ -480,3 +480,8 @@
 - [x] Add smooth scrolling for same-page navigation links while preserving normal route navigation and reduced-motion preferences.
 - [x] Add a responsive newsletter subscription form at the bottom of the public homepage with validation, success/error feedback, and an honest integration boundary until an email provider is connected.
 - [x] Verify desktop/mobile states, tests, production build, and publish the improvements.
+
+## Cross-page dark mode
+
+- [x] Add the shared dark-mode toggle to the public Catalogue, Article, Club, Forum, and About page headers.
+- [x] Verify dark and light states across desktop/mobile public pages, run tests and production build, then commit, push, and publish.
