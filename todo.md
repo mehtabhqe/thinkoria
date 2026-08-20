@@ -493,5 +493,5 @@
 
 ## Persistent mobile navigation overlay regression
 
-- [ ] Replace the still-broken mobile menu positioning with a fixed, opaque, independently scrolling mobile drawer/overlay without changing newsletter, theme, appearance, email automation, or other features.
-- [ ] Verify the drawer open/closed states on a phone viewport and confirm the preserved public feature set before publishing.
+- [x] Replace the still-broken mobile menu positioning with a fixed, opaque, independently scrolling mobile drawer/overlay without changing newsletter, theme, appearance, email automation, or other features.
+- [x] Verify the drawer open/closed states on a phone viewport and confirm the preserved public feature set before publishing.
