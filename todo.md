@@ -515,3 +515,8 @@
 
 - [x] Fix the shared mobile menu so it opens as a full-width drawer below the header instead of squeezing into the header row, preserving theme, newsletter, CTA, account, email, and page features.
 - [x] Verify the drawer on the homepage, Catalogue, Forum, Club, About, and Submit pages at phone and desktop widths before publishing.
+
+## Deploy verified mobile navigation correction
+
+- [ ] Commit and push the verified mobile drawer/header correction to the GitHub branch that drives thinkoria.space.
+- [ ] Verify the connected Vercel production build and confirm thinkoria.space serves the pushed revision without changing other features.
