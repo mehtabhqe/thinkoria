@@ -19,8 +19,8 @@ export default function ThinkoriaFooter() {
             <p className="mt-6 max-w-[360px] font-serif text-3xl leading-[.98] text-[#F3F0E8]">A place of ideas.</p>
             <p className="mt-5 max-w-[390px] font-sans text-sm leading-7 text-[#F3F0E8]/60">An independent publishing room for papers, essays, conversation, and work still becoming.</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href="https://www.instagram.com/thinkoria/" target="_blank" rel="noreferrer" aria-label="Thinkoria on Instagram" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Instagram size={14} /> Instagram</a>
-              <a href="https://www.linkedin.com/company/thinkoria/" target="_blank" rel="noreferrer" aria-label="Thinkoria on LinkedIn" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Linkedin size={14} /> LinkedIn</a>
+              <a href="https://www.instagram.com/thinkoria.space/" target="_blank" rel="noreferrer" aria-label="Thinkoria on Instagram @thinkoria.space" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Instagram size={14} /> @thinkoria.space</a>
+              <a href="https://www.linkedin.com/company/thinkoria-space/" target="_blank" rel="noreferrer" aria-label="Thinkoria on LinkedIn" className="inline-flex items-center gap-2 border border-[#F3F0E8]/25 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[.12em] transition-colors hover:border-[#C8472C] hover:text-[#C8472C]"><Linkedin size={14} /> LinkedIn</a>
             </div>
           </div>
           <div>
