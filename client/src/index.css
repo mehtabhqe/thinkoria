@@ -119,6 +119,18 @@ button:not(:disabled), a[href] { cursor: pointer; }
 
 @media (max-width: 640px) { .register-mark { display: none; } }
 
+/* Public-page header normalization: desktop controls stay desktop-only while the shared mobile drawer owns mobile navigation. */
+@media (max-width: 767px) {
+  .thinkoria-site > header { position: relative; z-index: 50; }
+  .thinkoria-site > header .nav-link { display: none !important; }
+  .thinkoria-site > header > div > .theme-toggle,
+  .thinkoria-site > header > div > div > .theme-toggle { display: none; }
+  .thinkoria-site > header > div > .button-ink,
+  .thinkoria-site > header > div > div > .button-ink { display: none; }
+  .thinkoria-site > header > div > button { display: none; }
+  .thinkoria-site > header > div > div > button:not(.theme-toggle) { display: none; }
+}
+
 .dark { --background: oklch(0.18 0.008 80); --foreground: oklch(0.96 0.012 89); --card: oklch(0.23 0.01 80); --card-foreground: oklch(0.96 0.012 89); --popover: oklch(0.23 0.01 80); --popover-foreground: oklch(0.96 0.012 89); --primary: oklch(0.96 0.012 89); --primary-foreground: oklch(0.18 0.008 80); --secondary: oklch(0.25 0.012 80); --secondary-foreground: oklch(0.96 0.012 89); --muted: oklch(0.25 0.012 80); --muted-foreground: oklch(0.72 0.012 80); --border: oklch(0.96 0.012 89 / 18%); --input: oklch(0.96 0.012 89 / 22%); }
 
 .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid currentColor; color: currentColor; transition: background-color 180ms ease-out, color 180ms ease-out, transform 160ms cubic-bezier(.23,1,.32,1); }

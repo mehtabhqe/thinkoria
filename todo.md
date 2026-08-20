@@ -500,3 +500,8 @@
 
 - [x] Reproduce and trace the actual mobile navigation overlap/glitch from the live custom-domain bundle and current source instead of relying on the prior assumption.
 - [x] Apply and verify the smallest navigation-only fix while preserving newsletter, theme, appearance, email automation, and all other recent features.
+
+## Public-page header and UI regression
+
+- [x] Audit and repair the header, responsive navigation, spacing, and stacking UI across Forum, Catalogue, Club, Article, About, and Submit without changing newsletter, theme, appearance, email automation, content, or backend features.
+- [x] Verify all affected public pages on desktop and mobile, run regression checks, and publish the standardized UI.
