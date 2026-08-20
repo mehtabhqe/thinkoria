@@ -469,3 +469,7 @@
 ## Exact social-link verification
 
 - [x] Verify production footer uses Instagram username thinkoria.space and LinkedIn URL https://www.linkedin.com/company/thinkoria-space/ exactly; correct any mismatch and republish if needed.
+
+## Google favicon discoverability
+
+- [x] Diagnose why Google Search is not displaying Thinkoria’s favicon, ensure crawler-friendly favicon assets and metadata are served from the public domain, verify the routes, and republish.
